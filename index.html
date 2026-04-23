@@ -1,0 +1,1691 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rick Ramat — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Jost:wght@100;200;300;400;500&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════ */
+:root {
+  --ink:        #2e1408;
+  --burgundy:   #8b3a20;
+  --burgundy2:  #a84e2e;
+  --burg-glow:  rgba(139,58,32,0.18);
+  --brown-dk:   #5a3820;
+  --brown-md:   #7a5030;
+  --brown-lt:   #a07050;
+  --parchment:  #e8d8c0;
+  --parch-dk:   #d4c0a0;
+  --parch-lt:   #f2e8d4;
+  --sand:       #c89050;
+  --sand-dim:   #7a5030;
+  --cream:      #f8f0e0;
+  --rope:       #c89050;
+  --copper:     #8b3a20;
+  --aged:       rgba(90,56,32,0.08);
+
+  --f-display:  'Cormorant Garamond', Georgia, serif;
+  --f-body:     'Jost', sans-serif;
+  --f-mono:     'DM Mono', monospace;
+
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ═══════════════════════════════════════════
+   RESET
+═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  background: var(--parch-lt);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* Parchment texture overlay */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 1000;
+}
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+
+/* ═══════════════════════════════════════════
+   CUSTOM CURSOR
+═══════════════════════════════════════════ */
+.cursor {
+  position: fixed;
+  width: 8px; height: 8px;
+  background: var(--burgundy);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform 0.1s, width 0.3s var(--ease-spring), height 0.3s var(--ease-spring), background 0.3s;
+  mix-blend-mode: multiply;
+}
+
+.cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1.5px solid var(--burgundy);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: transform 0.18s var(--ease-smooth), width 0.4s var(--ease-spring), height 0.4s var(--ease-spring), opacity 0.3s;
+  opacity: 0.5;
+}
+
+/* ═══════════════════════════════════════════
+   NAV
+═══════════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 500;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 56px;
+  height: 68px;
+  background: rgba(250,244,232,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--parch-dk);
+}
+
+.nav-sig {
+  font-family: var(--f-display);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--burgundy);
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+.nav-sig span {
+  color: var(--brown-lt);
+  font-weight: 300;
+  font-style: italic;
+}
+
+.nav-links {
+  display: flex; gap: 40px; list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--sand-dim);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: color 0.25s;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: -3px; left: 0; right: 0;
+  height: 1px;
+  background: var(--burgundy);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease-smooth);
+}
+
+.nav-links a:hover { color: var(--burgundy); }
+.nav-links a:hover::after { transform: scaleX(1); }
+
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+#hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Left panel — dark */
+.hero-left {
+  background: #3a2010;
+  display: flex;
+  align-items: flex-end;
+  padding: 100px 64px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Worn wood grain lines */
+.hero-left::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    170deg,
+    transparent,
+    transparent 40px,
+    rgba(255,255,255,0.012) 40px,
+    rgba(255,255,255,0.012) 41px
+  );
+}
+
+/* Vignette */
+.hero-left::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 30% 60%, rgba(107,31,42,0.25) 0%, transparent 65%);
+}
+
+.hero-left-content {
+  position: relative; z-index: 1;
+}
+
+.hero-eyebrow {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--rope);
+  margin-bottom: 24px;
+  opacity: 0;
+  animation: riseUp 0.9s 0.2s var(--ease-smooth) forwards;
+}
+
+.hero-name {
+  font-family: var(--f-display);
+  font-weight: 300;
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+  opacity: 0;
+  animation: riseUp 0.9s 0.35s var(--ease-smooth) forwards;
+}
+
+.hero-name .first {
+  display: block;
+  font-size: clamp(72px, 9vw, 110px);
+  color: var(--copper);
+}
+
+.hero-name .last {
+  display: block;
+  font-size: clamp(72px, 9vw, 110px);
+  color: var(--rope);
+  font-style: italic;
+}
+
+.hero-title-block {
+  margin-top: 36px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(184,144,96,0.3);
+  opacity: 0;
+  animation: riseUp 0.9s 0.5s var(--ease-smooth) forwards;
+}
+
+.hero-title {
+  font-family: var(--f-body);
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--parch-dk);
+  letter-spacing: 0.06em;
+  line-height: 1.9;
+}
+
+.hero-title strong {
+  color: var(--sand);
+  font-weight: 400;
+}
+
+/* Right panel — parchment */
+.hero-right {
+  background: #e8d8c0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 64px 80px;
+  position: relative;
+}
+
+/* Map-like grid lines */
+.hero-right::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(90,50,20,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(90,50,20,0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Aged corner stain */
+.hero-right::after {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 280px; height: 280px;
+  background: radial-gradient(circle at 100% 100%, rgba(107,31,42,0.08) 0%, transparent 70%);
+}
+
+.hero-right-content {
+  position: relative; z-index: 1;
+  max-width: 380px;
+}
+
+.hero-stat-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  opacity: 0;
+  animation: riseUp 0.9s 0.6s var(--ease-smooth) forwards;
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--parch-dk);
+}
+
+.hero-stat:last-child { border-bottom: none; padding-bottom: 0; }
+
+.stat-num {
+  font-family: var(--f-display);
+  font-size: 52px;
+  font-weight: 600;
+  color: var(--burgundy);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.stat-label {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--sand-dim);
+}
+
+.hero-cta-row {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  margin-top: 40px;
+  opacity: 0;
+  animation: riseUp 0.9s 0.75s var(--ease-smooth) forwards;
+}
+
+.btn-burg {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  padding: 13px 26px;
+  background: var(--burgundy);
+  color: var(--parch-lt);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.2s var(--ease-spring);
+}
+.btn-burg:hover { background: var(--burgundy2); transform: translateY(-2px); }
+
+.btn-ghost {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  padding: 13px 26px;
+  background: transparent;
+  color: var(--brown-md);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--parch-dk);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: border-color 0.25s, color 0.25s;
+}
+.btn-ghost:hover { border-color: var(--burgundy); color: var(--burgundy); }
+
+/* Scroll hint */
+.scroll-hint {
+  position: absolute;
+  bottom: 32px; left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeIn 1s 1.2s ease forwards;
+}
+
+.scroll-line {
+  width: 1px; height: 48px;
+  background: linear-gradient(to bottom, var(--rope), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+.scroll-label {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sand-dim);
+  writing-mode: vertical-rl;
+}
+
+/* ═══════════════════════════════════════════
+   SECTION SHELL
+═══════════════════════════════════════════ */
+section { position: relative; }
+
+.sec-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 56px;
+}
+
+.sec-label {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  margin-bottom: 10px;
+}
+
+.sec-title {
+  font-family: var(--f-display);
+  font-size: clamp(42px, 5vw, 68px);
+  font-weight: 400;
+  color: var(--brown-dk);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.sec-title em {
+  font-style: italic;
+  color: var(--burgundy);
+}
+
+.sec-sub {
+  font-size: 15px;
+  color: var(--sand-dim);
+  max-width: 520px;
+  line-height: 1.8;
+  margin-top: 16px;
+  font-weight: 300;
+}
+
+/* ═══════════════════════════════════════════
+   WORK SECTION
+═══════════════════════════════════════════ */
+#work {
+  background: #f2e8d4;
+  padding: 120px 0;
+}
+
+.work-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 64px;
+  flex-wrap: wrap;
+}
+
+.filter-row {
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+
+.filt {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  padding: 7px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--parch-dk);
+  background: transparent;
+  color: var(--sand-dim);
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: all 0.25s;
+}
+.filt.on, .filt:hover {
+  background: var(--burgundy);
+  border-color: var(--burgundy);
+  color: var(--parch-lt);
+}
+
+/* Bento-style grid */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: 260px;
+  gap: 16px;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  cursor: pointer;
+  background: var(--parchment);
+}
+
+.card-sm  { grid-column: span 4; }
+.card-md  { grid-column: span 6; }
+.card-lg  { grid-column: span 8; }
+.card-xl  { grid-column: span 12; grid-row: span 1; height: 320px; }
+.card-tall{ grid-column: span 4; grid-row: span 2; }
+
+/* Card inner layers */
+.card-bg {
+  position: absolute; inset: 0;
+  transition: transform 0.6s var(--ease-smooth);
+}
+
+.card:hover .card-bg { transform: scale(1.04); }
+
+.card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(26,15,10,0.85) 0%, rgba(26,15,10,0.1) 60%, transparent 100%);
+  transition: opacity 0.4s;
+}
+
+.card-overlay-hover {
+  position: absolute; inset: 0;
+  background: rgba(107,31,42,0.18);
+  opacity: 0;
+  transition: opacity 0.35s;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.card:hover .card-overlay-hover { opacity: 1; }
+
+.view-pill {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--parch-lt);
+  border: 1px solid rgba(242,232,213,0.6);
+  padding: 8px 18px;
+  border-radius: 20px;
+  backdrop-filter: blur(8px);
+  background: rgba(107,31,42,0.3);
+}
+
+.card-body {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 24px;
+  z-index: 2;
+}
+
+.card-type {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rope);
+  margin-bottom: 6px;
+}
+
+.card-title {
+  font-family: var(--f-display);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--parch-lt);
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.card-desc {
+  font-size: 12px;
+  color: rgba(242,232,213,0.72);
+  line-height: 1.6;
+  font-weight: 300;
+  display: none;
+}
+
+.card:hover .card-desc { display: block; }
+
+.card-chips {
+  display: flex; flex-wrap: wrap; gap: 5px;
+  margin-top: 10px;
+}
+
+.chip {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  padding: 3px 8px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 2px;
+  color: rgba(242,232,213,0.7);
+  letter-spacing: 0.06em;
+}
+
+/* Card background patterns */
+.bg-web {
+  background:
+    linear-gradient(135deg, #1e2d3d 0%, #0f1a28 100%);
+}
+
+.bg-web::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(184,144,96,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184,144,96,0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.bg-fintech {
+  background: linear-gradient(135deg, #0d1f1a 0%, #0a1510 100%);
+}
+
+.bg-fintech::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(74,170,154,0.04) 20px, rgba(74,170,154,0.04) 21px);
+}
+
+.bg-motion {
+  background: linear-gradient(135deg, #1a0a14 0%, #2a0f1e 100%);
+}
+
+.bg-motion::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(139,47,62,0.3) 0%, transparent 60%);
+}
+
+.bg-brand {
+  background: linear-gradient(160deg, #1a140a 0%, #2e1e0e 100%);
+}
+
+.bg-brand::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(170deg, transparent, transparent 60px, rgba(184,144,96,0.05) 60px, rgba(184,144,96,0.05) 61px);
+}
+
+.bg-reel {
+  background: linear-gradient(135deg, #0f0a1a 0%, #1a1030 100%);
+}
+
+.bg-reel::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(107,31,42,0.4) 0%, transparent 55%);
+}
+
+.bg-ux {
+  background: linear-gradient(135deg, #1e1a10 0%, #2e2414 100%);
+}
+
+/* Placeholder browser mockup */
+.browser-mock {
+  position: absolute;
+  top: 20px; left: 20px; right: 20px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.browser-bar {
+  height: 24px;
+  background: rgba(0,0,0,0.3);
+  display: flex; align-items: center;
+  padding: 0 10px; gap: 5px;
+}
+
+.bdot { width: 7px; height: 7px; border-radius: 50%; opacity: 0.6; }
+.bd-r { background: #c94c4c; }
+.bd-y { background: #c9a84c; }
+.bd-g { background: #4caf7d; }
+
+.browser-url {
+  flex: 1; height: 12px;
+  background: rgba(255,255,255,0.07);
+  border-radius: 2px; margin-left: 8px;
+}
+
+.browser-content {
+  padding: 16px;
+  display: flex; gap: 10px;
+}
+
+.bcol {
+  flex: 1;
+  display: flex; flex-direction: column; gap: 6px;
+}
+
+.brow {
+  height: 6px; border-radius: 2px;
+  background: rgba(255,255,255,0.08);
+}
+
+.brow.w60 { width: 60%; }
+.brow.w80 { width: 80%; }
+.brow.w40 { width: 40%; }
+.brow.w90 { width: 90%; }
+
+/* Video placeholder */
+.reel-mock {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+}
+
+.play-ring {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  border: 2px solid rgba(242,232,213,0.4);
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.3s, transform 0.3s var(--ease-spring);
+}
+
+.card:hover .play-ring {
+  border-color: var(--rope);
+  transform: scale(1.1);
+}
+
+.play-tri {
+  width: 0; height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 16px solid rgba(242,232,213,0.7);
+  margin-left: 4px;
+  transition: border-left-color 0.3s;
+}
+
+.card:hover .play-tri { border-left-color: var(--rope); }
+
+.reel-label {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(242,232,213,0.4);
+}
+
+/* ═══════════════════════════════════════════
+   DEMO REEL SECTION
+═══════════════════════════════════════════ */
+#reel {
+  padding: 140px 0;
+  background: #3a2010;
+  overflow: hidden;
+  position: relative;
+}
+
+#reel::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    160deg,
+    transparent,
+    transparent 80px,
+    rgba(255,255,255,0.008) 80px,
+    rgba(255,255,255,0.008) 81px
+  );
+}
+
+#reel::after {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(107,31,42,0.2) 0%, transparent 65%);
+}
+
+.reel-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  position: relative; z-index: 1;
+}
+
+.reel-text .sec-title { color: var(--parch-lt); }
+.reel-text .sec-title em { color: var(--rope); }
+.reel-text .sec-sub { color: var(--sand); }
+.reel-text .sec-label { color: var(--rope); }
+
+.reel-note {
+  margin-top: 28px;
+  padding: 16px 20px;
+  border-left: 2px solid var(--burgundy);
+  background: rgba(107,31,42,0.15);
+  border-radius: 0 4px 4px 0;
+}
+
+.reel-note p {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--sand);
+  line-height: 1.7;
+  letter-spacing: 0.04em;
+}
+
+.reel-note span { color: var(--rope); }
+
+.reel-player {
+  position: relative;
+  aspect-ratio: 16/9;
+  background: #0a0608;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(184,144,96,0.15);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(184,144,96,0.08);
+}
+
+.reel-player-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, rgba(107,31,42,0.35) 0%, transparent 65%);
+}
+
+.reel-filmstrip {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 28px;
+  background: rgba(0,0,0,0.6);
+  display: flex; align-items: center;
+  gap: 3px; padding: 0 8px;
+  overflow: hidden;
+}
+
+.reel-hole {
+  width: 12px; height: 12px;
+  border-radius: 2px;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  flex-shrink: 0;
+}
+
+.reel-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex; flex-direction: column;
+  align-items: center; gap: 18px;
+  text-align: center;
+}
+
+.reel-play-btn {
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  background: rgba(107,31,42,0.6);
+  border: 2px solid rgba(184,144,96,0.4);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s, border-color 0.3s, transform 0.3s var(--ease-spring);
+  backdrop-filter: blur(8px);
+}
+
+.reel-play-btn:hover {
+  background: var(--burgundy);
+  border-color: var(--rope);
+  transform: scale(1.08);
+}
+
+.reel-play-tri {
+  width: 0; height: 0;
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  border-left: 22px solid rgba(242,232,213,0.9);
+  margin-left: 6px;
+}
+
+.reel-title-overlay {
+  font-family: var(--f-display);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--parch-lt);
+  letter-spacing: 0.04em;
+}
+
+.reel-sub-overlay {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--sand);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.reel-timecode {
+  position: absolute;
+  bottom: 12px; left: 16px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: rgba(184,144,96,0.5);
+  letter-spacing: 0.12em;
+}
+
+/* ═══════════════════════════════════════════
+   ABOUT SECTION
+═══════════════════════════════════════════ */
+#about {
+  padding: 140px 0;
+  background: #e8d8c0;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+  align-items: start;
+}
+
+.about-text p {
+  font-size: 15.5px;
+  color: var(--brown-md);
+  line-height: 1.9;
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.about-text p strong {
+  color: var(--burgundy);
+  font-weight: 500;
+}
+
+.about-divider {
+  width: 48px; height: 2px;
+  background: var(--burgundy);
+  margin: 36px 0;
+}
+
+.skill-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.skill-row { }
+
+.skill-row-label {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--burgundy);
+  margin-bottom: 10px;
+}
+
+.skill-pills {
+  display: flex; flex-wrap: wrap; gap: 7px;
+}
+
+.pill {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  padding: 5px 12px;
+  border-radius: 2px;
+  background: var(--cream);
+  border: 1px solid var(--parch-dk);
+  color: var(--brown-md);
+  letter-spacing: 0.06em;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.pill:hover {
+  background: var(--burgundy);
+  border-color: var(--burgundy);
+  color: var(--parch-lt);
+}
+
+/* ═══════════════════════════════════════════
+   EXPERIENCE TIMELINE
+═══════════════════════════════════════════ */
+#experience {
+  padding: 140px 0;
+  background: #f2e8d4;
+}
+
+.timeline {
+  position: relative;
+  max-width: 820px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 6px; bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--burgundy), var(--parch-dk));
+}
+
+.tl-item {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 40px;
+  padding: 0 0 56px 0;
+  position: relative;
+}
+
+.tl-item::before {
+  content: '';
+  position: absolute;
+  left: -5px; top: 4px;
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  background: var(--burgundy);
+  border: 2px solid var(--cream);
+  box-shadow: 0 0 0 3px rgba(107,31,42,0.15);
+  z-index: 1;
+}
+
+.tl-dates {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--sand-dim);
+  padding-top: 3px;
+  padding-left: 20px;
+  letter-spacing: 0.06em;
+}
+
+.tl-role {
+  font-family: var(--f-display);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--brown-dk);
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+
+.tl-co {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--burgundy);
+  letter-spacing: 0.1em;
+  margin-bottom: 12px;
+}
+
+.tl-desc {
+  font-size: 14px;
+  color: var(--brown-md);
+  line-height: 1.75;
+  font-weight: 300;
+}
+
+/* ═══════════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════════ */
+#contact {
+  padding: 160px 0;
+  background: #3a2010;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+#contact::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    170deg,
+    transparent,
+    transparent 60px,
+    rgba(255,255,255,0.008) 60px,
+    rgba(255,255,255,0.008) 61px
+  );
+}
+
+#contact::after {
+  content: '';
+  position: absolute;
+  bottom: -300px; left: 50%;
+  transform: translateX(-50%);
+  width: 700px; height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(107,31,42,0.3) 0%, transparent 65%);
+}
+
+.contact-inner {
+  position: relative; z-index: 1;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.contact-inner .sec-title { color: var(--parch-lt); }
+.contact-inner .sec-title em { color: var(--rope); }
+.contact-inner .sec-label { color: var(--rope); }
+
+.contact-tagline {
+  font-size: 16px;
+  color: var(--sand);
+  line-height: 1.8;
+  margin-top: 16px;
+  font-weight: 300;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 56px;
+  align-items: center;
+}
+
+.contact-link {
+  display: flex; align-items: center; gap: 14px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  padding: 16px 32px;
+  border: 1px solid rgba(184,144,96,0.2);
+  border-radius: 3px;
+  color: var(--sand);
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(8px);
+  transition: border-color 0.3s, color 0.3s, background 0.3s, transform 0.25s var(--ease-spring);
+  width: 360px;
+  letter-spacing: 0.06em;
+}
+
+.contact-link:hover {
+  border-color: var(--burgundy);
+  color: var(--parch-lt);
+  background: rgba(107,31,42,0.2);
+  transform: translateX(4px);
+}
+
+.contact-link .ci { font-size: 17px; }
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+footer {
+  padding: 28px 56px;
+  background: #2e1408;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+}
+
+.foot-copy {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--sand-dim);
+  letter-spacing: 0.1em;
+}
+
+.foot-built {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  color: var(--sand-dim);
+  letter-spacing: 0.06em;
+}
+
+.foot-built span { color: var(--burgundy); }
+
+/* ═══════════════════════════════════════════
+   SCROLL REVEAL
+═══════════════════════════════════════════ */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s var(--ease-smooth), transform 0.7s var(--ease-smooth);
+}
+
+.reveal.up { opacity: 1; transform: none; }
+
+/* ═══════════════════════════════════════════
+   ANIMATIONS
+═══════════════════════════════════════════ */
+@keyframes riseUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50%       { opacity: 1;   transform: scaleY(1.15); }
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  #hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero-left { padding: 110px 40px 60px; }
+  .hero-right { padding: 60px 40px 80px; }
+  .about-grid { grid-template-columns: 1fr; gap: 56px; }
+  .reel-inner { grid-template-columns: 1fr; }
+  .bento { grid-auto-rows: 220px; }
+  .card-lg, .card-xl { grid-column: span 12; }
+  .card-tall { grid-column: span 6; grid-row: span 1; }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .sec-inner { padding: 0 24px; }
+  #work, #reel, #about, #experience, #contact { padding: 80px 0; }
+  .bento { grid-template-columns: 1fr 1fr; grid-auto-rows: 200px; }
+  .card-sm, .card-md, .card-lg, .card-xl, .card-tall { grid-column: span 2; grid-row: span 1; }
+  .tl-item { grid-template-columns: 1fr; gap: 8px; }
+  .tl-item::before { display: none; }
+  .timeline::before { display: none; }
+  .tl-dates { padding-left: 0; }
+  .contact-link { width: 100%; }
+  footer { padding: 24px; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- CURSOR -->
+
+<div class="cursor" id="cur"></div>
+<div class="cursor-ring" id="curR"></div>
+
+<!-- NAV -->
+
+<nav>
+  <div class="nav-sig">Rick <span>Ramat</span></div>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#reel">Reel</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══ -->
+
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-left-content">
+      <div class="hero-eyebrow">Front End Developer  ·  Motion Designer  ·  Las Vegas, NV</div>
+      <h1 class="hero-name">
+        <span class="first">Rick</span>
+        <span class="last">Ramat</span>
+      </h1>
+      <div class="hero-title-block">
+        <div class="hero-title">
+          <strong>Seasoned front end developer</strong> building<br>
+          high-traffic enterprise websites.<br>
+          Fluent in <strong>motion, video</strong> & the full<br>
+          spectrum where brand meets web.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-right-content">
+      <ul class="hero-stat-list">
+        <li class="hero-stat">
+          <span class="stat-num">20+</span>
+          <span class="stat-label">Years of Experience</span>
+        </li>
+        <li class="hero-stat">
+          <span class="stat-num">50M+</span>
+          <span class="stat-label">Users Reached via Enterprise Sites</span>
+        </li>
+        <li class="hero-stat">
+          <span class="stat-num">3</span>
+          <span class="stat-label">Creative Disciplines</span>
+        </li>
+      </ul>
+      <div class="hero-cta-row">
+        <a href="#work" class="btn-burg">View Work</a>
+        <a href="#contact" class="btn-ghost">Get In Touch</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span class="scroll-label">Scroll</span>
+  </div>
+</section>
+
+<!-- ══ WORK ══ -->
+
+<section id="work">
+  <div class="sec-inner">
+    <div class="work-header reveal">
+      <div>
+        <div class="sec-label">Selected Projects</div>
+        <h2 class="sec-title">The <em>Work</em></h2>
+        <p class="sec-sub">Enterprise web, motion graphics, and brand — built to perform at scale.</p>
+      </div>
+      <div class="filter-row">
+        <button class="filt on" onclick="filt('all',this)">All</button>
+        <button class="filt" onclick="filt('web',this)">Web Dev</button>
+        <button class="filt" onclick="filt('motion',this)">Motion / Video</button>
+        <button class="filt" onclick="filt('brand',this)">Brand</button>
+      </div>
+    </div>
+
+```
+<div class="bento" id="bento">
+
+  <!-- WDB — large card -->
+  <div class="card card-lg reveal" data-cat="web">
+    <div class="card-bg bg-web">
+      <div class="browser-mock">
+        <div class="browser-bar">
+          <div class="bdot bd-r"></div><div class="bdot bd-y"></div><div class="bdot bd-g"></div>
+          <div class="browser-url"></div>
+        </div>
+        <div class="browser-content">
+          <div class="bcol">
+            <div class="brow w80"></div><div class="brow w60"></div>
+            <div class="brow w90"></div><div class="brow w40"></div>
+          </div>
+          <div class="bcol">
+            <div class="brow w60"></div><div class="brow w80"></div>
+            <div class="brow w40"></div><div class="brow w70"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-overlay"></div>
+    <div class="card-overlay-hover"><span class="view-pill">View Project →</span></div>
+    <div class="card-body">
+      <div class="card-type">Web Dev  ·  2024</div>
+      <div class="card-title">Workforce Development Board</div>
+      <div class="card-desc">Full HTML/CSS site with custom design system built in response to a City RFP. Responsive, WCAG-accessible, brand-consistent.</div>
+      <div class="card-chips">
+        <span class="chip">HTML5</span><span class="chip">CSS3</span>
+        <span class="chip">Design System</span><span class="chip">Accessible</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reel teaser — tall card -->
+  <div class="card card-tall reveal" data-cat="motion" style="background:#0a0608;">
+    <div class="card-bg bg-reel"></div>
+    <div class="card-overlay"></div>
+    <div class="card-overlay-hover"><span class="view-pill">Watch Reel →</span></div>
+    <div class="reel-mock">
+      <div class="play-ring"><div class="play-tri"></div></div>
+      <div class="reel-label">Demo Reel</div>
+    </div>
+    <div class="card-body">
+      <div class="card-type">Motion · Video</div>
+      <div class="card-title">Motion Demo Reel</div>
+      <div class="card-chips">
+        <span class="chip">After Effects</span><span class="chip">Premiere</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Green Dot -->
+  <div class="card card-md reveal" data-cat="web">
+    <div class="card-bg bg-fintech">
+      <div class="browser-mock">
+        <div class="browser-bar">
+          <div class="bdot bd-r"></div><div class="bdot bd-y"></div><div class="bdot bd-g"></div>
+          <div class="browser-url"></div>
+        </div>
+        <div class="browser-content">
+          <div class="bcol">
+            <div class="brow w90"></div><div class="brow w70"></div><div class="brow w80"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-overlay"></div>
+    <div class="card-overlay-hover"><span class="view-pill">View Project →</span></div>
+    <div class="card-body">
+      <div class="card-type">Web Dev  ·  2012–2025</div>
+      <div class="card-title">Green Dot Network</div>
+      <div class="card-desc">Front end ownership across high-traffic fintech consumer sites. A/B testing, campaign execution, performance.</div>
+      <div class="card-chips">
+        <span class="chip">JavaScript</span><span class="chip">CSS3</span><span class="chip">A/B Testing</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- AYSO Motion -->
+  <div class="card card-md reveal" data-cat="motion">
+    <div class="card-bg bg-motion"></div>
+    <div class="card-overlay"></div>
+    <div class="card-overlay-hover"><span class="view-pill">Watch →</span></div>
+    <div class="reel-mock" style="gap:10px;">
+      <div class="play-ring" style="width:52px;height:52px;">
+        <div class="play-tri" style="border-top-width:8px;border-bottom-width:8px;border-left-width:13px;margin-left:3px;"></div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="card-type">Motion  ·  2005–2008</div>
+      <div class="card-title">AYSO National Campaigns</div>
+      <div class="card-chips">
+        <span class="chip">After Effects</span><span class="chip">Broadcast</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guidance Software -->
+  <div class="card card-sm reveal" data-cat="web">
+    <div class="card-bg bg-web"></div>
+    <div class="card-overlay"></div>
+    <div class="card-overlay-hover"><span class="view-pill">View →</span></div>
+    <div class="card-body">
+      <div class="card-type">Web Dev  ·  2008–2012</div>
+      <div class="card-title">Guidance Software</div>
+      <div class="card-chips">
+        <span class="chip">CMS</span><span class="chip">SEO</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- White Roof -->
+  <div class="card card-sm reveal" data-cat="motion">
+    <div class="card-bg bg-brand"></div>
+    <div class="card-overlay"></div>
+    <div class="card-overlay-hover"><span class="view-pill">View →</span></div>
+    <div class="card-body">
+      <div class="card-type">Motion  ·  2003–2005</div>
+      <div class="card-title">White Roof Productions</div>
+      <div class="card-chips">
+        <span class="chip">3D / Maya</span><span class="chip">Final Cut</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Brand placeholder -->
+  <div class="card card-sm reveal" data-cat="brand">
+    <div class="card-bg bg-ux"></div>
+    <div class="card-overlay"></div>
+    <div class="card-overlay-hover"><span class="view-pill">View →</span></div>
+    <div class="card-body">
+      <div class="card-type">Brand / UX  ·  Upcoming</div>
+      <div class="card-title">Brand Identity Project</div>
+      <div class="card-chips">
+        <span class="chip">Figma</span><span class="chip">UI/UX</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ══ DEMO REEL ══ -->
+
+<section id="reel">
+  <div class="sec-inner">
+    <div class="reel-inner">
+      <div class="reel-text reveal">
+        <div class="sec-label">Motion & Video</div>
+        <h2 class="sec-title">Demo <em>Reel</em></h2>
+        <p class="sec-sub">Motion graphics, animation, and video production spanning broadcast, digital campaigns, and entertainment clients.</p>
+        <div class="reel-note">
+          <p><span>Note:</span> This reel was produced earlier in my career but showcases the foundation of my motion work — animation, compositing, and visual storytelling skills that carry through to current projects.</p>
+        </div>
+      </div>
+
+```
+  <div class="reel-player reveal">
+    <div class="reel-player-bg"></div>
+    <div class="reel-filmstrip">
+      <div class="reel-hole"></div><div class="reel-hole"></div><div class="reel-hole"></div>
+      <div class="reel-hole"></div><div class="reel-hole"></div><div class="reel-hole"></div>
+      <div class="reel-hole"></div><div class="reel-hole"></div><div class="reel-hole"></div>
+      <div class="reel-hole"></div><div class="reel-hole"></div><div class="reel-hole"></div>
+      <div class="reel-hole"></div><div class="reel-hole"></div><div class="reel-hole"></div>
+      <div class="reel-hole"></div><div class="reel-hole"></div><div class="reel-hole"></div>
+    </div>
+    <div class="reel-center">
+      <div class="reel-play-btn" onclick="this.innerHTML='<span style=\'font-family:DM Mono,monospace;font-size:11px;color:var(--sand);letter-spacing:0.1em;\'>Drop your reel URL here</span>'">
+        <div class="reel-play-tri"></div>
+      </div>
+      <div class="reel-title-overlay">Motion Demo Reel</div>
+      <div class="reel-sub-overlay">Replace with your Vimeo / YouTube embed</div>
+    </div>
+    <div class="reel-timecode">00:00 / 02:34</div>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+
+<section id="about">
+  <div class="sec-inner">
+    <div class="about-grid">
+      <div class="reveal">
+        <div class="sec-label">About</div>
+        <h2 class="sec-title">Craft &amp; <em>Character</em></h2>
+        <div class="about-divider"></div>
+        <div class="about-text">
+          <p>Seasoned front end developer based in <strong>Las Vegas, NV</strong> with over two decades building and maintaining enterprise-level websites for major consumer brands.</p>
+          <p>My career started at the crossroads of <strong>web development and multimedia</strong> — and that's stayed true. Whether it's a responsive marketing site, an animated brand campaign, or a video production workflow, I bring the same attention to craft.</p>
+          <p>Most recently spent 13 years at <strong>Green Dot Corporation</strong> as Front End Engineer, owning the front end across multiple high-traffic fintech properties. Now open to new opportunities in Las Vegas and beyond.</p>
+        </div>
+      </div>
+
+```
+  <div class="reveal">
+    <div class="sec-label">Disciplines</div>
+    <h2 class="sec-title" style="font-size:clamp(32px,3vw,42px);">Skills &amp; <em>Tools</em></h2>
+    <div class="about-divider"></div>
+    <div class="skill-stack">
+      <div class="skill-row">
+        <div class="skill-row-label">Front End</div>
+        <div class="skill-pills">
+          <span class="pill">HTML5</span><span class="pill">CSS3</span>
+          <span class="pill">JavaScript</span><span class="pill">Responsive</span>
+          <span class="pill">Cross-Browser</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-label">Tools & Platforms</div>
+        <div class="skill-pills">
+          <span class="pill">Figma</span><span class="pill">GitHub</span>
+          <span class="pill">VS Code</span><span class="pill">Adobe CC</span>
+          <span class="pill">WordPress</span><span class="pill">Jira</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-label">Motion & Video</div>
+        <div class="skill-pills">
+          <span class="pill">After Effects</span><span class="pill">Premiere Pro</span>
+          <span class="pill">Final Cut Pro</span><span class="pill">Maya / 3D</span>
+          <span class="pill">Photography</span>
+        </div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-row-label">Process</div>
+        <div class="skill-pills">
+          <span class="pill">Agile/Scrum</span><span class="pill">A/B Testing</span>
+          <span class="pill">WCAG A11y</span><span class="pill">SEO</span>
+          <span class="pill">Google Analytics</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ══ EXPERIENCE ══ -->
+
+<section id="experience">
+  <div class="sec-inner">
+    <div class="reveal" style="margin-bottom:64px;">
+      <div class="sec-label">Career History</div>
+      <h2 class="sec-title">The <em>Journey</em></h2>
+    </div>
+
+```
+<div class="timeline">
+
+  <div class="tl-item reveal">
+    <div class="tl-dates">2012 – 2025</div>
+    <div>
+      <div class="tl-role">Front End Engineer</div>
+      <div class="tl-co">Green Dot Corporation — Pasadena, CA</div>
+      <div class="tl-desc">Owned front end across multiple high-traffic consumer fintech sites — greendotnetwork.com, walmartmoneycard.com, moneypak.com. Implemented enhancements, tracking, and third-party integrations. Partnered with marketing on campaign execution and A/B testing.</div>
+    </div>
+  </div>
+
+  <div class="tl-item reveal">
+    <div class="tl-dates">2008 – 2012</div>
+    <div>
+      <div class="tl-role">Web Developer</div>
+      <div class="tl-co">Guidance Software — Pasadena, CA</div>
+      <div class="tl-desc">Led corporate website redesigns, CMS integrations, lead capture systems, and landing pages for product launches and conferences.</div>
+    </div>
+  </div>
+
+  <div class="tl-item reveal">
+    <div class="tl-dates">2005 – 2008</div>
+    <div>
+      <div class="tl-role">Web Media Specialist / Motion Graphics Designer</div>
+      <div class="tl-co">AYSO — Torrance, CA</div>
+      <div class="tl-desc">Produced web and video content for national campaigns. Created animated graphics, event bumpers, and media outreach for large-scale organizational initiatives.</div>
+    </div>
+  </div>
+
+  <div class="tl-item reveal">
+    <div class="tl-dates">2003 – 2005</div>
+    <div>
+      <div class="tl-role">Motion Graphics Designer / Web Programmer</div>
+      <div class="tl-co">White Roof Productions — Los Angeles, CA</div>
+      <div class="tl-desc">Built interactive web content and multimedia features for entertainment clients. Database-driven applications and optimized digital media delivery.</div>
+    </div>
+  </div>
+
+  <div class="tl-item reveal">
+    <div class="tl-dates">2000 – 2003</div>
+    <div>
+      <div class="tl-role">Web Developer / Network Admin</div>
+      <div class="tl-co">Pacific Federal Insurance · Brennan Law · Farmers Insurance</div>
+      <div class="tl-desc">Early career spanning intranet tools, public sites, custom benefits portals, ASP.NET back-end, and LAN administration across three organizations.</div>
+    </div>
+  </div>
+
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+
+<section id="contact">
+  <div class="contact-inner reveal">
+    <div class="sec-label">Let's Connect</div>
+    <h2 class="sec-title">Available <em>Now</em></h2>
+    <p class="contact-tagline">Open to front end developer and multimedia roles<br>in Las Vegas and remote. Let's talk.</p>
+    <div class="contact-links">
+      <a href="mailto:rickramat+webdev@gmail.com" class="contact-link">
+        <span class="ci">✉</span> rickramat+webdev@gmail.com
+      </a>
+      <a href="tel:3239474896" class="contact-link">
+        <span class="ci">📞</span> (323) 947-4896
+      </a>
+      <a href="#" class="contact-link">
+        <span class="ci">💼</span> LinkedIn — Add your URL
+      </a>
+      <a href="#" class="contact-link">
+        <span class="ci">🐙</span> GitHub — Add your URL
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  <span class="foot-copy">© 2025 Rick Ramat. All rights reserved.</span>
+  <span class="foot-built">Built with <span>HTML · CSS · JS</span></span>
+</footer>
+
+<script>
+/* ── Custom cursor ── */
+const cur = document.getElementById('cur');
+const curR = document.getElementById('curR');
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+;(function loop() {
+  rx += (mx - rx) * 0.14;
+  ry += (my - ry) * 0.14;
+  cur.style.left  = mx + 'px';
+  cur.style.top   = my + 'px';
+  curR.style.left = rx + 'px';
+  curR.style.top  = ry + 'px';
+  requestAnimationFrame(loop);
+})();
+
+document.querySelectorAll('a, button, .card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cur.style.width = '16px'; cur.style.height = '16px';
+    curR.style.width = '56px'; curR.style.height = '56px';
+    curR.style.opacity = '0.8';
+  });
+  el.addEventListener('mouseleave', () => {
+    cur.style.width = '8px'; cur.style.height = '8px';
+    curR.style.width = '36px'; curR.style.height = '36px';
+    curR.style.opacity = '0.5';
+  });
+});
+
+/* ── Scroll reveal ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('up'), i * 90);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+/* ── Filter ── */
+function filt(cat, btn) {
+  document.querySelectorAll('.filt').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.card').forEach(c => {
+    const show = cat === 'all' || c.dataset.cat === cat;
+    c.style.display = show ? 'block' : 'none';
+  });
+}
+
+/* ── Stagger cards on load ── */
+document.querySelectorAll('.card').forEach((c, i) => {
+  c.style.opacity = '0';
+  c.style.transform = 'translateY(24px)';
+  c.style.transition = `opacity 0.6s ease ${0.3 + i*0.07}s, transform 0.6s ease ${0.3 + i*0.07}s, border-color 0.25s`;
+  setTimeout(() => { c.style.opacity = '1'; c.style.transform = 'none'; }, 400 + i * 70);
+});
+</script>
+
+</body>
+</html>
