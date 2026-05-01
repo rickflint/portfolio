@@ -408,9 +408,10 @@ spectrum where brand meets web.
 </section>
 <!-- FOOTER -->
 <footer>
-<span class="foot-copy">© 2025-2026 Rick Ramat. All rights reserved.</span>
+<span class="foot-copy">&copy;2025-<span id="year"></span> Rick Ramat. All rights reserved.</span>
 <span class="foot-built">Built with <span>HTML · CSS · JS</span></span>
 </footer>
 <script src="./script/portfolio.js"></script> 
+<script>document.getElementById("year").innerHTML = new Date().getFullYear();</script>
 </body>
 </html>

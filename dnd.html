@@ -970,22 +970,22 @@ footer p {
         <div class="lore-card">
           <span class="lore-icon">🗺️</span>
           <h3>Setting</h3>
-          <p>Edit this card to describe your campaign world — the continent, region, or plane of existence your party calls home.</p>
+          <p>I'll edit this card to describe your campaign world — the continent, region, or plane of existence your party calls home.</p>
         </div>
         <div class="lore-card">
           <span class="lore-icon">🎲</span>
           <h3>System</h3>
-          <p>Dungeons &amp; Dragons 5th Edition. Tell us about your ruleset variations, homebrew rules, or house rules here.</p>
+          <p>Dungeons &amp; Dragons 5th Edition. This section will have some about our ruleset variations, homebrew rules, or house rules here.</p>
         </div>
         <div class="lore-card">
           <span class="lore-icon">📅</span>
           <h3>Sessions</h3>
-          <p>Your session count and schedule live here. Update as your campaign grows and new chapters unfold.</p>
+          <p>Oour session count and schedule live here. Update as your campaign grows and new chapters unfold.</p>
         </div>
         <div class="lore-card">
           <span class="lore-icon">🏰</span>
           <h3>Current Arc</h3>
-          <p>Summarize the current story arc, main antagonist, or primary quest the party is currently engaged in.</p>
+          <p>This secion will summarize the current story arc, main antagonist, or primary quest the party is currently engaged in.</p>
         </div>
       </div>
     </div>
@@ -998,7 +998,7 @@ footer p {
       <div class="section-eyebrow">The Adventurers</div>
       <h2 class="section-title">Meet the <span>Party</span></h2>
       <div class="divider"></div>
-      <p class="section-subtitle">Six souls bound by fate, forged in battle. Click a portrait to upload a character image.</p>
+       <p class="section-subtitle">Five souls bound by fate, forged in battle. <!--Click a portrait to upload a character image.--></p> 
 
 ```
   <div class="party-grid" id="partyGrid">
@@ -1007,8 +1007,13 @@ footer p {
     <div class="member-card">
       <div class="member-photo-wrap">
         <label class="member-photo-placeholder" for="photo1" title="Click to upload photo">
-          <span><img src="./img/bawkana.jpeg" alt="Bawkana portrait"/></span>
-            <!-- <span>🧝</span>
+            <picture>
+                <source media="(max-width: 480px)" srcset="./img/bawkana100.jpg">
+                <source media="(max-width: 768px)" srcset="./img/bawkana150.jpg">
+                <source media="(max-width: 1200px)" srcset="./img/bawkana.jpg">
+                <img src="./img/bawkana.jpg" alt="Bawkana portrait"/>
+            </picture>
+          <!-- <span>🧝</span>
           Upload Portrait -->
         </label>
         <input type="file" id="photo1" class="photo-input" accept="image/*" onchange="loadPhoto(this, 'img1')"/>
@@ -1026,7 +1031,12 @@ footer p {
     <div class="member-card">
       <div class="member-photo-wrap">
         <label class="member-photo-placeholder" for="photo2" title="Click to upload photo">
-          <span><img src="./img/bregga_ironfist.jpeg" alt="Bregga portrait"/></span>
+             <picture>
+                <source media="(max-width: 480px)" srcset="./img/bregga_ironfist100.jpg">
+                <source media="(max-width: 768px)" srcset="./img/bregga_ironfist150.jpg">
+                <source media="(max-width: 1200px)" srcset="./img/bregga_ironfist1024.jpg">
+                <img src="./img/bregga_ironfist1024.jpg" alt="Bregga Ironfist portrait"/>
+            </picture>
             <!--<span>🧙</span>
            Upload Portrait -->
         </label>
@@ -1045,7 +1055,14 @@ footer p {
     <div class="member-card">
       <div class="member-photo-wrap">
         <label class="member-photo-placeholder" for="photo3" title="Click to upload photo">
-          <span><img src="./img/cptdreadflint.jpeg" alt="Cpt Dread Flint portrait"/></span>
+          <span>
+            <picture>
+                <source media="(max-width: 480px)" srcset="./img/cptdreadflint100.jpg">
+                <source media="(max-width: 768px)" srcset="./img/cptdreadflint150.jpg">
+                <source media="(max-width: 1200px)" srcset="./img/cptdreadflint.jpeg">
+                <img src="./img/cptdreadflint.jpeg" alt="Cpt Dread Flint portrait"/>
+            </picture>
+            </span>
           <!-- <span>🧟</span>
           Upload Portrait -->
         </label>
@@ -1064,7 +1081,12 @@ footer p {
     <div class="member-card">
       <div class="member-photo-wrap">
         <label class="member-photo-placeholder" for="photo4" title="Click to upload photo">
-         <span><img src="./img/darth_hippo.jpeg" alt="Darth Hippo portrait"/></span>
+             <picture>
+                <source media="(max-width: 480px)" srcset="./img/darth_hippo100.jpg">
+                <source media="(max-width: 768px)" srcset="./img/darth_hippo150.jpg">
+                <source media="(max-width: 1200px)" srcset="./img/darth_hippo.jpeg">
+                <img src="./img/darth_hippo.jpeg" alt="Darth Hippo portrait"/>
+            </picture>
          <!-- <span>🐉</span>
           Upload Portrait -->
         </label>
@@ -1083,7 +1105,12 @@ footer p {
     <div class="member-card">
       <div class="member-photo-wrap">
         <label class="member-photo-placeholder" for="photo5" title="Click to upload photo">
-          <span><img src="./img/goldenberry.png" alt="Goldenberry portrait"/></span>
+            <picture>
+                <source media="(max-width: 480px)" srcset="./img/goldenberry100.jpg">
+                <source media="(max-width: 768px)" srcset="./img/goldenberry150.jpg">
+                <source media="(max-width: 1200px)" srcset="./img/goldenberry.jpg">
+                <img src="./img/goldenberry.jpg" alt="Goldenberry portrait"/>
+            </picture>
             <!-- <span>🌿</span>
           Upload Portrait -->
         </label>
@@ -1166,7 +1193,8 @@ footer p {
 
   <footer>
     <span class="footer-logo">⚔ The Chronicled Fellowship</span>
-    <p>May your dice ever roll true &nbsp;·&nbsp; Roll for Initiative</p>
+    <p>May your dice ever roll true &nbsp;·&nbsp; Roll for Initiative.</p>
+    <p>&copy;<span id="year"></span> cptdreadflint&nbsp;·&nbsp; All rights reserved.</p>
   </footer>
 
   <!-- ─── ADD SESSION MODAL ─── -->
@@ -1194,7 +1222,7 @@ footer p {
       </div>
     </div>
   </div>
-
+  <script>document.getElementById("year").innerHTML = new Date().getFullYear();</script>
   <script>
     /* ─── SCROLL REVEAL ─── */
     const revealEls = document.querySelectorAll('.reveal');
