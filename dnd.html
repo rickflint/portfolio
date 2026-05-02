@@ -269,7 +269,7 @@ section {
 
 /* ─── HERO ───────────────────────────────────────────────── */
 #hero {
-  min-height: 100vh;
+  /* min-height: 100vh; */
   display: flex;
   align-items: center;
   background:
@@ -883,7 +883,7 @@ footer p {
 /* ULTRAWIDE: 1280px+ */
 @media (min-width: 1280px) {
   .section-inner {
-    padding: clamp(5rem, 6vw, 8rem) clamp(4rem, 8vw, 10rem);
+    padding: clamp(2rem, 5vw, 6rem) clamp(4rem, 8vw, 10rem);
   }
 
   .lore-grid {
@@ -929,11 +929,12 @@ footer p {
   <!-- ─── NAVIGATION ─── -->
 
   <nav>
-    <a href="#hero" class="nav-logo">⚔ The Fellowship</a>
+    <a href="#hero" class="nav-logo">⚔ The Chain Breakers</a>
     <ul class="nav-links">
-      <li><a href="#lore">Lore</a></li>
       <li><a href="#party">Party</a></li>
+      <li><a href="#lore">Lore</a></li>
       <li><a href="#log">Chronicle</a></li>
+      <li><a href="#links">Links</a></li>
     </ul>
   </nav>
 
@@ -951,42 +952,14 @@ footer p {
       <div class="hero-badge anim-load-1">Campaign One</div>
       <h1 class="hero-title anim-load-2">The Chronicled<br/>Fellowship</h1>
       <p class="hero-subtitle-name anim-load-3">A Band of Adventurers</p>
-      <p class="hero-tagline anim-load-4">Every battle, bargain, and betrayal — written in the annals of the realm. Our scribe records all so none shall be forgotten.</p>
+      <p class="hero-tagline anim-load-4">A dragon ambush at sea led us to become wary island hoppers. 
+        Taking on werewolves, a mean hag, and short creatures with shorter tempers. 
+        We're taking jobs, making deals and cleaning up messes. Now forging our way through a dark town whose folk have strange accents, who
+         like their wine and a dude who likes his pet bats. 
+      All documented by our scribe, Bawkana.</p>
       <div class="hero-actions anim-load-4">
         <a href="#log" class="btn btn-primary">Read the Chronicle</a>
         <a href="#party" class="btn btn-ghost">Meet the Party</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── LORE / CAMPAIGN INFO ─── -->
-
-  <section id="lore">
-    <div class="section-inner reveal">
-      <div class="section-eyebrow">Campaign Overview</div>
-      <h2 class="section-title">The World <span>Awaits</span></h2>
-      <div class="divider"></div>
-      <div class="lore-grid">
-        <div class="lore-card">
-          <span class="lore-icon">🗺️</span>
-          <h3>Setting</h3>
-          <p>I'll edit this card to describe your campaign world — the continent, region, or plane of existence your party calls home.</p>
-        </div>
-        <div class="lore-card">
-          <span class="lore-icon">🎲</span>
-          <h3>System</h3>
-          <p>Dungeons &amp; Dragons 5th Edition. This section will have some about our ruleset variations, homebrew rules, or house rules here.</p>
-        </div>
-        <div class="lore-card">
-          <span class="lore-icon">📅</span>
-          <h3>Sessions</h3>
-          <p>Oour session count and schedule live here. Update as your campaign grows and new chapters unfold.</p>
-        </div>
-        <div class="lore-card">
-          <span class="lore-icon">🏰</span>
-          <h3>Current Arc</h3>
-          <p>This secion will summarize the current story arc, main antagonist, or primary quest the party is currently engaged in.</p>
-        </div>
       </div>
     </div>
   </section>
@@ -998,7 +971,7 @@ footer p {
       <div class="section-eyebrow">The Adventurers</div>
       <h2 class="section-title">Meet the <span>Party</span></h2>
       <div class="divider"></div>
-       <p class="section-subtitle">Five souls bound by fate, forged in battle. <!--Click a portrait to upload a character image.--></p> 
+       <p class="section-subtitle">The Chain Breakers - five souls bound by fate, forged in battle. <!--Click a portrait to upload a character image.--></p> 
 
 ```
   <div class="party-grid" id="partyGrid">
@@ -1059,8 +1032,8 @@ footer p {
             <picture>
                 <source media="(max-width: 480px)" srcset="./img/cptdreadflint100.jpg">
                 <source media="(max-width: 768px)" srcset="./img/cptdreadflint150.jpg">
-                <source media="(max-width: 1200px)" srcset="./img/cptdreadflint.jpeg">
-                <img src="./img/cptdreadflint.jpeg" alt="Cpt Dread Flint portrait"/>
+                <source media="(max-width: 1200px)" srcset="./img/cptdreadflint1024.jpg">
+                <img src="./img/cptdreadflint1024.jpg" alt="Cpt Dread Flint portrait"/>
             </picture>
             </span>
           <!-- <span>🧟</span>
@@ -1129,25 +1102,29 @@ footer p {
     <div class="member-card">
       <div class="member-photo-wrap">
         <label class="member-photo-placeholder" for="photo6" title="Click to upload photo">
-          <span>🌑</span>
-          Upload Portrait
+             <picture>
+                <source media="(max-width: 480px)" srcset="./img/maldorbloodlust100.jpg">
+                <source media="(max-width: 768px)" srcset="./img/maldorbloodlust150.jpg">
+                <source media="(max-width: 1200px)" srcset="./img/maldorbloodlust1024.jpg">
+                <img src="./img/maldorbloodlust1024.jpg" alt="MaldorBloodlust portrait"/>
+            </picture>         
+          <!-- <span>🌑</span>
+          Upload Portrait -->
         </label>
         <input type="file" id="photo6" class="photo-input" accept="image/*" onchange="loadPhoto(this, 'img6')"/>
         <img id="img6" src="" alt="Character portrait" style="display:none;"/>
         <div class="member-race-badge" id="race6">DM</div>
       </div>
-      <div class="member-info">
+       <div class="member-info">
         <div class="member-name" id="name6" contenteditable="true" spellcheck="false">MaldorBloodlust</div>
         <div class="member-class" id="class6" contenteditable="true" spellcheck="false">Dungeon Master</div>
         <p class="member-bio" id="bio6" contenteditable="true" spellcheck="false">Unknown | Unknown</p>
+        </div>
       </div>
+
+     </div>
     </div>
-
-  </div>
-</div>
-```
-
-  </section>
+```</section> 
 
   <!-- ─── ADVENTURE LOG ─── -->
 
@@ -1156,7 +1133,7 @@ footer p {
       <div class="section-eyebrow">Written by the Scribe</div>
       <h2 class="section-title">The Adventure <span>Chronicle</span></h2>
       <div class="divider"></div>
-      <p class="section-subtitle">A full account of every session — battles fought, alliances forged, and mysteries uncovered. Add your notes directly from the scribe's writings.</p>
+      <p class="section-subtitle">A full account of every session — battles fought, alliances forged, and mysteries uncovered. Written and transcripbed all by our scribe, Bawkana.</p>
 
 ```
   <div class="log-toolbar">
@@ -1165,28 +1142,269 @@ footer p {
   </div>
 
   <div class="session-list" id="sessionList">
-    <!-- Sample session -->
-    <div class="session-entry" data-title="The Road to Neverwinter" data-session="1">
+    <!-- Sample session 5 -->
+    <div class="session-entry" data-title="The Road to Bavaria" data-session="1">
       <div class="session-header" onclick="toggleSession(this)">
         <div class="session-header-left">
-          <span class="session-number">Session I</span>
-          <span class="session-title">The Road to Neverwinter</span>
+          <span class="session-number">Session VI</span>
+          <span class="session-title">The Road to Bavaria</span>
         </div>
         <div style="display:flex;align-items:center;gap:1rem;">
-          <span class="session-date">Session Date</span>
+          <span class="session-date">March 28, 2025</span>
           <span class="session-toggle">▾</span>
         </div>
       </div>
       <div class="session-body">
-        <p class="session-notes-placeholder">Paste your scribe's notes here — or delete this example and add your real sessions using the button above. You can type directly in this area once you've added your own session entries.</p>
+        <p class="session-notes-placeholder">This has been pasted from Leida's word doc. I'm currently setting up this area to add entries via a submit button. 
+          I'll be using Supabase for data storage since it's free. And who doesn't like free?</p>
+          <!-- <p class="session-notes-placeholder">The party emerged from the catacombs at dawn, torches guttering low. 
+          The salty sea air was a harsh contrast to the dank underground, and the cries of gulls overhead were a stark reminder of the world above. 
+          They had survived the horrors below, but their journey was far from over. Ahead lay the treacherous road to Bavaria, where new dangers and unexpected allies awaited.</p> -->
+    <ul style="margin-top:1rem; margin-left:2rem; list-style-type:disc;list-style-position:inside;">
+         <li>Straud module start. </li>
+         <li>For the past month bawkana has been training new skill as well as my alcohol tools to start making moonshine </li>
+         <li>Group has gotten closer as the month has passed by.  </li>
+         <li>Gray dwarvs are duragrds that live in the underdark. </li>
+         <li>Learned that sister kaede was a cleric of osmodious </li>
+         <li>Due to her using magic she was taken by osmodious. Which is why she probably didn’t want magic used on the island. </li>
+         <li>Lady vera is free as the incident was covered up.  </li>
+         <li>We are at the council meeting </li>
+         <li>Toba is a gnome that just reached adulthood that was captured and became a slave due to him being abadoned. </li>
+         <li>He has become a rouge due to his ruff beginning </li>
+         <li>Calin comes up to us to request help he is a gypsy from the santy.  </li>
+         <li>He lets us know of the war between the straud dynasty and waylin dynasty </li>
+         <li>And the waylin dynasty has been all but wiped out but the straud dynasty occupied the city and never left. </li>
+         <li>The final battle took place in bavaria and the waylin were wiped out but the warl </li>
+         <li>He doesn’t know how it reach his town and now there is a self proclaimed lord ruling over bavaria.  </li>
+         <li>Calin is asking to save his town from the warlord straud </li>
+         <li>Bavaria is an unkown distance from us but around two days away. </li>
+         <li>Bavaria is supposedly rich but we are unaware of how much we could be payed. </li>
+         <li>Will travel outsid of town to the gypsy encampment and then head to bavaria </li>
+         <li>There is a faction that wants straud. </li>
+         <li>Vegas type country with vally mountains and green. </li>
+         <li>Struad is connected and knows everything that is going on in the country </li>
+         <li>We are to maintain a low profile. </li>
+         <li>Our contact gypsy madam eva… she is the elder gypsy </li>
+         <li>We arive at a colorful gypsy encampment. </li>
+         <li>The gypsies are mostly all human and the oldest was around 40 </li>
+         <li>Everyone has mixed feelig about straud making it seem like he was  good butnow he seems currupted.  </li>
+         <li>We are in deep sleep and when we wake up all of the items that arnt on our person are gone along with our mule and cart </li>
+         <li>We awaken in a mist with it clearer In front of us and thicker behind us. </li>
+         <li>We get to a lighter mist and see a type of wall of mist and we see that it opens into a type of contry side with geenery and a dirt road. </li>
+         <li>We decide to go with the  path… when we hear a howl  </li>
+         <li>The sky is grayish and we know its daytime but it seems gloomy like twilight and we cannot decern where the sun is. </li>
+         <li>Six hary things are running  towards us. They turn out as warewolves. </li>
+         <li>The party gets on the magic carpet and flies up to try and get away from the wolves </li>
+         <li>Darth hippo throws a stick of dynamite which scatters the werewolves.  </li>
+         <li>We have reached some statues with no heads and the mist is still present but very light.  </li>
+         <li>We get to borovia the capital of borovia and everything is “normal”. It is a village size city with a large spire towards the back of the mist. </li>
+         <li>The thick fog surrounds including 60feet above ground </li>
+         <li>There are two gaurds one that is happy and one that is serious. </li>
+         <li>He tells us that once  we enter the city we cannot leave unless we are one of the dissanty. </li>
+         <li>They are only born and not created. </li>
+         <li>We are suffled into the city and the town is very dreary and it looks like small german town. </li>
+         <li>The town seems in dissrepair and it is darker and muggy smells almost moldy. </li>
+         <li>There is no veriety of things everything just seems gray.  </li>
+         <li>Seems the guard knows why we are here and warns us about the spys that know everything that is going on.  </li>
+         <li>The visanty gypsies are the only one that can come and go from the city and they are brightly colored.  </li>
+         <li>We are told that madam eva is in the main gypsy encampment and that we can wait in town until he is ready to leave or we can try to go on our own. </li>
+         <li>They gypsy lets us know that  they are around a day away. </li>
+         <li>Theyre name is toby the visanty that will leadus to the encampment </li>
+         <li>The winery is run by a monk. </li>
+         <li>The winery is way north east </li>
+         <li>Mad marries town house and blood of the vine tavern. </li>
+         <li>Blood on the vine </li>
+         <li>A borovian pays for our room as a gesture of “friendship". </li>
+         <li>We seem to realize that the sun has not changed so it hasn’t goten lighter or darker throught the day. </li>
+         <li>Mark was the human that paid for our rooms. </li>
+         <li>Toba came in and was stupid saying he stole a bunch of dry meat </li>
+         <li>The wine is exeptionaly good and the creator live on mnt baratok. And he doesn’t speak with the public. </li>
+         <li>Madam evas camp is as far west as mark has gone </li>
+         <li>Somethings come through the mist that could potentially hurt me sleeping on the roof.  </li>
+         <li>I decided to sleep in goldenberrys room </li>
+         <li>We cannot see the sun and over 60feet in the air is the thick mist. </li>
+         <li>Anyone who tries to leave berrovia will choke on the fog unless they turn back </li>
+         <li>The vessanti are the only ones who can come and go and the majority of them work with straud and most of the spies are vessanti. </li>
+         <li>Svalitch woods are the woods surrounding the borovian contry. </li>
+         <li>Wolves, dire wolves, warewolvs are found in the woods. </li>
+         <li>Borovia town is on the far east. </li>
+         <li>Burgo master is barron VARGUS VELOCOVITCH </li>
+         <li>Krezic is another village the the far west barron demetri krezcoff </li>
+         <li>Wine is the lifeline of borovia.  </li>
+         <li>Wizards of wine winery on mount baratok with burgo master  </li>
+         <li>Center town call vallaki  </li>
+         <li>The person who make s the wine is a mad wizard and haunts the mount of baratok </li>
+         <li>No friend and makes wine for barotok. </li>
+         <li>We decide to head up to barotok mountain which is a 5 day travel time </li>
+         <li>On the second day we get attacked by 4 diar wolves </li>
+         <li>Dark tall and handsom mr straud von sorovitch shows up with a bunch of bats </li>
+         <li>He lets us know that he is happy to welcome us and says that he is happy to start this game. </li>
+         <li>He invites us to his castle ravenloft because he is looking for a replacement  </li>
+         <li>That is why we have an open invitation to his castel </li>
+         <li>He then snaps his fingers and revives the wolves who are now undead. </li>
+    </ul>      
       </div>
     </div>
+
+    <!-- Sample session 4-->
+    <div class="session-entry" data-title="The Road to Bavaria" data-session="1">
+      <div class="session-header" onclick="toggleSession(this)">
+        <div class="session-header-left">
+          <span class="session-number">Session IV</span>
+          <span class="session-title">Reunited and It Feels So Good</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:1rem;">
+          <span class="session-date">January 10, 2026</span>
+          <span class="session-toggle">▾</span>
+        </div>
+      </div>
+      <div class="session-body">
+          <ul style="margin-top:1rem; margin-left:2rem; list-style-type:disc;list-style-position:inside;">
+              <li>Inspector marn goes to the kitchen to question the help. While the arch mage is trying to set up zone of truth </li>
+              <li>Marn comes back to the room to question everyone with the spell zone of truth </li>
+              <li>Lady vera had  scroll that was read and questioned her and asked her why. She maintains silence and walks away. </li>
+              <li>Darth is questioned and he is an idiot so he get tied up and is put in a kitchen cabinet cupboard. </li>
+              <li>Darths unseen servant whispers in out ears that vera seems to be the perpetrator and that there is a scroll that was read by the questioners. </li>
+              <li>Harbins slave let us know that he saw lady vera switch the drink that poisoned  his master.  </li>
+              <li>I was able to lie my way the zone truth and complained that the dwarf underwear would never be clean enough.  </li>
+              <li>I’m able to use a fork and knife to unlock the shackle that were on goldenberry. </li>
+              <li>We go back to the room and it is hot an everyone is laid up on the table.  </li>
+              <li>The body of Harbin is gone and both marn and the mage are gone as well.  </li>
+              <li>Darth is able to find out that everyone is enchanted under the school of enchanted.  </li>
+              <li>Darth uses tremmor sense to find that there are three people in the entrance </li>
+              <li>The office is hotter than the dinning hall and in the middle of the room is the body of Harbin wester. </li>
+              <li>Goldenberry attacks with a knife right to his head and he takes 8 points of damage. </li>
+              <li>PIT FIEND is revealed as the skin melts of the body of Harbin. </li>
+              <li>After we defeat the demon we talk to  the warlock and Marn and they let us know that they also didn’t like harbin and are willing to look the other way so they let us leave through the back.  </li>
+              <li>Toba, harbin’s ex slave comes with us as he gained his  freedom </li>
+              <li>We have gathered together at an in with the other team. They let us know that they encountered the lytch.  </li>
+              <li>Kaede saved bobby jenkins and so osmodius took her. She asked for help as she was kidnapped.  </li>
+              <li>Toba is a Gnome.  </li>
+              <li>During the time that we are waiting for the other half of the group I went to the monk temple and did my training to learn my new ability.  </li>
+              <li>WE HAVE LEVELED UP. </li>
+          </ul> 
+      </div>
+    </div>
+
+    <!-- Sample session 1-3-->
+    <div class="session-entry" data-title="A Masquerade to Split the Party" data-session="1">
+      <div class="session-header" onclick="toggleSession(this)">
+        <div class="session-header-left">
+          <span class="session-number">Session I, II, III</span>
+          <span class="session-title">A Masquerade to Split the Party</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:1rem;">
+          <span class="session-date">October 25, 2025</span>
+          <span class="session-toggle">▾</span>
+        </div>
+      </div>
+      <div class="session-body">
+        <p class="session-notes-placeholder">Paste scribe's notes here —  Currently setting up this area to add entries via a submit button. 
+          I'll be using Supabase for data storage cuz it's free. And who doesn't like free?</p>
+          <ul style="margin-top:1rem; margin-left:2rem; list-style-type:disc;list-style-position:inside;">
+               <li>Darius finds us in town and transports us back to town so that we can continue the mission.  
+               </li>
+               <li>He has gotten us tickets to the masquarade ball so that we can kill Harbin Wester 
+               </li>
+               <li>We go to find humpfree so that we can prepare for the masqerade ball.  
+               </li>
+               <li>Falisha will help to dress up out party so that we can fit in at the party. Falishas fine attire 
+               </li>
+               <li>Snapes lounge for posion but he has a secret stock.  
+               </li>
+               <li>Humpfree gives us notes for falisha and snape lounge.  
+               </li>
+               <li>falisha pulls me to the side to talk about out potential mission. She lets us know that we need to outshine the guests so that we fit in.  
+               </li>
+               <li>we use the 3000 humpree credits so that we can get two fancy clothing and a slaves tunic.  
+               </li>
+               <li>Heading to snapes lounge which has no discript or identifier.  
+               </li>
+               <li>Gray skinned may with red eyes lets us in. and he goes to the back with I small purple vial of poison.  
+               </li>
+               <li>Poison is oderless and tasteless and kills at 15 min.  
+               </li>
+               <li>Discount magik to pick up my mobile distilary.  
+               </li>
+               <li>There is a festival for a so called reaping day 
+               </li>
+               <li>We arrave at a set of gates that has a guard towere that leads to a large marbel building 
+               </li>
+               <li>20foot doors solid dark wood. Snake etched into the invitations. 
+               </li>
+               <li>Merchant was helping to smuggle slaves out and wants us to assasinate harbin wester. 
+               </li>
+               <li>Lady Vera of the silk quarter who looks down on darth hippo and grabs him and walkes away with him.   
+               </li>
+               <li>She gets to talk to  him about the past. He is trying to put the moves on her.  
+               </li>
+               <li>Challey starts to take us to a different part of the room. He tells us that the hand is watching us. He afferms that we are there to kill harbin wester.  
+               </li>
+               <li>Another valet takes me away from the party. He takes me past a set of double doors into a huge room with dark wood and gems.  
+               </li>
+               <li>There is a well dressed man with a suit robe with silver colored hair he is 6’3” and tries to reach for my hand.  
+               </li>
+               <li>I am meeting harbin west who lets me know that he knows that we were last min invities to the ball and he wanted to meet us.  
+               </li>
+               <li>The valet is no use to me  at least in the sense of information. He just pulls me out of the room towards the main party. 
+               </li>
+               <li>Inspector Marn the head of the city guard who is not open to comunicating any information.  
+               </li>
+               <li>Lord korin who is royalty form a different city who is also a big player in the wood industry in estar.  
+               </li>
+               <li>The guards are starting to get suspicious of me … they room full of polititions start  to eat. 
+               </li>
+               <li>Serius vale is an archmage who dabbles in buisness of slaves  
+               </li>
+               <li>After goldenberry handed me the vial of poison and the gutests keep eating Harbin starts to gargle and drops dead from poisoning.  
+               </li>
+               <li>The arch mage then sets a barrier to stop anyone from running away as he tries to see if he can revive Harbin.  
+               </li>
+               <li>Darth hippo is still in the restroom and we are now stuck in the room of heads and slaves. </li>  
+          </ul> 
+
+      </div>
+    </div>    
+
   </div>
 
   <button class="add-session-btn" onclick="openModal()">＋ &nbsp;Add Another Session Entry</button>
 </div>
 ```
 
+  </section>
+ 
+    <!-- ─── LORE / CAMPAIGN INFO ─── -->
+
+  <section id="lore">
+    <div class="section-inner reveal">
+      <div class="section-eyebrow">Campaign Overview</div>
+      <h2 class="section-title">The World <span>Awaits</span></h2>
+      <div class="divider"></div>
+      <div class="lore-grid">
+        <div class="lore-card">
+          <span class="lore-icon">🗺️</span>
+          <h3>Setting</h3>
+          <p>I'll edit this card to describe our campaign world — the town, region, or plane of existence the Chain Breakers travels through.</p>
+        </div>
+        <div class="lore-card">
+          <span class="lore-icon">🎲</span>
+          <h3>System</h3>
+          <p>Dungeons &amp; Dragons 5th Edition, using <a class="nav-logo" href="https://www.dndbeyond.com/" target="_blank">D & D Beyond</a> to record our levels and dice rolls.This section will have some stuff about our ruleset variations, homebrew rules, or house rules here.</p>
+          Join us on  <a class="nav-logo" href="https://discord.com/channels/1499421818010996987/1499421819164295344" target="_blank">Discord</a>.
+        </div>
+        <div class="lore-card">
+          <span class="lore-icon">📅</span>
+          <h3>Sessions</h3>
+          <p>Our session count and schedule live here. Updated as our campaign grows and new chapters unfold.</p>
+        </div>
+        <div class="lore-card">
+          <span class="lore-icon">🏰</span>
+          <h3>Current Arc</h3>
+          <p>This secion will summarize the current story arc, main antagonist, or primary quest the party is currently engaged in.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ─── FOOTER ─── -->
@@ -1203,7 +1421,7 @@ footer p {
     <div class="modal">
       <button class="modal-close" onclick="closeModal()" title="Close">✕</button>
       <h2>Add Session Entry</h2>
-      <p>Enter the session details below. Paste your scribe's notes directly into the notes field.</p>
+      <p>Enter the session details below. Working on the funcion to paste scribe's notes directly into the notes field.</p>
       <div class="modal-field">
         <label>Session Title</label>
         <input type="text" id="mTitle" placeholder="e.g. The Siege of Whitestone"/>
