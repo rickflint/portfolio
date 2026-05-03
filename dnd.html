@@ -95,6 +95,11 @@ body::before {
 ::-webkit-scrollbar-thumb:hover { background: var(--accent-gold); }
 
 /* ─── NAV ────────────────────────────────────────────────── */
+.hamburger-menu {
+  display: none;        /* hidden on desktop; shown via media query below */
+  position: relative;
+}
+
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -486,8 +491,10 @@ section {
   height: 100%;
   object-fit: cover;
   display: block;
+  border: 1px solid #0d0d0d;
   border-radius: 10px;
   transition: transform 0.5s ease;
+  box-shadow: 5px 8px 8px rgba(0, 0, 0, 0.5);
 }
 
 .member-card:hover .member-photo-wrap img { transform: scale(1.04); }
@@ -920,12 +927,125 @@ footer p {
 /* ─── NAV MOBILE ─────────────────────────────────────────── */
 @media (max-width: 479px) {
   .nav-links { display: none; }
+  .hamburger-menu { display: flex; }   /* reveal the burger button */
+}
+
+/* ── HAMBURGER BUTTON ────────────────────────────────────────
+   Three <span> children (.bar-top, .bar-mid, .bar-bot) draw
+   the classic ☰ icon. When JS adds .is-open to this button:
+     • .bar-top rotates +45 ° and shifts down  → forms top arm of ✕
+     • .bar-mid fades out and collapses to 0 width
+     • .bar-bot rotates −45 ° and shifts up    → forms bottom arm of ✕
+   All transitions use `ease` so the motion feels natural.
+──────────────────────────────────────────────────────────── */
+.hamburger-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: var(--radius);
+  cursor: pointer;
+  padding: 8px;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.hamburger-btn:hover {
+  border-color: var(--accent-gold);
+  background: rgba(201,168,76,0.06);
+}
+
+/* Each bar */
+.hamburger-btn span {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: var(--accent-gold);
+  border-radius: 2px;
+  transform-origin: center;
+  transition: transform 0.35s ease, opacity 0.25s ease, width 0.3s ease;
+}
+
+/* ✕ state — toggled by JS adding .is-open to the button */
+.hamburger-btn.is-open .bar-top { transform: translateY(6.5px) rotate(45deg); }
+.hamburger-btn.is-open .bar-mid { opacity: 0; width: 0; }
+.hamburger-btn.is-open .bar-bot { transform: translateY(-6.5px) rotate(-45deg); }
+
+/* ── MOBILE DROPDOWN PANEL ───────────────────────────────────
+   Sits flush under the 64px nav (z-index 99, just below nav's 100).
+   Starts collapsed: max-height 0, opacity 0, pointer-events none.
+   JS adds .is-open → panel slides down and fades in via
+   max-height + opacity transitions. `ease` keeps it silky smooth.
+   Clicking any link inside also closes the menu via JS.
+──────────────────────────────────────────────────────────── */
+.mobile-nav {
+  position: fixed;
+  top: 64px;                  /* flush under the nav bar */
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background: rgba(1,11,24,0.97);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--navy-border);
+  /* collapsed / hidden state */
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  /* smooth open / close */
+  transition: max-height 0.4s ease, opacity 0.35s ease;
+}
+
+/* open state — JS toggles this class */
+.mobile-nav.is-open {
+  max-height: 300px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-nav ul {
+  list-style: none;
+  padding: 0.75rem 0 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-nav ul li a {
+  display: block;
+  padding: 0.85rem clamp(1rem, 5vw, 4rem);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-left: 2px solid transparent;
+  transition: color 0.25s ease, border-color 0.25s ease,
+              background 0.25s ease, padding-left 0.25s ease;
+}
+
+.mobile-nav ul li a:hover {
+  color: var(--accent-gold);
+  border-left-color: var(--accent-gold);
+  background: rgba(201,168,76,0.05);
+  padding-left: calc(clamp(1rem, 5vw, 4rem) + 6px);
+}
+
+/* thin separator between rows */
+.mobile-nav ul li + li {
+  border-top: 1px solid rgba(15,48,96,0.5);
 }
 
 
   </style>
 </head>
 <body>
+
 
   <!-- ─── NAVIGATION ─── -->
 
@@ -937,7 +1057,29 @@ footer p {
       <li><a href="#log">Chronicle</a></li>
       <li><a href="#links">Links</a></li>
     </ul>
+
+    <!-- Hamburger button — visible only at ≤ 479px via media query -->
+    <div class="hamburger-menu">
+      <button class="hamburger-btn" id="hamburgerBtn"
+              aria-label="Toggle navigation menu"
+              aria-expanded="false"
+              aria-controls="mobileNav">
+        <span class="bar-top"></span>
+        <span class="bar-mid"></span>
+        <span class="bar-bot"></span>
+      </button>
+    </div>
   </nav>
+
+  <!-- Mobile dropdown — lives outside <nav> so it can expand freely below it -->
+  <div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
+    <ul>
+      <li><a href="#party" class="mobile-nav-link">Party</a></li>
+      <li><a href="#lore"  class="mobile-nav-link">Lore</a></li>
+      <li><a href="#log"   class="mobile-nav-link">Chronicle</a></li>
+      <li><a href="#links" class="mobile-nav-link">Links</a></li>
+    </ul>
+  </div>
 
   <!-- ─── HERO ─── -->
 
@@ -1439,6 +1581,34 @@ footer p {
       </div>
     </div>
   </div>
+  <script>
+    /* ─── HAMBURGER MENU ─────────────────────────────────────────
+       On click: toggle .is-open on both the button and the panel.
+         Button  → bars morph to ✕ (CSS handles the visual)
+         Panel   → max-height + opacity transition slides it open
+       aria-expanded updates for screen readers.
+       Tapping any mobile link closes the menu and lets the page
+       scroll cleanly to the target section.
+    ──────────────────────────────────────────────────────────── */
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileNav    = document.getElementById('mobileNav');
+
+    hamburgerBtn.addEventListener('click', () => {
+      const opening = mobileNav.classList.toggle('is-open');
+      hamburgerBtn.classList.toggle('is-open', opening);
+      hamburgerBtn.setAttribute('aria-expanded', opening);
+    });
+
+    // Close when a link is tapped so the menu doesn't stay open mid-scroll
+    document.querySelectorAll('.mobile-nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileNav.classList.remove('is-open');
+        hamburgerBtn.classList.remove('is-open');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  </script>
+
   <script>document.getElementById("year").innerHTML = new Date().getFullYear();</script>
   <script>
     /* ─── SCROLL REVEAL ─── */
