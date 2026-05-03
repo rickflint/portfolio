@@ -982,6 +982,7 @@ footer p {
    max-height + opacity transitions. `ease` keeps it silky smooth.
    Clicking any link inside also closes the menu via JS.
 ──────────────────────────────────────────────────────────── */
+/* .mobile-nav is the closed state */
 .mobile-nav {
   position: fixed;
   top: 64px;                  /* flush under the nav bar */
@@ -997,7 +998,10 @@ footer p {
   opacity: 0;
   pointer-events: none;
   /* smooth open / close */
-  transition: max-height 0.4s ease, opacity 0.35s ease;
+  /* transition: max-height 0.4s ease, opacity 0.35s ease; */ 
+  /* transition: max-height 0.45s ease, opacity 0.45s ease, visibility 0.45s ease; */
+  transition: max-height 0.55s ease, opacity 0.6s ease, visibility 0.4s ease;
+  visibility: hidden;
 }
 
 /* open state — JS toggles this class */
@@ -1005,6 +1009,7 @@ footer p {
   max-height: 300px;
   opacity: 1;
   pointer-events: auto;
+  visibility: visible;
 }
 
 .mobile-nav ul {
@@ -1124,7 +1129,7 @@ footer p {
       <div class="member-photo-wrap">
         <label class="member-photo-placeholder" for="photo1" title="Click to upload photo">
             <picture>
-                <source media="(max-width: 480px)" srcset="./img/bawkana100.jpg">
+                <source media="(max-width: 480px)" srcset="./img/bawkana150.jpg">
                 <source media="(max-width: 768px)" srcset="./img/bawkana150.jpg">
                 <source media="(max-width: 1200px)" srcset="./img/bawkana.jpg">
                 <img src="./img/bawkana.jpg" alt="Bawkana portrait"/>
@@ -1148,7 +1153,7 @@ footer p {
       <div class="member-photo-wrap">
         <label class="member-photo-placeholder" for="photo2" title="Click to upload photo">
              <picture>
-                <source media="(max-width: 480px)" srcset="./img/bregga_ironfist100.jpg">
+                <source media="(max-width: 480px)" srcset="./img/bregga_ironfist150.jpg">
                 <source media="(max-width: 768px)" srcset="./img/bregga_ironfist150.jpg">
                 <source media="(max-width: 1200px)" srcset="./img/bregga_ironfist1024.jpg">
                 <img src="./img/bregga_ironfist1024.jpg" alt="Bregga Ironfist portrait"/>
@@ -1173,7 +1178,7 @@ footer p {
         <label class="member-photo-placeholder" for="photo3" title="Click to upload photo">
           <span>
             <picture>
-                <source media="(max-width: 480px)" srcset="./img/cptdreadflint100.jpg">
+                <source media="(max-width: 480px)" srcset="./img/cptdreadflint150.jpg">
                 <source media="(max-width: 768px)" srcset="./img/cptdreadflint150.jpg">
                 <source media="(max-width: 1200px)" srcset="./img/cptdreadflint1024.jpg">
                 <img src="./img/cptdreadflint1024.jpg" alt="Cpt Dread Flint portrait"/>
@@ -1198,7 +1203,7 @@ footer p {
       <div class="member-photo-wrap">
         <label class="member-photo-placeholder" for="photo4" title="Click to upload photo">
              <picture>
-                <source media="(max-width: 480px)" srcset="./img/darth_hippo100.jpg">
+                <source media="(max-width: 480px)" srcset="./img/darth_hippo150.jpg">
                 <source media="(max-width: 768px)" srcset="./img/darth_hippo150.jpg">
                 <source media="(max-width: 1200px)" srcset="./img/darth_hippo.jpeg">
                 <img src="./img/darth_hippo.jpeg" alt="Darth Hippo portrait"/>
@@ -1222,7 +1227,7 @@ footer p {
       <div class="member-photo-wrap">
         <label class="member-photo-placeholder" for="photo5" title="Click to upload photo">
             <picture>
-                <source media="(max-width: 480px)" srcset="./img/goldenberry100.jpg">
+                <source media="(max-width: 480px)" srcset="./img/goldenberry150.jpg">
                 <source media="(max-width: 768px)" srcset="./img/goldenberry150.jpg">
                 <source media="(max-width: 1200px)" srcset="./img/goldenberry.jpg">
                 <img src="./img/goldenberry.jpg" alt="Goldenberry portrait"/>
@@ -1246,7 +1251,7 @@ footer p {
       <div class="member-photo-wrap">
         <label class="member-photo-placeholder" for="photo6" title="Click to upload photo">
              <picture>
-                <source media="(max-width: 480px)" srcset="./img/maldorbloodlust100.jpg">
+                <source media="(max-width: 480px)" srcset="./img/maldorbloodlust150.jpg">
                 <source media="(max-width: 768px)" srcset="./img/maldorbloodlust150.jpg">
                 <source media="(max-width: 1200px)" srcset="./img/maldorbloodlust1024.jpg">
                 <img src="./img/maldorbloodlust1024.jpg" alt="MaldorBloodlust portrait"/>
@@ -1289,7 +1294,7 @@ footer p {
     <div class="session-entry" data-title="The Road to Bavaria" data-session="1">
       <div class="session-header" onclick="toggleSession(this)">
         <div class="session-header-left">
-          <span class="session-number">Session VI</span>
+          <span class="session-number">Session V</span>
           <span class="session-title">The Road to Bavaria</span>
         </div>
         <div style="display:flex;align-items:center;gap:1rem;">
@@ -1394,7 +1399,7 @@ footer p {
       <div class="session-header" onclick="toggleSession(this)">
         <div class="session-header-left">
           <span class="session-number">Session IV</span>
-          <span class="session-title">Reunited and It Feels So Good</span>
+          <span class="session-title">The Reunion</span>
         </div>
         <div style="display:flex;align-items:center;gap:1rem;">
           <span class="session-date">January 10, 2026</span>
@@ -1546,6 +1551,16 @@ footer p {
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- LINKS -->
+
+  <section id="links">
+      <div class="section-inner reveal">
+        <div class="section-eyebrow">Resources</div>
+         <h2 class="section-title">Useful <span>Links</span></h2>
+           <p>Coming &nbsp;·&nbsp; Soon.</p>
+       </div> 
   </section>
 
   <!-- ─── FOOTER ─── -->
