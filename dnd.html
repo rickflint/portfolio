@@ -1061,8 +1061,9 @@ border: 1px solid var(--navy-border);
 margin-bottom: 60px;  
 margin-left: 40px ;  
 padding-left: 20px;
+
 height: 500px;
-width: 60%; 
+width: 75%; 
 background: rgba(1, 11, 24, 1); 
 overflow: hidden; 
 overflow-y: scroll; 
@@ -1086,6 +1087,15 @@ border-radius: 3px;
   background: var(--accent-gold); 
 }
 
+@media (max-width: 479px) {
+  .scrolling-text-container {
+    width: 95%;
+    margin-left: 10px;
+    padding-left: 10px;
+  } 
+
+}
+
   </style>
 </head>
 <body>
@@ -1099,7 +1109,7 @@ border-radius: 3px;
       <li><a href="#party">Party</a></li>
       <li><a href="#lore">Lore</a></li>
       <li><a href="#log">Chronicle</a></li>
-      <li><a href="#links">Links</a></li>
+      <li><a href="#links-links">Links</a></li>
     </ul>
 
     <!-- Hamburger button — visible only at ≤ 479px via media query -->
@@ -1121,7 +1131,7 @@ border-radius: 3px;
       <li><a href="#party" class="mobile-nav-link">Party</a></li>
       <li><a href="#lore"  class="mobile-nav-link">Lore</a></li>
       <li><a href="#log"   class="mobile-nav-link">Chronicle</a></li>
-      <li><a href="#links" class="mobile-nav-link">Links</a></li>
+      <li><a href="#links-links" class="mobile-nav-link">Links</a></li>
     </ul>
   </div>
 
