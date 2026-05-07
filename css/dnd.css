@@ -1160,15 +1160,23 @@ opacity: 1;
 transform: translateX(-100%);
 z-index: 1;
 }
-.carousel-slide.enter-right {
-opacity: 0;
+.carousel-slide.exit-right {
+opacity: 1;
+transform: translateX(-100%);
+z-index: 1;
+}
+
+.carousel-slide.enter-from-right {
+opacity: 1;
 transform: translateX(100%);
 z-index: 3;
+transition: none;
 }
-.carousel-slide.enter-left {
-opacity: 0;
+.carousel-slide.enter-from-left {
+opacity: 1;
 transform: translateX(-100%);
 z-index: 3;
+transition: none;
 }
 
 .carousel-slide img {
