@@ -604,6 +604,7 @@ section {
   gap: 1.5rem;
 }
 
+
 .session-entry {
   background: linear-gradient(135deg, rgba(10,36,72,0.4), rgba(6,24,48,0.6));
   border: 1px solid var(--navy-border);
@@ -671,6 +672,7 @@ section {
   padding: 0 1.5rem 1.5rem;
   border-top: 1px solid rgba(15,48,96,0.5);
 }
+
 
 .session-entry.open .session-body { display: block; }
 
@@ -1092,7 +1094,7 @@ border-radius: 3px;
 @media (max-width: 479px) {
   .scrolling-text-container {
     width: 95%;
-    margin-left: 0;
+    margin-left: 0.7rem;
     padding-left: 10px;
   } 
 
@@ -1213,6 +1215,7 @@ border-radius: 3px;
       color: #c8b08a;
       margin-top: -0.2rem;
       padding-bottom: 0.4rem;
+      line-height: 14px;
       text-shadow: 0 1px 4px rgba(0,0,0,0.9);
     }
 
