@@ -200,20 +200,22 @@
         position: fixed;
         top: 0;
         right: -100%;
-        width: min(320px, 80vw);
+        width: min(220px, 80vw);
         height: 100vh;
         background: rgba(5, 5, 5, 0.97);
         border-left: 1px solid var(--border);
         z-index: 1001;
         display: flex;
         flex-direction: column;
-        justify-content: start;
+        justify-content: center;
         align-items: flex-start;
         padding: 80px 48px;
         gap: 32px;
         transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         backdrop-filter: blur(20px);
-        height: 35vh;
+        height: 70vh;
+        z-index: 999;;
+        opacity: .95; 
       }
 
       .mobile-menu.open {
@@ -222,7 +224,7 @@
 
       .mobile-menu a {
         font-family: var(--display);
-        font-size: 0.8rem;
+        font-size: 0.6rem;
         font-weight: 700;
         letter-spacing: 0.15em;
         color: var(--ghost);
@@ -261,7 +263,7 @@
         position: fixed;
         inset: 0;
         background: rgba(0, 0, 0, 0.6);
-        z-index: 1000;
+        z-index: 3;
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s;
@@ -1411,13 +1413,14 @@
             Replace placeholder with YouTube or Vimeo iframe
           </p>
         </div>
-        <!-- UNCOMMENT BELOW AND ADD YOUR VIDEO ID:
+        <!-- UNCOMMENT BELOW AND ADD YOUR VIDEO ID:  -->
     <iframe
-      src="https://www.youtube.com/embed/YOUR_VIDEO_ID?autoplay=0&rel=0"
+      src="https://www.youtube.com/embed/evwOVtmMw48?si=9WBZeQavzzyF_Qts"
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       allowfullscreen>
     </iframe>
-    -->
+  
+
       </div>
     </section>
 
