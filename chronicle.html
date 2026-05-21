@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Chronicle — Pieces of Eight</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy: #0a0e1a;
+      --navy2: #111827;
+      --gold: #c9a84c;
+      --gold2: #e8c97a;
+      --parchment: #f0e6c8;
+      --red: #8b1a1a;
+      --muted: #6b7280;
+      --border: rgba(201,168,76,0.25);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: var(--navy);
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(139,26,26,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.06) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      color: var(--parchment);
+      font-family: 'Crimson Text', serif;
+      min-height: 100vh;
+      padding: 3rem 1rem 4rem;
+    }
+
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .crest-symbol {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 0.8rem;
+      filter: drop-shadow(0 0 16px rgba(201,168,76,0.5));
+      animation: flicker 4s ease-in-out infinite;
+    }
+
+    @keyframes flicker {
+      0%, 90%, 100% { filter: drop-shadow(0 0 16px rgba(201,168,76,0.5)); }
+      95% { filter: drop-shadow(0 0 8px rgba(201,168,76,0.2)); }
+    }
+
+    h1 {
+      font-family: 'Cinzel Decorative', serif;
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      color: var(--gold);
+      letter-spacing: 0.05em;
+      text-shadow: 0 0 30px rgba(201,168,76,0.3);
+    }
+
+    .subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-top: 0.4rem;
+    }
+
+    .divider {
+      width: 300px;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), transparent);
+      margin: 1.2rem auto;
+      opacity: 0.4;
+    }
+
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 1.2rem;
+    }
+
+    .nav-links a {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    /* Loading */
+    .loading {
+      text-align: center;
+      padding: 4rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .loading::after {
+      content: '';
+      animation: dots 1.5s steps(3, end) infinite;
+    }
+
+    @keyframes dots {
+      0% { content: ''; }
+      33% { content: '.'; }
+      66% { content: '..'; }
+      100% { content: '...'; }
+    }
+
+    /* Empty state */
+    .empty {
+      text-align: center;
+      padding: 4rem 2rem;
+      border: 1px dashed var(--border);
+      border-radius: 4px;
+    }
+
+    .empty p {
+      font-family: 'Cinzel', serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    /* Log entries */
+    .log-count {
+      font-family: 'Cinzel', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .entry {
+      background: rgba(17,24,39,0.7);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      margin-bottom: 1.5rem;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    .entry:hover {
+      border-color: rgba(201,168,76,0.5);
+      box-shadow: 0 4px 30px rgba(0,0,0,0.5), 0 0 0 1px rgba(201,168,76,0.1);
+    }
+
+    .entry-header {
+      padding: 1.2rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .entry-header:hover .entry-title { color: var(--gold2); }
+
+    .entry-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.05rem;
+      color: var(--gold);
+      transition: color 0.2s;
+      line-height: 1.3;
+    }
+
+    .entry-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.3rem;
+      flex-shrink: 0;
+    }
+
+    .entry-date {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .entry-toggle {
+      font-size: 0.7rem;
+      color: var(--muted);
+      transition: transform 0.3s;
+    }
+
+    .entry.open .entry-toggle {
+      transform: rotate(180deg);
+    }
+
+    .entry-body {
+      display: none;
+      padding: 1.5rem;
+      line-height: 1.85;
+      font-size: 1.1rem;
+      color: #d4c9a8;
+      white-space: pre-wrap;
+      border-top: 1px solid rgba(201,168,76,0.1);
+    }
+
+    .entry.open .entry-body {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .entry-footer {
+      padding: 0.6rem 1.5rem;
+      border-top: 1px solid rgba(201,168,76,0.08);
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .entry-chars {
+      font-family: 'Cinzel', serif;
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: rgba(107,114,128,0.6);
+      text-transform: uppercase;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    footer p {
+      font-family: 'Cinzel', serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: rgba(107,114,128,0.5);
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <span class="crest-symbol">📜</span>
+    <h1>The Chronicle</h1>
+    <p class="subtitle">Pieces of Eight — Session Annals</p>
+    <div class="divider"></div>
+    <nav class="nav-links">
+      <a href="dnd.html">← Fellowship</a>
+      <a href="scribe.html">Scribe's Sanctum</a>
+    </nav>
+  </header>
+
+  <div id="log-container">
+    <div class="loading">Loading the annals</div>
+  </div>
+
+  <footer>
+    <p>May these chronicles endure beyond memory &nbsp;⚓&nbsp; Pieces of Eight</p>
+  </footer>
+</div>
+
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
+
+  const SUPABASE_URL = 'https://mnrbjkqaqtajdsgyvvqv.supabase.co'
+  const SUPABASE_KEY = 'sb_pubLishable_zSw07LGaWPHsqor4qsxEOw_PAALQ3vD'
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
+
+  function formatDate(dateStr) {
+    if (!dateStr) return '—'
+    const [y, m, d] = dateStr.split('-')
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+    return `${months[parseInt(m)-1]} ${parseInt(d)}, ${y}`
+  }
+
+  function toggleEntry(el) {
+    el.classList.toggle('open')
+  }
+
+  async function loadLogs() {
+    const container = document.getElementById('log-container')
+
+    const { data, error } = await supabase
+      .from('session_logs')
+      .select('*')
+      .order('session_date', { ascending: false })
+
+    if (error) {
+      container.innerHTML = `<div class="empty"><p>The annals could not be retrieved. The archive may be sealed.</p></div>`
+      return
+    }
+
+    if (!data || data.length === 0) {
+      container.innerHTML = `<div class="empty"><p>No chronicles have been recorded yet. The scribe's quill awaits.</p></div>`
+      return
+    }
+
+    const count = data.length
+    let html = `<p class="log-count">${count} chronicle${count !== 1 ? 's' : ''} recorded</p>`
+
+    data.forEach((log, i) => {
+      const charCount = log.content ? log.content.length.toLocaleString() : '0'
+      html += `
+        <div class="entry" id="entry-${i}">
+          <div class="entry-header" onclick="document.getElementById('entry-${i}').classList.toggle('open')">
+            <span class="entry-title">${escapeHtml(log.title || 'Untitled Session')}</span>
+            <div class="entry-meta">
+              <span class="entry-date">${formatDate(log.session_date)}</span>
+              <span class="entry-toggle">▼</span>
+            </div>
+          </div>
+          <div class="entry-body">${escapeHtml(log.content || '')}</div>
+          <div class="entry-footer">
+            <span class="entry-chars">${charCount} characters</span>
+          </div>
+        </div>
+      `
+    })
+
+    container.innerHTML = html
+  }
+
+  function escapeHtml(str) {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+  }
+
+  loadLogs()
+</script>
+
+</body>
+</html>
