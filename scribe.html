@@ -314,6 +314,33 @@
     el.className = `msg ${type}`
   }
 
+// Handle invite / password reset callback
+const hash = Object.fromEntries(new URLSearchParams(window.location.hash.slice(1)))
+
+if (hash.type === 'invite' || hash.type === 'recovery') {
+  const { error } = await supabase.auth.setSession({
+    access_token: hash.access_token,
+    refresh_token: hash.refresh_token
+  })
+
+  if (!error) {
+    const newPass = prompt('Welcome, Scribe. Set your password to enter the Sanctum:')
+    if (newPass) {
+      const { error: updateError } = await supabase.auth.updateUser({ password: newPass })
+      if (updateError) {
+        alert('Error setting password: ' + updateError.message)
+      } else {
+        const { data: { session } } = await supabase.auth.getSession()
+        if (session) showScribePanel(session.user.email)
+      }
+    }
+  }
+} else {
+  checkSession()
+}
+
+// End of callback handling / Check Session start
+
   async function checkSession() {
     const { data: { session } } = await supabase.auth.getSession()
     if (session) showScribePanel(session.user.email)
