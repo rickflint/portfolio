@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -17,238 +18,291 @@
       --border: rgba(201,168,76,0.25);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+```
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-    body {
-      background-color: var(--navy);
-      background-image:
-        radial-gradient(ellipse at 20% 50%, rgba(139,26,26,0.08) 0%, transparent 60%),
-        radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.06) 0%, transparent 50%),
-        url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-      color: var(--parchment);
-      font-family: 'Crimson Text', serif;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem 1rem;
-    }
+body {
+  background-color: var(--navy);
+  background-image:
+    radial-gradient(ellipse at 20% 50%, rgba(139,26,26,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.06) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a84c' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  color: var(--parchment);
+  font-family: 'Crimson Text', serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
 
-    .sanctum {
-      width: 100%;
-      max-width: 640px;
-    }
+.sanctum {
+  width: 100%;
+  max-width: 640px;
+}
 
-    .crest {
-      text-align: center;
-      margin-bottom: 2.5rem;
-    }
+.crest {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
 
-    .crest-symbol {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      filter: drop-shadow(0 0 12px rgba(201,168,76,0.4));
-    }
+.crest-symbol {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  filter: drop-shadow(0 0 12px rgba(201,168,76,0.4));
+}
 
-    h1 {
-      font-family: 'Cinzel Decorative', serif;
-      font-size: 1.4rem;
-      color: var(--gold);
-      letter-spacing: 0.05em;
-      text-shadow: 0 0 20px rgba(201,168,76,0.3);
-    }
+h1 {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1.4rem;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 20px rgba(201,168,76,0.3);
+}
 
-    .subtitle {
-      font-family: 'Cinzel', serif;
-      font-size: 0.8rem;
-      color: var(--muted);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      margin-top: 0.3rem;
-    }
+.subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  color: var(--muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-top: 0.3rem;
+}
 
-    .divider {
-      width: 200px;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--gold), transparent);
-      margin: 1rem auto;
-      opacity: 0.5;
-    }
+.divider {
+  width: 200px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+  margin: 1rem auto;
+  opacity: 0.5;
+}
 
-    .panel {
-      background: rgba(17,24,39,0.85);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 2rem;
-      backdrop-filter: blur(4px);
-      box-shadow: 0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(201,168,76,0.1);
-    }
+.panel {
+  background: rgba(17,24,39,0.85);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2rem;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(201,168,76,0.1);
+}
 
-    .panel-title {
-      font-family: 'Cinzel', serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 1.5rem;
-      opacity: 0.8;
-    }
+.panel-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
 
-    label {
-      display: block;
-      font-family: 'Cinzel', serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.4rem;
-    }
+label {
+  display: block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
 
-    input[type="email"],
-    input[type="password"],
-    input[type="text"],
-    input[type="date"],
-    textarea {
-      width: 100%;
-      background: rgba(10,14,26,0.8);
-      border: 1px solid var(--border);
-      border-radius: 3px;
-      color: var(--parchment);
-      font-family: 'Crimson Text', serif;
-      font-size: 1.1rem;
-      padding: 0.6rem 0.8rem;
-      margin-bottom: 1.2rem;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="date"],
+textarea {
+  width: 100%;
+  background: rgba(10,14,26,0.8);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  color: var(--parchment);
+  font-family: 'Crimson Text', serif;
+  font-size: 1.1rem;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 1.2rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
 
-    input:focus, textarea:focus {
-      border-color: var(--gold);
-      box-shadow: 0 0 0 2px rgba(201,168,76,0.1);
-    }
+input:focus, textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(201,168,76,0.1);
+}
 
-    textarea {
-      min-height: 280px;
-      resize: vertical;
-      line-height: 1.7;
-    }
+textarea {
+  min-height: 280px;
+  resize: vertical;
+  line-height: 1.7;
+}
 
-    .btn {
-      width: 100%;
-      background: linear-gradient(135deg, #8b6914, var(--gold));
-      border: none;
-      border-radius: 3px;
-      color: var(--navy);
-      cursor: pointer;
-      font-family: 'Cinzel', serif;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      padding: 0.8rem;
-      text-transform: uppercase;
-      transition: opacity 0.2s, transform 0.1s;
-    }
+.btn {
+  width: 100%;
+  background: linear-gradient(135deg, #8b6914, var(--gold));
+  border: none;
+  border-radius: 3px;
+  color: var(--navy);
+  cursor: pointer;
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  padding: 0.8rem;
+  text-transform: uppercase;
+  transition: opacity 0.2s, transform 0.1s;
+}
 
-    .btn:hover { opacity: 0.9; transform: translateY(-1px); }
-    .btn:active { transform: translateY(0); }
-    .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.btn:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
-    .btn-ghost {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--muted);
-      margin-top: 0.8rem;
-    }
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  margin-top: 0.8rem;
+}
 
-    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); opacity: 1; }
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); opacity: 1; }
 
-    .msg {
-      font-family: 'Cinzel', serif;
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      padding: 0.7rem 1rem;
-      border-radius: 3px;
-      margin-bottom: 1rem;
-      display: none;
-    }
+.msg {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  padding: 0.7rem 1rem;
+  border-radius: 3px;
+  margin-bottom: 1rem;
+  display: none;
+}
 
-    .msg.success {
-      background: rgba(34,85,34,0.3);
-      border: 1px solid rgba(100,200,100,0.3);
-      color: #90ee90;
-      display: block;
-    }
+.msg.success {
+  background: rgba(34,85,34,0.3);
+  border: 1px solid rgba(100,200,100,0.3);
+  color: #90ee90;
+  display: block;
+}
 
-    .msg.error {
-      background: rgba(139,26,26,0.3);
-      border: 1px solid rgba(200,80,80,0.3);
-      color: #ffaaaa;
-      display: block;
-    }
+.msg.error {
+  background: rgba(139,26,26,0.3);
+  border: 1px solid rgba(200,80,80,0.3);
+  color: #ffaaaa;
+  display: block;
+}
 
-    #login-panel { display: block; }
-    #scribe-panel { display: none; }
+#login-panel { display: block; }
+#scribe-panel { display: none; }
 
-    .user-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.5rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid var(--border);
-    }
+.user-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
 
-    .user-bar span {
-      font-family: 'Cinzel', serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-    }
+.user-bar span {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
 
-    .user-bar span strong { color: var(--gold); }
+.user-bar span strong { color: var(--gold); }
 
-    .signout {
-      background: none;
-      border: 1px solid rgba(139,26,26,0.5);
-      border-radius: 3px;
-      color: #cc6666;
-      cursor: pointer;
-      font-family: 'Cinzel', serif;
-      font-size: 0.65rem;
-      letter-spacing: 0.1em;
-      padding: 0.3rem 0.7rem;
-      text-transform: uppercase;
-      transition: all 0.2s;
-    }
+.signout {
+  background: none;
+  border: 1px solid rgba(139,26,26,0.5);
+  border-radius: 3px;
+  color: #cc6666;
+  cursor: pointer;
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  padding: 0.3rem 0.7rem;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
 
-    .signout:hover { border-color: var(--red); color: #ff9999; }
+.signout:hover { border-color: var(--red); color: #ff9999; }
 
-    .back-link {
-      text-align: center;
-      margin-top: 1.5rem;
-    }
+.back-link {
+  text-align: center;
+  margin-top: 1.5rem;
+}
 
-    .back-link a {
-      font-family: 'Cinzel', serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
-      color: var(--muted);
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
+.back-link a {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
 
-    .back-link a:hover { color: var(--gold); }
+.back-link a:hover { color: var(--gold); }
 
-    .char-count {
-      font-family: 'Cinzel', serif;
-      font-size: 0.65rem;
-      color: var(--muted);
-      text-align: right;
-      margin-top: -1rem;
-      margin-bottom: 1rem;
-    }
+.char-count {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  color: var(--muted);
+  text-align: right;
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+}
+
+/* ── Change Password Section ── */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border), transparent);
+  margin: 1.8rem 0 1.5rem;
+}
+
+.toggle-pw {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  margin-bottom: 0;
+  transition: color 0.2s;
+}
+
+.toggle-pw:hover { color: var(--gold); }
+
+.toggle-pw .arrow {
+  display: inline-block;
+  transition: transform 0.25s ease;
+  font-style: normal;
+  font-size: 0.6rem;
+}
+
+.toggle-pw.open .arrow { transform: rotate(90deg); }
+
+.pw-fields {
+  display: none;
+  margin-top: 1.2rem;
+}
+
+.pw-fields.visible { display: block; }
+
+.btn-sm {
+  width: auto;
+  padding: 0.65rem 1.4rem;
+  font-size: 0.72rem;
+}
+```
+
   </style>
 </head>
 <body>
@@ -262,6 +316,7 @@
   </div>
 
   <!-- LOGIN PANEL -->
+
   <div class="panel" id="login-panel">
     <p class="panel-title">⚔ Clan Member Access</p>
     <div class="msg" id="login-msg"></div>
@@ -273,6 +328,7 @@
   </div>
 
   <!-- SCRIBE PANEL -->
+
   <div class="panel" id="scribe-panel">
     <div class="user-bar">
       <span>Logged in as <strong id="user-email"></strong></span>
@@ -281,25 +337,45 @@
     <p class="panel-title">📜 Record a Session</p>
     <div class="msg" id="scribe-msg"></div>
 
-    <label for="title">Session Title</label>
-    <input type="text" id="title" placeholder="e.g. The Siege of Blackwater Keep" />
+```
+<label for="title">Session Title</label>
+<input type="text" id="title" placeholder="e.g. The Siege of Blackwater Keep" />
 
-    <label for="session-date">Session Date</label>
-    <input type="date" id="session-date" />
+<label for="session-date">Session Date</label>
+<input type="date" id="session-date" />
 
-    <label for="content">Session Log</label>
-    <textarea id="content" placeholder="Paste or write the session chronicle here..." oninput="updateCharCount()"></textarea>
-    <div class="char-count" id="char-count">0 characters</div>
+<label for="content">Session Log</label>
+<textarea id="content" placeholder="Paste or write the session chronicle here..." oninput="updateCharCount()"></textarea>
+<div class="char-count" id="char-count">0 characters</div>
 
-    <button class="btn" id="submit-btn" onclick="handleSubmit()">Seal the Chronicle</button>
-    <button class="btn btn-ghost" onclick="clearForm()">Clear Form</button>
+<button class="btn" id="submit-btn" onclick="handleSubmit()">Seal the Chronicle</button>
+<button class="btn btn-ghost" onclick="clearForm()">Clear Form</button>
+
+<!-- CHANGE PASSWORD SECTION -->
+<div class="section-divider"></div>
+
+<button class="toggle-pw" id="toggle-pw-btn" onclick="togglePwSection()">
+  <span class="arrow">▶</span>
+  🔑 Change Password
+</button>
+
+<div class="pw-fields" id="pw-fields">
+  <div class="msg" id="pw-msg"></div>
+  <label for="new-password">New Password</label>
+  <input type="password" id="new-password" placeholder="••••••••" />
+  <label for="confirm-password">Confirm New Password</label>
+  <input type="password" id="confirm-password" placeholder="••••••••" />
+  <button class="btn btn-sm" id="pw-btn" onclick="handleChangePassword()">Update Password</button>
+</div>
+```
+
   </div>
 
   <div class="back-link">
     <a href="dnd.html">← Return to the Fellowship</a>
   </div>
 </div>
-<!-- // The following script handles authentication and session log submission using Supabase -->
+
 <script type="module">
   import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
@@ -375,6 +451,11 @@
     document.getElementById('scribe-panel').style.display = 'none'
     document.getElementById('email').value = ''
     document.getElementById('password').value = ''
+    // Reset password section on sign out
+    document.getElementById('pw-fields').classList.remove('visible')
+    document.getElementById('toggle-pw-btn').classList.remove('open')
+    document.getElementById('new-password').value = ''
+    document.getElementById('confirm-password').value = ''
   }
 
   window.handleSubmit = async function() {
@@ -409,6 +490,57 @@
   window.updateCharCount = function() {
     const len = document.getElementById('content').value.length
     document.getElementById('char-count').textContent = `${len.toLocaleString()} characters`
+  }
+
+  window.togglePwSection = function() {
+    const fields = document.getElementById('pw-fields')
+    const btn = document.getElementById('toggle-pw-btn')
+    const isOpen = fields.classList.contains('visible')
+    fields.classList.toggle('visible', !isOpen)
+    btn.classList.toggle('open', !isOpen)
+    // Clear fields and messages when closing
+    if (isOpen) {
+      document.getElementById('new-password').value = ''
+      document.getElementById('confirm-password').value = ''
+      const msgEl = document.getElementById('pw-msg')
+      msgEl.className = 'msg'
+      msgEl.textContent = ''
+    }
+  }
+
+  window.handleChangePassword = async function() {
+    const newPass = document.getElementById('new-password').value
+    const confirmPass = document.getElementById('confirm-password').value
+    const btn = document.getElementById('pw-btn')
+
+    if (!newPass || !confirmPass) {
+      showMsg('pw-msg', 'Both fields are required.', 'error')
+      return
+    }
+    if (newPass !== confirmPass) {
+      showMsg('pw-msg', 'Passwords do not match.', 'error')
+      return
+    }
+    if (newPass.length < 6) {
+      showMsg('pw-msg', 'Password must be at least 6 characters.', 'error')
+      return
+    }
+
+    btn.disabled = true
+    btn.textContent = 'Updating...'
+
+    const { error } = await supabase.auth.updateUser({ password: newPass })
+
+    if (error) {
+      showMsg('pw-msg', error.message, 'error')
+    } else {
+      showMsg('pw-msg', 'Password updated. The Sanctum recognizes your new seal.', 'success')
+      document.getElementById('new-password').value = ''
+      document.getElementById('confirm-password').value = ''
+    }
+
+    btn.disabled = false
+    btn.textContent = 'Update Password'
   }
 
   document.getElementById('password').addEventListener('keydown', e => {
