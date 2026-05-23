@@ -314,59 +314,52 @@
     el.className = `msg ${type}`
   }
 
-// Handle invite / password reset callback
-const hash = Object.fromEntries(new URLSearchParams(window.location.hash.slice(1)))
-
-if (hash.type === 'invite' || hash.type === 'recovery') {
-  const { error } = await supabase.auth.setSession({
-    access_token: hash.access_token,
-    refresh_token: hash.refresh_token
-  })
-
-  if (!error) {
-    const newPass = prompt('Welcome, Scribe. Set your password to enter the Sanctum:')
-    if (newPass) {
-      const { error: updateError } = await supabase.auth.updateUser({ password: newPass })
-      if (updateError) {
-        alert('Error setting password: ' + updateError.message)
-      } else {
-        const { data: { session } } = await supabase.auth.getSession()
-        if (session) showScribePanel(session.user.email)
-      }
-    }
-  }
-} else {
-  checkSession()
-}
-
-// End of callback handling / Check Session start
-
-  async function checkSession() {
-    const { data: { session } } = await supabase.auth.getSession()
-    if (session) showScribePanel(session.user.email)
-  }
-
   function showScribePanel(email) {
     document.getElementById('login-panel').style.display = 'none'
     document.getElementById('scribe-panel').style.display = 'block'
     document.getElementById('user-email').textContent = email
   }
 
+  async function checkSession() {
+    const { data: { session } } = await supabase.auth.getSession()
+    if (session) showScribePanel(session.user.email)
+  }
+
+  // Handle invite callback
+  const hash = Object.fromEntries(new URLSearchParams(window.location.hash.slice(1)))
+
+  if (hash.type === 'invite' || hash.type === 'recovery') {
+    const { error } = await supabase.auth.setSession({
+      access_token: hash.access_token,
+      refresh_token: hash.refresh_token
+    })
+    if (!error) {
+      const newPass = prompt('Welcome, Scribe. Set your password to enter the Sanctum:')
+      if (newPass) {
+        const { error: updateError } = await supabase.auth.updateUser({ password: newPass })
+        if (updateError) {
+          alert('Error setting password: ' + updateError.message)
+        } else {
+          const { data: { session } } = await supabase.auth.getSession()
+          if (session) showScribePanel(session.user.email)
+        }
+      }
+    }
+  } else {
+    checkSession()
+  }
+
   window.handleLogin = async function() {
     const email = document.getElementById('email').value.trim()
     const password = document.getElementById('password').value
     const btn = document.getElementById('login-btn')
-
     if (!email || !password) {
       showMsg('login-msg', 'Enter your credentials, scribe.', 'error')
       return
     }
-
     btn.disabled = true
     btn.textContent = 'Authenticating...'
-
     const { data, error } = await supabase.auth.signInWithPassword({ email, password })
-
     if (error) {
       showMsg('login-msg', error.message, 'error')
       btn.disabled = false
@@ -389,24 +382,19 @@ if (hash.type === 'invite' || hash.type === 'recovery') {
     const session_date = document.getElementById('session-date').value
     const content = document.getElementById('content').value.trim()
     const btn = document.getElementById('submit-btn')
-
     if (!title || !session_date || !content) {
       showMsg('scribe-msg', 'All fields must be filled before sealing the chronicle.', 'error')
       return
     }
-
     btn.disabled = true
     btn.textContent = 'Sealing...'
-
     const { error } = await supabase.from('session_logs').insert([{ title, session_date, content }])
-
     if (error) {
       showMsg('scribe-msg', error.message, 'error')
     } else {
       showMsg('scribe-msg', 'Chronicle sealed and recorded in the annals.', 'success')
       clearForm()
     }
-
     btn.disabled = false
     btn.textContent = 'Seal the Chronicle'
   }
@@ -423,12 +411,9 @@ if (hash.type === 'invite' || hash.type === 'recovery') {
     document.getElementById('char-count').textContent = `${len.toLocaleString()} characters`
   }
 
-  // Handle Enter key on login fields
   document.getElementById('password').addEventListener('keydown', e => {
     if (e.key === 'Enter') window.handleLogin()
   })
-
-  checkSession()
 </script>
 
 </body>
