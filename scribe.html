@@ -18,6 +18,7 @@
       --border: rgba(201,168,76,0.25);
     }
 
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -318,6 +319,10 @@ textarea { min-height: 280px; resize: vertical; line-height: 1.7; }
   const SUPABASE_URL = 'https://mnrbjkqaqtajdsgyvvqv.supabase.co'
   const SUPABASE_KEY = 'sb_pubLishable_zSw07LGaWPHsqor4qsxEOw_PAALQ3vD'
 
+  // Capture hash BEFORE createClient runs — Supabase will clear it on init
+  const isInvite = window.location.hash.includes('type=invite')
+  let inviteHandled = false
+
   const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 
   function showMsg(id, text, type) {
@@ -337,20 +342,24 @@ textarea { min-height: 280px; resize: vertical; line-height: 1.7; }
     if (session) showScribePanel(session.user.email)
   }
 
-  // Let Supabase detect the invite/recovery token from the URL automatically
   supabase.auth.onAuthStateChange(async (event, session) => {
-    if (event === 'PASSWORD_RECOVERY') {
-      const newPass = prompt('Welcome, Scribe. Set your password to enter the Sanctum:')
-      if (newPass) {
-        const { error } = await supabase.auth.updateUser({ password: newPass })
-        if (error) {
-          alert('Error setting password: ' + error.message)
-        } else if (session) {
-          showScribePanel(session.user.email)
+    if (event === 'SIGNED_IN' && session) {
+      if (isInvite && !inviteHandled) {
+        inviteHandled = true
+        const newPass = prompt('Welcome, Scribe. Set your password to enter the Sanctum:')
+        if (newPass) {
+          const { error } = await supabase.auth.updateUser({ password: newPass })
+          if (error) alert('Error setting password: ' + error.message)
         }
       }
-    } else if (event === 'SIGNED_IN') {
-      if (session) showScribePanel(session.user.email)
+      showScribePanel(session.user.email)
+    } else if (event === 'PASSWORD_RECOVERY' && session) {
+      const newPass = prompt('Reset your password:')
+      if (newPass) {
+        const { error } = await supabase.auth.updateUser({ password: newPass })
+        if (error) alert('Error: ' + error.message)
+        else showScribePanel(session.user.email)
+      }
     } else if (event === 'SIGNED_OUT') {
       document.getElementById('login-panel').style.display = 'block'
       document.getElementById('scribe-panel').style.display = 'none'
