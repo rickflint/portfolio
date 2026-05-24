@@ -18,7 +18,6 @@
       --border: rgba(201,168,76,0.25);
     }
 
-```
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -37,21 +36,9 @@ body {
   padding: 2rem 1rem;
 }
 
-.sanctum {
-  width: 100%;
-  max-width: 640px;
-}
-
-.crest {
-  text-align: center;
-  margin-bottom: 2.5rem;
-}
-
-.crest-symbol {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  filter: drop-shadow(0 0 12px rgba(201,168,76,0.4));
-}
+.sanctum { width: 100%; max-width: 640px; }
+.crest { text-align: center; margin-bottom: 2.5rem; }
+.crest-symbol { font-size: 2.5rem; margin-bottom: 0.5rem; filter: drop-shadow(0 0 12px rgba(201,168,76,0.4)); }
 
 h1 {
   font-family: 'Cinzel Decorative', serif;
@@ -130,11 +117,7 @@ input:focus, textarea:focus {
   box-shadow: 0 0 0 2px rgba(201,168,76,0.1);
 }
 
-textarea {
-  min-height: 280px;
-  resize: vertical;
-  line-height: 1.7;
-}
+textarea { min-height: 280px; resize: vertical; line-height: 1.7; }
 
 .btn {
   width: 100%;
@@ -162,7 +145,6 @@ textarea {
   color: var(--muted);
   margin-top: 0.8rem;
 }
-
 .btn-ghost:hover { border-color: var(--gold); color: var(--gold); opacity: 1; }
 
 .msg {
@@ -174,20 +156,8 @@ textarea {
   margin-bottom: 1rem;
   display: none;
 }
-
-.msg.success {
-  background: rgba(34,85,34,0.3);
-  border: 1px solid rgba(100,200,100,0.3);
-  color: #90ee90;
-  display: block;
-}
-
-.msg.error {
-  background: rgba(139,26,26,0.3);
-  border: 1px solid rgba(200,80,80,0.3);
-  color: #ffaaaa;
-  display: block;
-}
+.msg.success { background: rgba(34,85,34,0.3); border: 1px solid rgba(100,200,100,0.3); color: #90ee90; display: block; }
+.msg.error { background: rgba(139,26,26,0.3); border: 1px solid rgba(200,80,80,0.3); color: #ffaaaa; display: block; }
 
 #login-panel { display: block; }
 #scribe-panel { display: none; }
@@ -200,14 +170,7 @@ textarea {
   padding-bottom: 1rem;
   border-bottom: 1px solid var(--border);
 }
-
-.user-bar span {
-  font-family: 'Cinzel', serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-}
-
+.user-bar span { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.1em; color: var(--muted); }
 .user-bar span strong { color: var(--gold); }
 
 .signout {
@@ -223,14 +186,9 @@ textarea {
   text-transform: uppercase;
   transition: all 0.2s;
 }
-
 .signout:hover { border-color: var(--red); color: #ff9999; }
 
-.back-link {
-  text-align: center;
-  margin-top: 1.5rem;
-}
-
+.back-link { text-align: center; margin-top: 1.5rem; }
 .back-link a {
   font-family: 'Cinzel', serif;
   font-size: 0.7rem;
@@ -240,7 +198,6 @@ textarea {
   text-transform: uppercase;
   transition: color 0.2s;
 }
-
 .back-link a:hover { color: var(--gold); }
 
 .char-count {
@@ -252,7 +209,6 @@ textarea {
   margin-bottom: 1rem;
 }
 
-/* ── Change Password Section ── */
 .section-divider {
   width: 100%;
   height: 1px;
@@ -274,34 +230,16 @@ textarea {
   align-items: center;
   gap: 0.5rem;
   width: 100%;
-  margin-bottom: 0;
   transition: color 0.2s;
 }
-
 .toggle-pw:hover { color: var(--gold); }
-
-.toggle-pw .arrow {
-  display: inline-block;
-  transition: transform 0.25s ease;
-  font-style: normal;
-  font-size: 0.6rem;
-}
-
+.toggle-pw .arrow { display: inline-block; transition: transform 0.25s ease; font-size: 0.6rem; }
 .toggle-pw.open .arrow { transform: rotate(90deg); }
 
-.pw-fields {
-  display: none;
-  margin-top: 1.2rem;
-}
-
+.pw-fields { display: none; margin-top: 1.2rem; }
 .pw-fields.visible { display: block; }
 
-.btn-sm {
-  width: auto;
-  padding: 0.65rem 1.4rem;
-  font-size: 0.72rem;
-}
-```
+.btn-sm { width: auto; padding: 0.65rem 1.4rem; font-size: 0.72rem; }
 
   </style>
 </head>
@@ -353,12 +291,10 @@ textarea {
 
 <!-- CHANGE PASSWORD SECTION -->
 <div class="section-divider"></div>
-
 <button class="toggle-pw" id="toggle-pw-btn" onclick="togglePwSection()">
   <span class="arrow">▶</span>
   🔑 Change Password
 </button>
-
 <div class="pw-fields" id="pw-fields">
   <div class="msg" id="pw-msg"></div>
   <label for="new-password">New Password</label>
@@ -401,29 +337,27 @@ textarea {
     if (session) showScribePanel(session.user.email)
   }
 
-  // Handle invite callback
-  const hash = Object.fromEntries(new URLSearchParams(window.location.hash.slice(1)))
-
-  if (hash.type === 'invite' || hash.type === 'recovery') {
-    const { error } = await supabase.auth.setSession({
-      access_token: hash.access_token,
-      refresh_token: hash.refresh_token
-    })
-    if (!error) {
+  // Let Supabase detect the invite/recovery token from the URL automatically
+  supabase.auth.onAuthStateChange(async (event, session) => {
+    if (event === 'PASSWORD_RECOVERY') {
       const newPass = prompt('Welcome, Scribe. Set your password to enter the Sanctum:')
       if (newPass) {
-        const { error: updateError } = await supabase.auth.updateUser({ password: newPass })
-        if (updateError) {
-          alert('Error setting password: ' + updateError.message)
-        } else {
-          const { data: { session } } = await supabase.auth.getSession()
-          if (session) showScribePanel(session.user.email)
+        const { error } = await supabase.auth.updateUser({ password: newPass })
+        if (error) {
+          alert('Error setting password: ' + error.message)
+        } else if (session) {
+          showScribePanel(session.user.email)
         }
       }
+    } else if (event === 'SIGNED_IN') {
+      if (session) showScribePanel(session.user.email)
+    } else if (event === 'SIGNED_OUT') {
+      document.getElementById('login-panel').style.display = 'block'
+      document.getElementById('scribe-panel').style.display = 'none'
     }
-  } else {
-    checkSession()
-  }
+  })
+
+  checkSession()
 
   window.handleLogin = async function() {
     const email = document.getElementById('email').value.trim()
@@ -447,11 +381,8 @@ textarea {
 
   window.handleSignout = async function() {
     await supabase.auth.signOut()
-    document.getElementById('login-panel').style.display = 'block'
-    document.getElementById('scribe-panel').style.display = 'none'
     document.getElementById('email').value = ''
     document.getElementById('password').value = ''
-    // Reset password section on sign out
     document.getElementById('pw-fields').classList.remove('visible')
     document.getElementById('toggle-pw-btn').classList.remove('open')
     document.getElementById('new-password').value = ''
@@ -498,7 +429,6 @@ textarea {
     const isOpen = fields.classList.contains('visible')
     fields.classList.toggle('visible', !isOpen)
     btn.classList.toggle('open', !isOpen)
-    // Clear fields and messages when closing
     if (isOpen) {
       document.getElementById('new-password').value = ''
       document.getElementById('confirm-password').value = ''
@@ -512,7 +442,6 @@ textarea {
     const newPass = document.getElementById('new-password').value
     const confirmPass = document.getElementById('confirm-password').value
     const btn = document.getElementById('pw-btn')
-
     if (!newPass || !confirmPass) {
       showMsg('pw-msg', 'Both fields are required.', 'error')
       return
@@ -525,12 +454,9 @@ textarea {
       showMsg('pw-msg', 'Password must be at least 6 characters.', 'error')
       return
     }
-
     btn.disabled = true
     btn.textContent = 'Updating...'
-
     const { error } = await supabase.auth.updateUser({ password: newPass })
-
     if (error) {
       showMsg('pw-msg', error.message, 'error')
     } else {
@@ -538,7 +464,6 @@ textarea {
       document.getElementById('new-password').value = ''
       document.getElementById('confirm-password').value = ''
     }
-
     btn.disabled = false
     btn.textContent = 'Update Password'
   }
