@@ -783,47 +783,41 @@
       </p>
     </footer>
 
-    <!-- ─── ADD SESSION MODAL ─── -->
+    <!-- ─── LOGIN MODAL  ─── -->
 
-    <!-- <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-overlay" id="loginOverlay">
       <div class="modal">
-        <button class="modal-close" onclick="closeModal()" title="Close">
+        <button class="modal-close" onclick="closeLoginModal()" title="Close">
           ✕
         </button>
-        <h2>Add Session Entry</h2>
-        <p>
-          Enter the session details below. Working on the funcion to paste
-          scribe's notes directly into the notes field.
-        </p>
+        <h2>Scribe Access</h2>
+        <p>You must be logged in to add chronicle entries.</p>
+        <div class="msg" id="login-modal-msg"></div>
         <div class="modal-field">
-          <label>Session Title</label>
-          <input
-            type="text"
-            id="mTitle"
-            placeholder="e.g. The Siege of Whitestone"
-          />
+          <label>Email</label>
+          <input type="email" id="mEmail" placeholder="your@email.com" />
         </div>
         <div class="modal-field">
-          <label>Session Date</label>
-          <input type="text" id="mDate" placeholder="e.g. April 28, 2026" />
-        </div>
-        <div class="modal-field">
-          <label>Notes (paste scribe's text)</label>
-          <textarea
-            id="mNotes"
-            placeholder="Paste the session recap here… The party emerged from the catacombs at dawn, torches guttering low…"
-          ></textarea>
+          <label>Password</label>
+          <input type="password" id="mPassword" placeholder="••••••••" />
         </div>
         <div class="modal-actions">
-          <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
-          <button class="btn btn-primary" onclick="addSession()">
-            Add to Chronicle
+          <button class="btn btn-ghost" onclick="closeLoginModal()">
+            Cancel
+          </button>
+          <button
+            class="btn btn-primary"
+            id="login-modal-btn"
+            onclick="handleModalLogin()"
+          >
+            Enter
           </button>
         </div>
       </div>
-    </div> -->
+    </div>
 
-    <!--SESSION MODAL REV 2-->
+    <!-- ───ADD SESSION MODAL REV 2─── -->
+     
     <div class="modal-overlay" id="modalOverlay">
       <div class="modal">
         <button class="modal-close" onclick="closeModal()" title="Close">
@@ -874,15 +868,20 @@
 
       const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-      // Expose supabase so handleAddSession() in the main script can access it
-      window.supabase = supabase;
-
-      function showModalMsg(text, type) {
-        const el = document.getElementById("modal-msg");
+      // ─── MESSAGE HELPER ───
+      function showModalMsg(id, text, type) {
+        const el = document.getElementById(id);
         el.textContent = text;
         el.className = `msg ${type}`;
       }
 
+      function clearMsg(id) {
+        const el = document.getElementById(id);
+        el.textContent = "";
+        el.className = "msg";
+      }
+
+      // ─── LOAD CHRONICLE ───
       async function loadChronicleEntries() {
         const { data, error } = await supabase
           .from("session_logs")
@@ -932,17 +931,68 @@
         });
       }
 
+      // ─── LOGIN MODAL ───
+      window.closeLoginModal = function () {
+        document.getElementById("loginOverlay").classList.remove("active");
+        document.body.style.overflow = "";
+        document.getElementById("mEmail").value = "";
+        document.getElementById("mPassword").value = "";
+        clearMsg("login-modal-msg");
+      };
+
+      window.handleModalLogin = async function () {
+        const email = document.getElementById("mEmail").value.trim();
+        const password = document.getElementById("mPassword").value;
+        const btn = document.getElementById("login-modal-btn");
+
+        if (!email || !password) {
+          showModalMsg("login-modal-msg", "Enter your credentials.", "error");
+          return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = "Authenticating...";
+
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+        if (error) {
+          showModalMsg("login-modal-msg", error.message, "error");
+          btn.disabled = false;
+          btn.textContent = "Enter";
+          return;
+        }
+
+        // Login success — close login modal, open add session modal
+        closeLoginModal();
+        document.getElementById("modalOverlay").classList.add("active");
+        document.body.style.overflow = "hidden";
+        setTimeout(() => document.getElementById("mTitle").focus(), 100);
+      };
+
+      // ─── HANDLE ADD SESSION BUTTON ───
       window.handleAddSession = async function () {
         const {
           data: { session },
         } = await supabase.auth.getSession();
         if (!session) {
-          window.location.href = "scribe.html";
+          document.getElementById("loginOverlay").classList.add("active");
+          document.body.style.overflow = "hidden";
+          setTimeout(() => document.getElementById("mEmail").focus(), 100);
           return;
         }
         document.getElementById("modalOverlay").classList.add("active");
         document.body.style.overflow = "hidden";
         setTimeout(() => document.getElementById("mTitle").focus(), 100);
+      };
+
+      // ─── ADD SESSION MODAL ───
+      window.closeModal = function () {
+        document.getElementById("modalOverlay").classList.remove("active");
+        document.body.style.overflow = "";
+        clearModalForm();
       };
 
       window.addSession = async function () {
@@ -953,6 +1003,7 @@
 
         if (!title || !date || !notes) {
           showModalMsg(
+            "modal-msg",
             "All fields must be filled before sealing the chronicle.",
             "error",
           );
@@ -971,13 +1022,13 @@
         ]);
 
         if (error) {
-          showModalMsg(error.message, "error");
+          showModalMsg("modal-msg", error.message, "error");
           btn.disabled = false;
           btn.textContent = "Add to Chronicle";
           return;
         }
 
-        showModalMsg("Chronicle sealed and recorded!", "success");
+        showModalMsg("modal-msg", "Chronicle sealed and recorded!", "success");
         clearModalForm();
         btn.disabled = false;
         btn.textContent = "Add to Chronicle";
@@ -999,17 +1050,13 @@
         document.getElementById("mDate").value = "";
         document.getElementById("mNotes").value = "";
         document.getElementById("char-count").textContent = "0 characters";
-        const el = document.getElementById("modal-msg");
-        el.textContent = "";
-        el.className = "msg";
+        clearMsg("modal-msg");
       }
 
-      // Also clear form when modal is closed
-      window.closeModal = function () {
-        document.getElementById("modalOverlay").classList.remove("active");
-        document.body.style.overflow = "";
-        clearModalForm();
-      };
+      // Enter key on password field triggers login
+      document.getElementById("mPassword").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") window.handleModalLogin();
+      });
 
       loadChronicleEntries();
     </script>
