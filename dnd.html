@@ -1,440 +1,887 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html lang="en">
-<head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GZ7DWD8VS9"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-GZ7DWD8VS9"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-  gtag('config', 'G-GZ7DWD8VS9');
-</script>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>The Chronicled Fellowship</title>
-  <link rel="stylesheet" href="./css/dnd.css">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet"/>
-</head>
-<body>
+      gtag("config", "G-GZ7DWD8VS9");
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Chronicled Fellowship</title>
+    <link rel="stylesheet" href="./css/dnd.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Cinzel+Decorative:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- ─── NAVIGATION ─── -->
 
+    <nav>
+      <a href="#party" class="nav-logo">⚔ Estar Six -The Chain Breakers</a>
+      <ul class="nav-links">
+        <li><a href="#party">Party</a></li>
+        <li><a href="#lore">Lore</a></li>
+        <li><a href="#log">Chronicle</a></li>
+        <li><a href="#gallery" class="mobile-nav-link">Gallery</a></li>
+        <li><a href="#links-links">Links</a></li>
+      </ul>
 
-  <!-- ─── NAVIGATION ─── -->
-
-  <nav>
-    <a href="#party" class="nav-logo">⚔ Estar Six -The Chain Breakers</a>
-    <ul class="nav-links">
-      <li><a href="#party">Party</a></li>
-      <li><a href="#lore">Lore</a></li>
-      <li><a href="#log">Chronicle</a></li>
-      <li><a href="#gallery" class="mobile-nav-link">Gallery</a></li>
-      <li><a href="#links-links">Links</a></li>
-    </ul>
-
-    <!-- Hamburger button — visible only at ≤ 479px via media query -->
-    <div class="hamburger-menu">
-      <button class="hamburger-btn" id="hamburgerBtn"
-              aria-label="Toggle navigation menu"
-              aria-expanded="false"
-              aria-controls="mobileNav">
-        <span class="bar-top"></span>
-        <span class="bar-mid"></span>
-        <span class="bar-bot"></span>
-      </button>
-    </div>
-  </nav>
-
-  <!-- Mobile dropdown — lives outside <nav> so it can expand freely below it -->
-  <div class="mobile-nav" id="mobileNav" role="navigation" aria-label="Mobile navigation">
-    <ul>
-      <li><a href="#party" class="mobile-nav-link">Party</a></li>
-      <li><a href="#lore"  class="mobile-nav-link">Lore</a></li>
-      <li><a href="#log"   class="mobile-nav-link">Chronicle</a></li>
-      <li><a href="#gallery" class="mobile-nav-link">Gallery</a></li>
-      <li><a href="#links-links" class="mobile-nav-link">Links</a></li>
-    </ul>
-  </div>
-
-  <!-- ─── HERO ─── -->
-
-  <section id="hero">
-    <div class="orb hero-orb-1"></div>
-    <div class="orb hero-orb-2"></div>
-    <div class="runes-deco" aria-hidden="true">
-      <div class="rune">ᚱ</div>
-      <div class="rune">ᚠ</div>
-      <div class="rune">ᛟ</div>
-    </div>
-    <div class="section-inner hero-content">
-      <div class="hero-badge anim-load-1">Campaign One</div>
-      <h1 class="hero-title anim-load-2">The Chronicled<br/>Fellowship</h1>
-      <p class="hero-subtitle-name anim-load-3">A Band of Adventurers</p>
-      <p class="hero-tagline anim-load-4">A dragon ambush at sea led us to become wary island hoppers. 
-        Taking on werewolves, a mean hag, and short creatures with shorter tempers. 
-        We're taking jobs, making deals and cleaning up messes. Now forging our way through a dark town whose folk have strange accents, who
-         like their wine and a dude who likes his pet bats. 
-      All documented by our scribe, Bawkana.</p>
-      <div class="hero-actions anim-load-4">
-        <a href="#log" class="btn btn-primary">Read the Chronicle</a>
-        <a href="#party" class="btn btn-ghost">Meet the Party</a>
+      <!-- Hamburger button — visible only at ≤ 479px via media query -->
+      <div class="hamburger-menu">
+        <button
+          class="hamburger-btn"
+          id="hamburgerBtn"
+          aria-label="Toggle navigation menu"
+          aria-expanded="false"
+          aria-controls="mobileNav"
+        >
+          <span class="bar-top"></span>
+          <span class="bar-mid"></span>
+          <span class="bar-bot"></span>
+        </button>
       </div>
-    </div>
-  </section>
+    </nav>
 
-  <!-- ─── PARTY ─── -->
-
-  <section id="party">
-    <div class="section-inner reveal">
-      <div class="section-eyebrow">The Adventurers</div>
-      <h2 class="section-title">Meet the <span>Party</span></h2>
-      <div class="divider"></div>
-       <p class="section-subtitle">Estar Six - The Chain Breakers - five souls bound by fate, forged in battle. <!--Click a portrait to upload a character image.--></p> 
-
-  <div class="party-grid" id="partyGrid">
-
-    <!-- MEMBER 1 -->
-    <div class="member-card">
-      <div class="member-photo-wrap">
-        <label class="member-photo-placeholder" for="photo1" title="Click to upload photo">
-            <picture>
-                <source media="(max-width: 480px)" srcset="./img/bawkana150.jpg">
-                <source media="(max-width: 768px)" srcset="./img/bawkana150.jpg">
-                <source media="(max-width: 1200px)" srcset="./img/bawkana.jpg">
-                <img src="./img/bawkana.jpg" alt="Bawkana portrait"/>
-            </picture>
-          <!-- <span>🧝</span>
-          Upload Portrait -->
-        </label>
-        <input type="file" id="photo1" class="photo-input" accept="image/*" onchange="loadPhoto(this, 'img1')"/>
-        <img id="img1" src="" alt="Character portrait" style="display:none;"/>
-        <div class="member-race-badge" id="race1">Aarakocra</div>
-      </div>
-      <div class="member-info">
-        <div class="member-name" id="name1" contenteditable="true" spellcheck="false">Bawkana</div>
-        <div class="member-class" id="class1" contenteditable="true" spellcheck="false">Class · Level 6</div>
-        <p class="member-bio" id="bio1" contenteditable="true" spellcheck="false">Aarakocra | Monk / Way of the Drunken Master</p>
-      </div>
+    <!-- Mobile dropdown — lives outside <nav> so it can expand freely below it -->
+    <div
+      class="mobile-nav"
+      id="mobileNav"
+      role="navigation"
+      aria-label="Mobile navigation"
+    >
+      <ul>
+        <li><a href="#party" class="mobile-nav-link">Party</a></li>
+        <li><a href="#lore" class="mobile-nav-link">Lore</a></li>
+        <li><a href="#log" class="mobile-nav-link">Chronicle</a></li>
+        <li><a href="#gallery" class="mobile-nav-link">Gallery</a></li>
+        <li><a href="#links-links" class="mobile-nav-link">Links</a></li>
+      </ul>
     </div>
 
-    <!-- MEMBER 2 -->
-    <div class="member-card">
-      <div class="member-photo-wrap">
-        <label class="member-photo-placeholder" for="photo2" title="Click to upload photo">
-             <picture>
-                <source media="(max-width: 480px)" srcset="./img/bregga_ironfist150.png">
-                <source media="(max-width: 768px)" srcset="./img/bregga_ironfist150.png">
-                <source media="(max-width: 1200px)" srcset="./img/bregga_ironfist1024.jpg">
-                <img src="./img/bregga_ironfist1024.jpg" alt="Bregga Ironfist portrait"/>
-            </picture>
-            <!--<span>🧙</span>
-           Upload Portrait -->
-        </label>
-        <input type="file" id="photo2" class="photo-input" accept="image/*" onchange="loadPhoto(this, 'img2')"/>
-        <img id="img2" src="" alt="Character portrait" style="display:none;"/>
-        <div class="member-race-badge" id="race2">Dwarf</div>
-      </div>
-      <div class="member-info">
-        <div class="member-name" id="name2" contenteditable="true" spellcheck="false">Bregga Ironfist</div>
-        <div class="member-class" id="class2" contenteditable="true" spellcheck="false">Class · Level 6</div>
-        <p class="member-bio" id="bio2" contenteditable="true" spellcheck="false">Dwarf | Cleric / Fighter / Forge Domain</p>
-      </div>
-    </div>
+    <!-- ─── HERO ─── -->
 
-    <!-- MEMBER 3 -->
-    <div class="member-card">
-      <div class="member-photo-wrap">
-        <label class="member-photo-placeholder" for="photo3" title="Click to upload photo">
-          <span>
-            <picture>
-                <source media="(max-width: 480px)" srcset="./img/cptdreadflint150.jpg">
-                <source media="(max-width: 768px)" srcset="./img/cptdreadflint150.jpg">
-                <source media="(max-width: 1200px)" srcset="./img/cptdreadflint1024.jpg">
-                <img src="./img/cptdreadflint1024.jpg" alt="Cpt Dread Flint portrait"/>
-            </picture>
-            </span>
-          <!-- <span>🧟</span>
-          Upload Portrait -->
-        </label>
-        <input type="file" id="photo3" class="photo-input" accept="image/*" onchange="loadPhoto(this, 'img3')"/>
-        <img id="img3" src="" alt="Character portrait" style="display:none;"/>
-        <div class="member-race-badge" id="race3">Human</div>
+    <section id="hero">
+      <div class="orb hero-orb-1"></div>
+      <div class="orb hero-orb-2"></div>
+      <div class="runes-deco" aria-hidden="true">
+        <div class="rune">ᚱ</div>
+        <div class="rune">ᚠ</div>
+        <div class="rune">ᛟ</div>
       </div>
-      <div class="member-info">
-        <div class="member-name" id="name3" contenteditable="true" spellcheck="false">Cpt Dread Flint</div>
-        <div class="member-class" id="class3" contenteditable="true" spellcheck="false">Class · Level 6</div>
-        <p class="member-bio" id="bio3" contenteditable="true" spellcheck="false">Human | Rogue / Thief / Severed Anchor Syndicate</p>
-      </div>
-    </div>
-
-    <!-- MEMBER 4 -->
-    <div class="member-card">
-      <div class="member-photo-wrap">
-        <label class="member-photo-placeholder" for="photo4" title="Click to upload photo">
-             <picture>
-                <source media="(max-width: 480px)" srcset="./img/darth_hippo150.jpg">
-                <source media="(max-width: 768px)" srcset="./img/darth_hippo150.jpg">
-                <source media="(max-width: 1200px)" srcset="./img/darth_hippo.jpeg">
-                <img src="./img/darth_hippo.jpeg" alt="Darth Hippo portrait"/>
-            </picture>
-         <!-- <span>🐉</span>
-          Upload Portrait -->
-        </label>
-        <input type="file" id="photo4" class="photo-input" accept="image/*" onchange="loadPhoto(this, 'img4')"/>
-        <img id="img4" src="" alt="Character portrait" style="display:none;"/>
-        <div class="member-race-badge" id="race4">Dwarf</div>
-      </div>
-      <div class="member-info">
-        <div class="member-name" id="name4" contenteditable="true" spellcheck="false">Darth Hippo</div>
-        <div class="member-class" id="class4" contenteditable="true" spellcheck="false">Class · Level 6</div>
-        <p class="member-bio" id="bio4" contenteditable="true" spellcheck="false">Dwarf | Warlock / Fiend Patron</p>
-      </div>
-    </div>
-
-    <!-- MEMBER 5 -->
-    <div class="member-card">
-      <div class="member-photo-wrap">
-        <label class="member-photo-placeholder" for="photo5" title="Click to upload photo">
-            <picture>
-                <source media="(max-width: 480px)" srcset="./img/goldenberry150.jpg">
-                <source media="(max-width: 768px)" srcset="./img/goldenberry150.jpg">
-                <source media="(max-width: 1200px)" srcset="./img/goldenberry.jpg">
-                <img src="./img/goldenberry.jpg" alt="Goldenberry portrait"/>
-            </picture>
-            <!-- <span>🌿</span>
-          Upload Portrait -->
-        </label>
-        <input type="file" id="photo5" class="photo-input" accept="image/*" onchange="loadPhoto(this, 'img5')"/>
-        <img id="img5" src="" alt="Character portrait" style="display:none;"/>
-        <div class="member-race-badge" id="race5">Elf</div>
-      </div>
-      <div class="member-info">
-        <div class="member-name" id="name5" contenteditable="true" spellcheck="false">Goldenberry</div>
-        <div class="member-class" id="class5" contenteditable="true" spellcheck="false">Class · Level 6</div>
-        <p class="member-bio" id="bio5" contenteditable="true" spellcheck="false">Elf | Cleric / Twilight Domain</p>
-      </div>
-    </div>
-
-    <!-- MEMBER 6 -->
-    <div class="member-card">
-      <div class="member-photo-wrap">
-        <label class="member-photo-placeholder" for="photo6" title="Click to upload photo">
-             <picture>
-                <source media="(max-width: 480px)" srcset="./img/maldorbloodlust150.jpg">
-                <source media="(max-width: 768px)" srcset="./img/maldorbloodlust150.jpg">
-                <source media="(max-width: 1200px)" srcset="./img/maldorbloodlust1024.jpg">
-                <img src="./img/maldorbloodlust1024.jpg" alt="MaldorBloodlust portrait"/>
-            </picture>         
-          <!-- <span>🌑</span>
-          Upload Portrait -->
-        </label>
-        <input type="file" id="photo6" class="photo-input" accept="image/*" onchange="loadPhoto(this, 'img6')"/>
-        <img id="img6" src="" alt="Character portrait" style="display:none;"/>
-        <div class="member-race-badge" id="race6">DM</div>
-      </div>
-       <div class="member-info">
-        <div class="member-name" id="name6" contenteditable="true" spellcheck="false">MaldorBloodlust</div>
-        <div class="member-class" id="class6" contenteditable="true" spellcheck="false">Class · Level Yes</div>
-        <p class="member-bio" id="bio6" contenteditable="true" spellcheck="false">Dungeon Master | Lord of Space and Time / Unknown</p>
+      <div class="section-inner hero-content">
+        <div class="hero-badge anim-load-1">Campaign One</div>
+        <h1 class="hero-title anim-load-2">The Chronicled<br />Fellowship</h1>
+        <p class="hero-subtitle-name anim-load-3">A Band of Adventurers</p>
+        <p class="hero-tagline anim-load-4">
+          A dragon ambush at sea led us to become wary island hoppers. Taking on
+          werewolves, a mean hag, and short creatures with shorter tempers.
+          We're taking jobs, making deals and cleaning up messes. Now forging
+          our way through a dark town whose folk have strange accents, who like
+          their wine and a dude who likes his pet bats. All documented by our
+          scribe, Bawkana.
+        </p>
+        <div class="hero-actions anim-load-4">
+          <a href="#log" class="btn btn-primary">Read the Chronicle</a>
+          <a href="#party" class="btn btn-ghost">Meet the Party</a>
         </div>
       </div>
+    </section>
 
-     </div>
-    </div>
-  </section> 
+    <!-- ─── PARTY ─── -->
 
-  <!-- ─── ADVENTURE LOG ─── -->
+    <section id="party">
+      <div class="section-inner reveal">
+        <div class="section-eyebrow">The Adventurers</div>
+        <h2 class="section-title">Meet the <span>Party</span></h2>
+        <div class="divider"></div>
+        <p class="section-subtitle">
+          Estar Six - The Chain Breakers - five souls bound by fate, forged in
+          battle.
+          <!--Click a portrait to upload a character image.-->
+        </p>
 
-  <section id="log">
-    <div class="section-inner reveal">
-      <div class="section-eyebrow">Written by the Scribe</div>
-      <h2 class="section-title">The Adventure <span>Chronicle</span></h2>
-      <div class="divider"></div>
-      <p class="section-subtitle">A full account of every session — battles fought, alliances forged, and mysteries uncovered. Written and transcripbed all by our scribe, Bawkana.</p>
+        <div class="party-grid" id="partyGrid">
+          <!-- MEMBER 1 -->
+          <div class="member-card">
+            <div class="member-photo-wrap">
+              <label
+                class="member-photo-placeholder"
+                for="photo1"
+                title="Click to upload photo"
+              >
+                <picture>
+                  <source
+                    media="(max-width: 480px)"
+                    srcset="./img/bawkana150.jpg"
+                  />
+                  <source
+                    media="(max-width: 768px)"
+                    srcset="./img/bawkana150.jpg"
+                  />
+                  <source
+                    media="(max-width: 1200px)"
+                    srcset="./img/bawkana.jpg"
+                  />
+                  <img src="./img/bawkana.jpg" alt="Bawkana portrait" />
+                </picture>
+                <!-- <span>🧝</span>
+          Upload Portrait -->
+              </label>
+              <input
+                type="file"
+                id="photo1"
+                class="photo-input"
+                accept="image/*"
+                onchange="loadPhoto(this, 'img1')"
+              />
+              <img
+                id="img1"
+                src=""
+                alt="Character portrait"
+                style="display: none"
+              />
+              <div class="member-race-badge" id="race1">Aarakocra</div>
+            </div>
+            <div class="member-info">
+              <div
+                class="member-name"
+                id="name1"
+                contenteditable="true"
+                spellcheck="false"
+              >
+                Bawkana
+              </div>
+              <div
+                class="member-class"
+                id="class1"
+                contenteditable="true"
+                spellcheck="false"
+              >
+                Class · Level 6
+              </div>
+              <p
+                class="member-bio"
+                id="bio1"
+                contenteditable="true"
+                spellcheck="false"
+              >
+                Aarakocra | Monk / Way of the Drunken Master
+              </p>
+            </div>
+          </div>
 
-  <div class="log-toolbar">
-    <input type="text" class="log-search" id="logSearch" placeholder="Search the chronicle…" oninput="filterSessions()"/>
-    <button class="btn btn-primary" onclick="openModal()">+ Add Session</button>
-  </div>
+          <!-- MEMBER 2 -->
+          <div class="member-card">
+            <div class="member-photo-wrap">
+              <label
+                class="member-photo-placeholder"
+                for="photo2"
+                title="Click to upload photo"
+              >
+                <picture>
+                  <source
+                    media="(max-width: 480px)"
+                    srcset="./img/bregga_ironfist150.png"
+                  />
+                  <source
+                    media="(max-width: 768px)"
+                    srcset="./img/bregga_ironfist150.png"
+                  />
+                  <source
+                    media="(max-width: 1200px)"
+                    srcset="./img/bregga_ironfist1024.jpg"
+                  />
+                  <img
+                    src="./img/bregga_ironfist1024.jpg"
+                    alt="Bregga Ironfist portrait"
+                  />
+                </picture>
+                <!--<span>🧙</span>
+           Upload Portrait -->
+              </label>
+              <input
+                type="file"
+                id="photo2"
+                class="photo-input"
+                accept="image/*"
+                onchange="loadPhoto(this, 'img2')"
+              />
+              <img
+                id="img2"
+                src=""
+                alt="Character portrait"
+                style="display: none"
+              />
+              <div class="member-race-badge" id="race2">Dwarf</div>
+            </div>
+            <div class="member-info">
+              <div
+                class="member-name"
+                id="name2"
+                contenteditable="true"
+                spellcheck="false"
+              >
+                Bregga Ironfist
+              </div>
+              <div
+                class="member-class"
+                id="class2"
+                contenteditable="true"
+                spellcheck="false"
+              >
+                Class · Level 6
+              </div>
+              <p
+                class="member-bio"
+                id="bio2"
+                contenteditable="true"
+                spellcheck="false"
+              >
+                Dwarf | Cleric / Fighter / Forge Domain
+              </p>
+            </div>
+          </div>
 
-  <div class="session-list" id="sessionList">
-    <!-- Dynamic session entries will be added here -->
- 
+          <!-- MEMBER 3 -->
+          <div class="member-card">
+            <div class="member-photo-wrap">
+              <label
+                class="member-photo-placeholder"
+                for="photo3"
+                title="Click to upload photo"
+              >
+                <span>
+                  <picture>
+                    <source
+                      media="(max-width: 480px)"
+                      srcset="./img/cptdreadflint150.jpg"
+                    />
+                    <source
+                      media="(max-width: 768px)"
+                      srcset="./img/cptdreadflint150.jpg"
+                    />
+                    <source
+                      media="(max-width: 1200px)"
+                      srcset="./img/cptdreadflint1024.jpg"
+                    />
+                    <img
+                      src="./img/cptdreadflint1024.jpg"
+                      alt="Cpt Dread Flint portrait"
+                    />
+                  </picture>
+                </span>
+                <!-- <span>🧟</span>
+          Upload Portrait -->
+              </label>
+              <input
+                type="file"
+                id="photo3"
+                class="photo-input"
+                accept="image/*"
+                onchange="loadPhoto(this, 'img3')"
+              />
+              <img
+                id="img3"
+                src=""
+                alt="Character portrait"
+                style="display: none"
+              />
+              <div class="member-race-badge" id="race3">Human</div>
+            </div>
+            <div class="member-info">
+              <div
+                class="member-name"
+                id="name3"
+                contenteditable="true"
+                spellcheck="false"
+              >
+                Cpt Dread Flint
+              </div>
+              <div
+                class="member-class"
+                id="class3"
+                contenteditable="true"
+                spellcheck="false"
+              >
+                Class · Level 6
+              </div>
+              <p
+                class="member-bio"
+                id="bio3"
+                contenteditable="true"
+                spellcheck="false"
+              >
+                Human | Rogue / Thief / Severed Anchor Syndicate
+              </p>
+            </div>
+          </div>
 
-  </div>
+          <!-- MEMBER 4 -->
+          <div class="member-card">
+            <div class="member-photo-wrap">
+              <label
+                class="member-photo-placeholder"
+                for="photo4"
+                title="Click to upload photo"
+              >
+                <picture>
+                  <source
+                    media="(max-width: 480px)"
+                    srcset="./img/darth_hippo150.jpg"
+                  />
+                  <source
+                    media="(max-width: 768px)"
+                    srcset="./img/darth_hippo150.jpg"
+                  />
+                  <source
+                    media="(max-width: 1200px)"
+                    srcset="./img/darth_hippo.jpeg"
+                  />
+                  <img
+                    src="./img/darth_hippo.jpeg"
+                    alt="Darth Hippo portrait"
+                  />
+                </picture>
+                <!-- <span>🐉</span>
+          Upload Portrait -->
+              </label>
+              <input
+                type="file"
+                id="photo4"
+                class="photo-input"
+                accept="image/*"
+                onchange="loadPhoto(this, 'img4')"
+              />
+              <img
+                id="img4"
+                src=""
+                alt="Character portrait"
+                style="display: none"
+              />
+              <div class="member-race-badge" id="race4">Dwarf</div>
+            </div>
+            <div class="member-info">
+              <div
+                class="member-name"
+                id="name4"
+                contenteditable="true"
+                spellcheck="false"
+              >
+                Darth Hippo
+              </div>
+              <div
+                class="member-class"
+                id="class4"
+                contenteditable="true"
+                spellcheck="false"
+              >
+                Class · Level 6
+              </div>
+              <p
+                class="member-bio"
+                id="bio4"
+                contenteditable="true"
+                spellcheck="false"
+              >
+                Dwarf | Warlock / Fiend Patron
+              </p>
+            </div>
+          </div>
 
-  <button class="add-session-btn" onclick="openModal()">＋ &nbsp;Add Another Session Entry</button>
-</div>
+          <!-- MEMBER 5 -->
+          <div class="member-card">
+            <div class="member-photo-wrap">
+              <label
+                class="member-photo-placeholder"
+                for="photo5"
+                title="Click to upload photo"
+              >
+                <picture>
+                  <source
+                    media="(max-width: 480px)"
+                    srcset="./img/goldenberry150.jpg"
+                  />
+                  <source
+                    media="(max-width: 768px)"
+                    srcset="./img/goldenberry150.jpg"
+                  />
+                  <source
+                    media="(max-width: 1200px)"
+                    srcset="./img/goldenberry.jpg"
+                  />
+                  <img src="./img/goldenberry.jpg" alt="Goldenberry portrait" />
+                </picture>
+                <!-- <span>🌿</span>
+          Upload Portrait -->
+              </label>
+              <input
+                type="file"
+                id="photo5"
+                class="photo-input"
+                accept="image/*"
+                onchange="loadPhoto(this, 'img5')"
+              />
+              <img
+                id="img5"
+                src=""
+                alt="Character portrait"
+                style="display: none"
+              />
+              <div class="member-race-badge" id="race5">Elf</div>
+            </div>
+            <div class="member-info">
+              <div
+                class="member-name"
+                id="name5"
+                contenteditable="true"
+                spellcheck="false"
+              >
+                Goldenberry
+              </div>
+              <div
+                class="member-class"
+                id="class5"
+                contenteditable="true"
+                spellcheck="false"
+              >
+                Class · Level 6
+              </div>
+              <p
+                class="member-bio"
+                id="bio5"
+                contenteditable="true"
+                spellcheck="false"
+              >
+                Elf | Cleric / Twilight Domain
+              </p>
+            </div>
+          </div>
 
-  </section>
- 
+          <!-- MEMBER 6 -->
+          <div class="member-card">
+            <div class="member-photo-wrap">
+              <label
+                class="member-photo-placeholder"
+                for="photo6"
+                title="Click to upload photo"
+              >
+                <picture>
+                  <source
+                    media="(max-width: 480px)"
+                    srcset="./img/maldorbloodlust150.jpg"
+                  />
+                  <source
+                    media="(max-width: 768px)"
+                    srcset="./img/maldorbloodlust150.jpg"
+                  />
+                  <source
+                    media="(max-width: 1200px)"
+                    srcset="./img/maldorbloodlust1024.jpg"
+                  />
+                  <img
+                    src="./img/maldorbloodlust1024.jpg"
+                    alt="MaldorBloodlust portrait"
+                  />
+                </picture>
+                <!-- <span>🌑</span>
+          Upload Portrait -->
+              </label>
+              <input
+                type="file"
+                id="photo6"
+                class="photo-input"
+                accept="image/*"
+                onchange="loadPhoto(this, 'img6')"
+              />
+              <img
+                id="img6"
+                src=""
+                alt="Character portrait"
+                style="display: none"
+              />
+              <div class="member-race-badge" id="race6">DM</div>
+            </div>
+            <div class="member-info">
+              <div
+                class="member-name"
+                id="name6"
+                contenteditable="true"
+                spellcheck="false"
+              >
+                MaldorBloodlust
+              </div>
+              <div
+                class="member-class"
+                id="class6"
+                contenteditable="true"
+                spellcheck="false"
+              >
+                Class · Level Yes
+              </div>
+              <p
+                class="member-bio"
+                id="bio6"
+                contenteditable="true"
+                spellcheck="false"
+              >
+                Dungeon Master | Lord of Space and Time / Unknown
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── ADVENTURE LOG ─── -->
+
+    <section id="log">
+      <div class="section-inner reveal">
+        <div class="section-eyebrow">Written by the Scribe</div>
+        <h2 class="section-title">The Adventure <span>Chronicle</span></h2>
+        <div class="divider"></div>
+        <p class="section-subtitle">
+          A full account of every session — battles fought, alliances forged,
+          and mysteries uncovered. Written and transcripbed all by our scribe,
+          Bawkana.
+        </p>
+
+        <div class="log-toolbar">
+          <input
+            type="text"
+            class="log-search"
+            id="logSearch"
+            placeholder="Search the chronicle…"
+            oninput="filterSessions()"
+          />
+          <button class="btn btn-primary" onclick="openModal()">
+            + Add Session
+          </button>
+        </div>
+
+        <div class="session-list" id="sessionList">
+          <!-- Dynamic session entries will be added here -->
+        </div>
+
+        <button class="add-session-btn" onclick="openModal()">
+          ＋ &nbsp;Add Another Session Entry
+        </button>
+      </div>
+    </section>
+
     <!-- ─── LORE / CAMPAIGN INFO ─── -->
 
-  <section id="lore">
-    <div class="section-inner reveal">
-      <div class="section-eyebrow">Campaign Overview</div>
-      <h2 class="section-title">The World <span>Awaits</span></h2>
-      <div class="divider"></div>
-      <div class="lore-grid">
-        <div class="lore-card">
-          <span class="lore-icon">🗺️</span>
-          <h3>Setting</h3>
-          <p>I'll edit this card to describe our campaign world — the town, region, or plane of existence the Estar Six travels through.</p>
-        </div>
-        <div class="lore-card">
-          <span class="lore-icon">🎲</span>
-          <h3>System</h3>
-          <p>Dungeons &amp; Dragons 5th Edition, using <a class="nav-logo" href="https://www.dndbeyond.com/" target="_blank"  rel="noopener noreferrer">D & D Beyond</a> to record our levels and dice rolls.This section will have some stuff about our ruleset variations, homebrew rules, or house rules here.</p>
-          Join us on  <a class="nav-logo" href="https://discord.com/channels/1499421818010996987/1499421819164295344" target="_blank"  >Discord</a>.
-        </div>
-        <div class="lore-card">
-          <span class="lore-icon">📅</span>
-          <h3>Sessions</h3>
-          <p>Our session count and schedule live here. Updated as our campaign grows and new chapters unfold.</p>
-        </div>
-        <div class="lore-card">
-          <span class="lore-icon">🏰</span>
-          <h3>Current Arc</h3>
-          <p>This secion will summarize the current story arc, main antagonist, or primary quest the party is currently engaged in.</p>
+    <section id="lore">
+      <div class="section-inner reveal">
+        <div class="section-eyebrow">Campaign Overview</div>
+        <h2 class="section-title">The World <span>Awaits</span></h2>
+        <div class="divider"></div>
+        <div class="lore-grid">
+          <div class="lore-card">
+            <span class="lore-icon">🗺️</span>
+            <h3>Setting</h3>
+            <p>
+              I'll edit this card to describe our campaign world — the town,
+              region, or plane of existence the Estar Six travels through.
+            </p>
+          </div>
+          <div class="lore-card">
+            <span class="lore-icon">🎲</span>
+            <h3>System</h3>
+            <p>
+              Dungeons &amp; Dragons 5th Edition, using
+              <a
+                class="nav-logo"
+                href="https://www.dndbeyond.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >D & D Beyond</a
+              >
+              to record our levels and dice rolls.This section will have some
+              stuff about our ruleset variations, homebrew rules, or house rules
+              here.
+            </p>
+            Join us on
+            <a
+              class="nav-logo"
+              href="https://discord.com/channels/1499421818010996987/1499421819164295344"
+              target="_blank"
+              >Discord</a
+            >.
+          </div>
+          <div class="lore-card">
+            <span class="lore-icon">📅</span>
+            <h3>Sessions</h3>
+            <p>
+              Our session count and schedule live here. Updated as our campaign
+              grows and new chapters unfold.
+            </p>
+          </div>
+          <div class="lore-card">
+            <span class="lore-icon">🏰</span>
+            <h3>Current Arc</h3>
+            <p>
+              This secion will summarize the current story arc, main antagonist,
+              or primary quest the party is currently engaged in.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
+    <!-- ─── MEDIA GALLERY ─── -->
 
-   <!-- ─── MEDIA GALLERY ─── -->
+    <section id="gallery">
+      <div class="section-inner reveal">
+        <div class="section-eyebrow">Some Captured Moments</div>
+        <h2 class="section-title">The Media <span>Gallery</span></h2>
+        <div class="divider"></div>
+        <p class="section-subtitle">
+          Photos, video and AI generated artwork from past sessions.
+        </p>
 
-
-  <section id="gallery"> 
-    <div class="section-inner reveal">
-          <div class="section-eyebrow">Some Captured Moments</div>
-          <h2 class="section-title">The Media <span>Gallery</span></h2>
-          <div class="divider"></div>
-          <p class="section-subtitle">Photos, video and AI generated artwork from past sessions.</p>
-    
-      <div class="page">
-       <div class="carousel-wrap">
-             <div class="carousel-trim"></div>
-          <div class="carousel-track-outer">
-             <div class="carousel-track" id="carousel-track">
-             
+        <div class="page">
+          <div class="carousel-wrap">
+            <div class="carousel-trim"></div>
+            <div class="carousel-track-outer">
+              <div class="carousel-track" id="carousel-track">
                 <!-- SLIDE 1 — -->
                 <div class="carousel-slide active" data-index="0">
-                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200&q=80" alt="Slide 1"/>
-                <div class="slide-caption">
-                <h3>The Descent into Saul's Vault</h3>
-                <p>Where torchlight fails and shadows get stolen…</p>
+                  <img
+                    src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=1200&q=80"
+                    alt="Slide 1"
+                  />
+                  <div class="slide-caption">
+                    <h3>The Descent into Saul's Vault</h3>
+                    <p>Where torchlight fails and shadows get stolen…</p>
+                  </div>
                 </div>
-                </div>
-                
+
                 <!-- SLIDE 2 — -->
                 <div class="carousel-slide" data-index="1">
-                <!-- <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=1200&q=80" alt="Slide 2"/> -->
-                      <img src="./img/unkindness0.png" alt="Slide 2"/>
-                <div class="slide-caption">
-                <h3>The Unkindness of Bavaria</h3>
-                <p>Where the air is thick with secrets and the nights belong to bats and werewolves. <small>(bawkcock)</small></p>
+                  <!-- <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?w=1200&q=80" alt="Slide 2"/> -->
+                  <img src="./img/unkindness0.png" alt="Slide 2" />
+                  <div class="slide-caption">
+                    <h3>The Unkindness of Bavaria</h3>
+                    <p>
+                      Where the air is thick with secrets and the nights belong
+                      to bats and werewolves. <small>(bawkcock)</small>
+                    </p>
+                  </div>
                 </div>
-                </div>
-           
+
                 <!-- SLIDE 3 —  -->
                 <div class="carousel-slide" data-index="2">
-                <!-- <img src="https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?w=1200&q=80" alt="Slide 3"/> -->
-                <img src="./img/maldorbloodlust.png" alt="Slide 3"/>
-                <div class="slide-caption">
-                <h3>Maldorbloodlust of Sandy Valley</h3>
-                <p>Dungeon Master: Narrator | Creator | Rule Maker</p>
-                </div>
+                  <!-- <img src="https://images.unsplash.com/photo-1519074069444-1ba4fff66d16?w=1200&q=80" alt="Slide 3"/> -->
+                  <img src="./img/maldorbloodlust.png" alt="Slide 3" />
+                  <div class="slide-caption">
+                    <h3>Maldorbloodlust of Sandy Valley</h3>
+                    <p>Dungeon Master: Narrator | Creator | Rule Maker</p>
+                  </div>
                 </div>
 
                 <!-- SLIDE 4 —  -->
                 <div class="carousel-slide" data-index="2">
-                <img src="./img/the-chainbreakers 1.jpg" alt="Slide 4"/>
-                <!-- <img src="./img/maldorbloodlust.png" alt="Slide 4/> -->
-                <div class="slide-caption">
-                <h3>October 2025 Session</h3>
-                <p>Estar Six -The Chain Breakers</p>
-                </div>
+                  <img src="./img/the-chainbreakers 1.jpg" alt="Slide 4" />
+                  <!-- <img src="./img/maldorbloodlust.png" alt="Slide 4/> -->
+                  <div class="slide-caption">
+                    <h3>October 2025 Session</h3>
+                    <p>Estar Six -The Chain Breakers</p>
+                  </div>
                 </div>
 
-                 <!-- TO ADD MORE SLIDES: copy a slide block above, update src/alt/caption,
+                <!-- TO ADD MORE SLIDES: copy a slide block above, update src/alt/caption,
                  then add another <div class="carousel-dot" onclick="carouselGoTo(N)"></div>
                  in the dots section below (where N = 0-based index) -->
-     
-             </div>
+              </div>
 
-                  <button class="carousel-btn prev" onclick="carouselMove(-1)" aria-label="Previous">&#8592;</button>
-                  <button class="carousel-btn next" onclick="carouselMove(1)" aria-label="Next">&#8594;</button>
+              <button
+                class="carousel-btn prev"
+                onclick="carouselMove(-1)"
+                aria-label="Previous"
+              >
+                &#8592;
+              </button>
+              <button
+                class="carousel-btn next"
+                onclick="carouselMove(1)"
+                aria-label="Next"
+              >
+                &#8594;
+              </button>
 
-                 <div class="carousel-dots" id="carousel-dots">
-                   <div class="carousel-dot active" onclick="carouselGoTo(0)"></div>
-                   <div class="carousel-dot" onclick="carouselGoTo(1)"></div>
-                   <div class="carousel-dot" onclick="carouselGoTo(2)"></div>
-                   <div class="carousel-dot" onclick="carouselGoTo(3)"></div>
-                 </div>
+              <div class="carousel-dots" id="carousel-dots">
+                <div
+                  class="carousel-dot active"
+                  onclick="carouselGoTo(0)"
+                ></div>
+                <div class="carousel-dot" onclick="carouselGoTo(1)"></div>
+                <div class="carousel-dot" onclick="carouselGoTo(2)"></div>
+                <div class="carousel-dot" onclick="carouselGoTo(3)"></div>
+              </div>
+            </div>
+            <div class="carousel-trim"></div>
           </div>
-                 <div class="carousel-trim"></div>
-      
-      
+        </div>
+      </div>
+    </section>
+
+    <!-- LINKS -->
+
+    <section id="links-links">
+      <div class="section-inner reveal">
+        <div class="section-eyebrow">Resources</div>
+        <h2 class="section-title">Useful <span>Links</span></h2>
+        <div class="divider"></div>
+        <!-- <p>Coming &nbsp;·&nbsp; Soon</p> -->
+        <div class="links-links">
+          <a
+            href="https://www.dndbeyond.com/en"
+            target="_blank"
+            rel="noopener noreferrer"
+            rel="noopener noreferrer"
+            class="links-link"
+            >D & D Beyond</a
+          >
+          <a
+            href="https://discord.com/channels/1499421818010996987/1499421819164295344"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="links-link"
+            >Our Discord Channel</a
+          >
+          <a
+            href="https://roll20.net/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="links-link"
+            >Roll20</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── FOOTER ─── -->
+
+    <footer>
+      <span class="footer-logo">⚔ The Chronicled Fellowship</span>
+      <p>May your dice ever roll true &nbsp;·&nbsp; Roll for Initiative.</p>
+      <p>
+        &copy;<span id="year"></span> cptdreadflint&nbsp;·&nbsp; All rights
+        reserved.
+      </p>
+    </footer>
+
+    <!-- ─── ADD SESSION MODAL ─── -->
+
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal">
+        <button class="modal-close" onclick="closeModal()" title="Close">
+          ✕
+        </button>
+        <h2>Add Session Entry</h2>
+        <p>
+          Enter the session details below. Working on the funcion to paste
+          scribe's notes directly into the notes field.
+        </p>
+        <div class="modal-field">
+          <label>Session Title</label>
+          <input
+            type="text"
+            id="mTitle"
+            placeholder="e.g. The Siege of Whitestone"
+          />
+        </div>
+        <div class="modal-field">
+          <label>Session Date</label>
+          <input type="text" id="mDate" placeholder="e.g. April 28, 2026" />
+        </div>
+        <div class="modal-field">
+          <label>Notes (paste scribe's text)</label>
+          <textarea
+            id="mNotes"
+            placeholder="Paste the session recap here… The party emerged from the catacombs at dawn, torches guttering low…"
+          ></textarea>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+          <button class="btn btn-primary" onclick="addSession()">
+            Add to Chronicle
+          </button>
         </div>
       </div>
     </div>
+   
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
+  const SUPABASE_URL = 'https://mnrbjkqaqtajdsgyvvqv.supabase.co'
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ucmJqa3FhcXRhamRzZ3l2dnF2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzMzEwMDAsImV4cCI6MjA5NDkwNzAwMH0.MekDKfdUX0HrZEdS8QefVBW1pB5H14zn9jU-RWzCByY'
 
-</section> 
+  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
 
+  async function loadChronicleEntries() {
+    const { data, error } = await supabase
+      .from('session_logs')
+      .select('title, session_date, content')
+      .order('session_date', { ascending: false });
 
-  <!-- LINKS -->
+    if (error) {
+      console.error('Chronicle load error:', error.message);
+      return;
+    }
 
-  <section id="links-links">
-      <div class="section-inner reveal">
-        <div class="section-eyebrow">Resources</div>
-         <h2 class="section-title">Useful <span>Links</span></h2>
-         <div class="divider"></div>
-           <!-- <p>Coming &nbsp;·&nbsp; Soon</p> -->
-           <div class="links-links">
-             <a href="https://www.dndbeyond.com/en" target="_blank" rel="noopener noreferrer"  rel="noopener noreferrer" class="links-link">D & D Beyond</a>
-             <a href="https://discord.com/channels/1499421818010996987/1499421819164295344" target="_blank"  rel="noopener noreferrer" class="links-link">Our Discord Channel</a>
-             <a href="https://roll20.net/" target="_blank"  rel="noopener noreferrer" class="links-link">Roll20</a>
-           </div>
-       </div> 
-  </section>
+    const list = document.getElementById('sessionList');
 
-  <!-- ─── FOOTER ─── -->
+    data.forEach((entry, index) => {
+      const sessionNumber = data.length - index;
 
-  <footer>
-    <span class="footer-logo">⚔ The Chronicled Fellowship</span>
-    <p>May your dice ever roll true &nbsp;·&nbsp; Roll for Initiative.</p>
-    <p>&copy;<span id="year"></span> cptdreadflint&nbsp;·&nbsp; All rights reserved.</p>
-  </footer>
+      const dateObj = new Date(entry.session_date);
+      const formattedDate = dateObj.toLocaleDateString('en-US', {
+        year: 'numeric', month: 'long', day: 'numeric'
+      });
 
-  <!-- ─── ADD SESSION MODAL ─── -->
+      const div = document.createElement('div');
+      div.className = 'session-entry';
+      div.dataset.title = entry.title;
+      div.dataset.session = sessionNumber;
 
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal">
-      <button class="modal-close" onclick="closeModal()" title="Close">✕</button>
-      <h2>Add Session Entry</h2>
-      <p>Enter the session details below. Working on the funcion to paste scribe's notes directly into the notes field.</p>
-      <div class="modal-field">
-        <label>Session Title</label>
-        <input type="text" id="mTitle" placeholder="e.g. The Siege of Whitestone"/>
-      </div>
-      <div class="modal-field">
-        <label>Session Date</label>
-        <input type="text" id="mDate" placeholder="e.g. April 28, 2026"/>
-      </div>
-      <div class="modal-field">
-        <label>Notes (paste scribe's text)</label>
-        <textarea id="mNotes" placeholder="Paste the session recap here… The party emerged from the catacombs at dawn, torches guttering low…"></textarea>
-      </div>
-      <div class="modal-actions">
-        <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
-        <button class="btn btn-primary" onclick="addSession()">Add to Chronicle</button>
-      </div>
-    </div>
-  </div>
-  <script>
-    /* ─── HAMBURGER MENU ─────────────────────────────────────────
+      div.innerHTML = `
+        <div class="session-header" onclick="toggleSession(this)">
+          <div class="session-header-left">
+            <span class="session-number">Session ${sessionNumber}</span>
+            <span class="session-title">${entry.title}</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:1rem;">
+            <span class="session-date">${formattedDate}</span>
+            <span class="session-toggle">▾</span>
+          </div>
+        </div>
+        <div class="session-body scrolling-text-container">
+          <p class="session-notes-placeholder">${entry.content}</p>
+        </div>
+      `;
+
+      list.appendChild(div);
+    });
+  }
+
+  loadChronicleEntries();
+</script>
+   
+   <script>
+      /* ─── HAMBURGER MENU ─────────────────────────────────────────
        On click: toggle .is-open on both the button and the panel.
          Button  → bars morph to ✕ (CSS handles the visual)
          Panel   → max-height + opacity transition slides it open
@@ -442,80 +889,112 @@
        Tapping any mobile link closes the menu and lets the page
        scroll cleanly to the target section.
     ──────────────────────────────────────────────────────────── */
-    const hamburgerBtn = document.getElementById('hamburgerBtn');
-    const mobileNav    = document.getElementById('mobileNav');
+      const hamburgerBtn = document.getElementById("hamburgerBtn");
+      const mobileNav = document.getElementById("mobileNav");
 
-    hamburgerBtn.addEventListener('click', () => {
-      const opening = mobileNav.classList.toggle('is-open');
-      hamburgerBtn.classList.toggle('is-open', opening);
-      hamburgerBtn.setAttribute('aria-expanded', opening);
-    });
-
-    // Close when a link is tapped so the menu doesn't stay open mid-scroll
-    document.querySelectorAll('.mobile-nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileNav.classList.remove('is-open');
-        hamburgerBtn.classList.remove('is-open');
-        hamburgerBtn.setAttribute('aria-expanded', 'false');
+      hamburgerBtn.addEventListener("click", () => {
+        const opening = mobileNav.classList.toggle("is-open");
+        hamburgerBtn.classList.toggle("is-open", opening);
+        hamburgerBtn.setAttribute("aria-expanded", opening);
       });
-    });
-  </script>
 
-  <script>document.getElementById("year").innerHTML = new Date().getFullYear();</script>
-  <script>
-    /* ─── SCROLL REVEAL ─── */
-    const revealEls = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-    }, { threshold: 0.08 });
-    revealEls.forEach(el => observer.observe(el));
+      // Close when a link is tapped so the menu doesn't stay open mid-scroll
+      document.querySelectorAll(".mobile-nav-link").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileNav.classList.remove("is-open");
+          hamburgerBtn.classList.remove("is-open");
+          hamburgerBtn.setAttribute("aria-expanded", "false");
+        });
+      });
+    </script>
 
-    /* ─── SESSION TOGGLE ─── */
-    function toggleSession(header) {
-      const entry = header.closest('.session-entry');
-      entry.classList.toggle('open');
-    }
+    <script>
+      document.getElementById("year").innerHTML = new Date().getFullYear();
+    </script>
+    <script>
+      /* ─── SCROLL REVEAL ─── */
+      const revealEls = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.08 },
+      );
+      revealEls.forEach((el) => observer.observe(el));
 
-    /* ─── MODAL ─── */
-    let sessionCount = 1;
+      /* ─── SESSION TOGGLE ─── */
+      function toggleSession(header) {
+        const entry = header.closest(".session-entry");
+        entry.classList.toggle("open");
+      }
 
-    function openModal() {
-      document.getElementById('modalOverlay').classList.add('active');
-      document.body.style.overflow = 'hidden';
-      setTimeout(() => document.getElementById('mTitle').focus(), 100);
-    }
+      /* ─── MODAL ─── */
+      let sessionCount = 1;
 
-    function closeModal() {
-      document.getElementById('modalOverlay').classList.remove('active');
-      document.body.style.overflow = '';
-      document.getElementById('mTitle').value = '';
-      document.getElementById('mDate').value = '';
-      document.getElementById('mNotes').value = '';
-    }
+      function openModal() {
+        document.getElementById("modalOverlay").classList.add("active");
+        document.body.style.overflow = "hidden";
+        setTimeout(() => document.getElementById("mTitle").focus(), 100);
+      }
 
-    document.getElementById('modalOverlay').addEventListener('click', function(e) {
-      if (e.target === this) closeModal();
-    });
+      function closeModal() {
+        document.getElementById("modalOverlay").classList.remove("active");
+        document.body.style.overflow = "";
+        document.getElementById("mTitle").value = "";
+        document.getElementById("mDate").value = "";
+        document.getElementById("mNotes").value = "";
+      }
 
-    function addSession() {
-      const title = document.getElementById('mTitle').value.trim() || 'Untitled Session';
-      const date  = document.getElementById('mDate').value.trim()  || 'Date Unknown';
-      const notes = document.getElementById('mNotes').value.trim() || '';
-      sessionCount++;
+      document
+        .getElementById("modalOverlay")
+        .addEventListener("click", function (e) {
+          if (e.target === this) closeModal();
+        });
 
-      const toRoman = n => {
-        const vals = [1000,900,500,400,100,90,50,40,10,9,5,4,1];
-        const syms = ['M','CM','D','CD','C','XC','L','XL','X','IX','V','IV','I'];
-        let r = '';
-        vals.forEach((v,i) => { while(n>=v){ r+=syms[i]; n-=v; } });
-        return r;
-      };
+      function addSession() {
+        const title =
+          document.getElementById("mTitle").value.trim() || "Untitled Session";
+        const date =
+          document.getElementById("mDate").value.trim() || "Date Unknown";
+        const notes = document.getElementById("mNotes").value.trim() || "";
+        sessionCount++;
 
-      const entry = document.createElement('div');
-      entry.className = 'session-entry';
-      entry.dataset.title = title.toLowerCase();
+        const toRoman = (n) => {
+          const vals = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1];
+          const syms = [
+            "M",
+            "CM",
+            "D",
+            "CD",
+            "C",
+            "XC",
+            "L",
+            "XL",
+            "X",
+            "IX",
+            "V",
+            "IV",
+            "I",
+          ];
+          let r = "";
+          vals.forEach((v, i) => {
+            while (n >= v) {
+              r += syms[i];
+              n -= v;
+            }
+          });
+          return r;
+        };
 
-      entry.innerHTML = `
+        const entry = document.createElement("div");
+        entry.className = "session-entry";
+        entry.dataset.title = title.toLowerCase();
+
+        entry.innerHTML = `
         <div class="session-header" onclick="toggleSession(this)">
           <div class="session-header-left">
             <span class="session-number">Session ${toRoman(sessionCount)}</span>
@@ -527,182 +1006,152 @@
           </div>
         </div>
         <div class="session-body">
-          ${notes
-            ? `<p class="session-notes">${escHtml(notes)}</p>`
-            : `<p class="session-notes-placeholder">No notes recorded for this session.</p>`
+          ${
+            notes
+              ? `<p class="session-notes">${escHtml(notes)}</p>`
+              : `<p class="session-notes-placeholder">No notes recorded for this session.</p>`
           }
         </div>`;
 
-      document.getElementById('sessionList').appendChild(entry);
+        document.getElementById("sessionList").appendChild(entry);
 
-      // Trigger reveal animation
-      requestAnimationFrame(() => {
-        entry.style.opacity = '0';
-        entry.style.transform = 'translateY(16px)';
-        entry.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        // Trigger reveal animation
         requestAnimationFrame(() => {
-          entry.style.opacity = '1';
-          entry.style.transform = 'none';
+          entry.style.opacity = "0";
+          entry.style.transform = "translateY(16px)";
+          entry.style.transition = "opacity 0.5s ease, transform 0.5s ease";
+          requestAnimationFrame(() => {
+            entry.style.opacity = "1";
+            entry.style.transform = "none";
+          });
         });
+
+        closeModal();
+        entry.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      function escHtml(str) {
+        return str
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      /* ─── SEARCH / FILTER ─── */
+      function filterSessions() {
+        const q = document.getElementById("logSearch").value.toLowerCase();
+        document.querySelectorAll(".session-entry").forEach((el) => {
+          const title =
+            (el.dataset.title || "") +
+            " " +
+            (
+              el.querySelector(".session-title")?.textContent || ""
+            ).toLowerCase();
+          el.style.display = title.includes(q) ? "" : "none";
+        });
+      }
+
+      /* ─── PHOTO UPLOAD ─── */
+      function loadPhoto(input, imgId) {
+        if (!input.files || !input.files[0]) return;
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = document.getElementById(imgId);
+          img.src = e.target.result;
+          img.style.display = "block";
+          const label = input.previousElementSibling;
+          if (label && label.classList.contains("member-photo-placeholder")) {
+            label.style.display = "none";
+          }
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+
+      /* ─── KEYBOARD: ESC closes modal ─── */
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModal();
       });
 
-      closeModal();
-      entry.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
+      /* ─── MEDIA GALLERY CAROUSEL ─── */
+      const slides = document.querySelectorAll(".carousel-slide");
+      const dots = document.querySelectorAll(".carousel-dot");
+      let current = 0;
+      let animating = false;
+      let autoTimer;
 
-    function escHtml(str) {
-      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    }
+      function carouselGoTo(next, direction) {
+        if (animating || next === current) return;
+        animating = true;
 
-    /* ─── SEARCH / FILTER ─── */
-    function filterSessions() {
-      const q = document.getElementById('logSearch').value.toLowerCase();
-      document.querySelectorAll('.session-entry').forEach(el => {
-        const title = (el.dataset.title || '') + ' ' + (el.querySelector('.session-title')?.textContent || '').toLowerCase();
-        el.style.display = title.includes(q) ? '' : 'none';
+        const prev = current;
+        if (direction === undefined) direction = next > prev ? 1 : -1;
+
+        const entering = slides[next];
+        const leaving = slides[prev];
+
+        // 1. Position entering slide off-screen instantly (no transition)
+        entering.classList.remove(
+          "active",
+          "exit-left",
+          "exit-right",
+          "enter-from-right",
+          "enter-from-left",
+        );
+        entering.classList.add(
+          direction > 0 ? "enter-from-right" : "enter-from-left",
+        );
+
+        // 2. Force browser to register the off-screen position
+        void entering.offsetWidth;
+
+        // 3. Remove the no-transition staging class, add active so it animates to center
+        entering.classList.remove("enter-from-right", "enter-from-left");
+        entering.classList.add("active");
+
+        // 4. Slide leaving image out in the opposite direction
+        leaving.classList.remove("active");
+        leaving.classList.add(direction > 0 ? "exit-left" : "exit-right");
+
+        // 5. Update dots
+        dots[prev].classList.remove("active");
+        dots[next].classList.add("active");
+        current = next;
+
+        setTimeout(() => {
+          leaving.classList.remove("exit-left", "exit-right");
+          animating = false;
+        }, 680);
+
+        resetAuto();
+      }
+
+      function carouselMove(dir) {
+        const next = (current + dir + slides.length) % slides.length;
+        carouselGoTo(next, dir);
+      }
+
+      function resetAuto() {
+        clearInterval(autoTimer);
+        autoTimer = setInterval(() => carouselMove(1), 5000);
+      }
+      resetAuto();
+
+      // Swipe support
+      let touchStartX = 0;
+      const trackOuter = document.querySelector(".carousel-track-outer");
+      trackOuter.addEventListener(
+        "touchstart",
+        (e) => {
+          touchStartX = e.touches[0].clientX;
+        },
+        { passive: true },
+      );
+      trackOuter.addEventListener("touchend", (e) => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 40) carouselMove(dx < 0 ? 1 : -1);
       });
-    }
 
-    /* ─── PHOTO UPLOAD ─── */
-    function loadPhoto(input, imgId) {
-      if (!input.files || !input.files[0]) return;
-      const reader = new FileReader();
-      reader.onload = e => {
-        const img = document.getElementById(imgId);
-        img.src = e.target.result;
-        img.style.display = 'block';
-        const label = input.previousElementSibling;
-        if (label && label.classList.contains('member-photo-placeholder')) {
-          label.style.display = 'none';
-        }
-      };
-      reader.readAsDataURL(input.files[0]);
-    }
-
-    /* ─── KEYBOARD: ESC closes modal ─── */
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeModal();
-    });
-
-
-
-    /* ─── MEDIA GALLERY CAROUSEL ─── */  
-const slides   = document.querySelectorAll('.carousel-slide');
-const dots     = document.querySelectorAll('.carousel-dot');
-let current    = 0;
-let animating  = false;
-let autoTimer;
-
-function carouselGoTo(next, direction) {
-  if (animating || next === current) return;
-  animating = true;
-
-  const prev     = current;
-  if (direction === undefined) direction = next > prev ? 1 : -1;
-
-  const entering = slides[next];
-  const leaving  = slides[prev];
-
-  // 1. Position entering slide off-screen instantly (no transition)
-  entering.classList.remove('active', 'exit-left', 'exit-right', 'enter-from-right', 'enter-from-left');
-  entering.classList.add(direction > 0 ? 'enter-from-right' : 'enter-from-left');
-
-  // 2. Force browser to register the off-screen position
-  void entering.offsetWidth;
-
-  // 3. Remove the no-transition staging class, add active so it animates to center
-  entering.classList.remove('enter-from-right', 'enter-from-left');
-  entering.classList.add('active');
-
-  // 4. Slide leaving image out in the opposite direction
-  leaving.classList.remove('active');
-  leaving.classList.add(direction > 0 ? 'exit-left' : 'exit-right');
-
-  // 5. Update dots
-  dots[prev].classList.remove('active');
-  dots[next].classList.add('active');
-  current = next;
-
-  setTimeout(() => {
-    leaving.classList.remove('exit-left', 'exit-right');
-    animating = false;
-  }, 680);
-
-  resetAuto();
-}
-
-function carouselMove(dir) {
-  const next = (current + dir + slides.length) % slides.length;
-  carouselGoTo(next, dir);
-}
-
-function resetAuto() {
-  clearInterval(autoTimer);
-  autoTimer = setInterval(() => carouselMove(1), 5000);
-}
-resetAuto();
-
-// Swipe support
-let touchStartX = 0;
-const trackOuter = document.querySelector('.carousel-track-outer');
-trackOuter.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-trackOuter.addEventListener('touchend',   e => {
-  const dx = e.changedTouches[0].clientX - touchStartX;
-  if (Math.abs(dx) > 40) carouselMove(dx < 0 ? 1 : -1);
-});
-
-// session logs from database here
-
-async function loadChronicleEntries() {
-  const { data, error } = await supabase
-    .from('session_logs')
-    .select('title, session_date, content')
-    .order('session_date', { ascending: false });
-
-  if (error) {
-    console.error('Chronicle load error:', error.message);
-    return;
-  }
-
-  const list = document.getElementById('sessionList');
-
-  data.forEach((entry, index) => {
-    const sessionNumber = data.length - index;
-
-    const dateObj = new Date(entry.session_date);
-    const formattedDate = dateObj.toLocaleDateString('en-US', {
-      year: 'numeric', month: 'long', day: 'numeric'
-    });
-
-    const div = document.createElement('div');
-    div.className = 'session-entry';
-    div.dataset.title = entry.title;
-    div.dataset.session = sessionNumber;
-
-    div.innerHTML = `
-      <div class="session-header" onclick="toggleSession(this)">
-        <div class="session-header-left">
-          <span class="session-number">Session ${sessionNumber}</span>
-          <span class="session-title">${entry.title}</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:1rem;">
-          <span class="session-date">${formattedDate}</span>
-          <span class="session-toggle">▾</span>
-        </div>
-      </div>
-      <div class="session-body scrolling-text-container">
-        <p class="session-notes-placeholder">${entry.content}</p>
-      </div>
-    `;
-
-    list.appendChild(div);
-  });
-}
-
-loadChronicleEntries();
-
-      
-  </script>
-
-</body>
+    </script>
+  </body>
 </html>
