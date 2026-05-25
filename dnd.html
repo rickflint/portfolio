@@ -565,7 +565,7 @@
             placeholder="Search the chronicle…"
             oninput="filterSessions()"
           />
-          <button class="btn btn-primary" onclick="openModal()">
+          <button class="btn btn-primary" onclick="handleAddSession()">
             + Add Session
           </button>
         </div>
@@ -574,7 +574,7 @@
           <!-- Dynamic session entries will be added here -->
         </div>
 
-        <button class="add-session-btn" onclick="openModal()">
+        <button class="add-session-btn" onclick="handleAddSession()">
           ＋ &nbsp;Add Another Session Entry
         </button>
       </div>
@@ -1069,11 +1069,11 @@
       /* ─── MODAL ─── */
       let sessionCount = 1;
 
-      function openModal() {
-        document.getElementById("modalOverlay").classList.add("active");
-        document.body.style.overflow = "hidden";
-        setTimeout(() => document.getElementById("mTitle").focus(), 100);
-      }
+      // function openModal() {
+      //   document.getElementById("modalOverlay").classList.add("active");
+      //   document.body.style.overflow = "hidden";
+      //   setTimeout(() => document.getElementById("mTitle").focus(), 100);
+      // }
 
       function closeModal() {
         document.getElementById("modalOverlay").classList.remove("active");
