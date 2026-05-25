@@ -785,7 +785,7 @@
 
     <!-- ─── ADD SESSION MODAL ─── -->
 
-    <div class="modal-overlay" id="modalOverlay">
+    <!-- <div class="modal-overlay" id="modalOverlay">
       <div class="modal">
         <button class="modal-close" onclick="closeModal()" title="Close">
           ✕
@@ -821,43 +821,98 @@
           </button>
         </div>
       </div>
+    </div> -->
+
+    <!--SESSION MODAL REV 2-->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal">
+        <button class="modal-close" onclick="closeModal()" title="Close">
+          ✕
+        </button>
+        <h2>Add Session Entry</h2>
+        <div class="msg" id="modal-msg"></div>
+        <div class="modal-field">
+          <label>Session Title</label>
+          <input
+            type="text"
+            id="mTitle"
+            placeholder="e.g. The Siege of Whitestone"
+          />
+        </div>
+        <div class="modal-field">
+          <label>Session Date</label>
+          <input type="date" id="mDate" />
+        </div>
+        <div class="modal-field">
+          <label>Notes (paste scribe's text)</label>
+          <textarea
+            id="mNotes"
+            placeholder="Paste the session recap here…"
+            oninput="updateCharCount()"
+          ></textarea>
+          <div class="char-count" id="char-count">0 characters</div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+          <button
+            class="btn btn-primary"
+            id="submit-btn"
+            onclick="addSession()"
+          >
+            Add to Chronicle
+          </button>
+        </div>
+      </div>
     </div>
-   
-<script type="module">
-  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-  const SUPABASE_URL = 'https://mnrbjkqaqtajdsgyvvqv.supabase.co'
-  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ucmJqa3FhcXRhamRzZ3l2dnF2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzMzEwMDAsImV4cCI6MjA5NDkwNzAwMH0.MekDKfdUX0HrZEdS8QefVBW1pB5H14zn9jU-RWzCByY'
+    <script type="module">
+      import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-  const supabase = createClient(SUPABASE_URL, SUPABASE_KEY)
+      const SUPABASE_URL = "https://mnrbjkqaqtajdsgyvvqv.supabase.co";
+      const SUPABASE_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ucmJqa3FhcXRhamRzZ3l2dnF2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzMzEwMDAsImV4cCI6MjA5NDkwNzAwMH0.MekDKfdUX0HrZEdS8QefVBW1pB5H14zn9jU-RWzCByY";
 
-  async function loadChronicleEntries() {
-    const { data, error } = await supabase
-      .from('session_logs')
-      .select('title, session_date, content')
-      .order('session_date', { ascending: false });
+      const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    if (error) {
-      console.error('Chronicle load error:', error.message);
-      return;
-    }
+      // Expose supabase so handleAddSession() in the main script can access it
+      window.supabase = supabase;
 
-    const list = document.getElementById('sessionList');
+      function showModalMsg(text, type) {
+        const el = document.getElementById("modal-msg");
+        el.textContent = text;
+        el.className = `msg ${type}`;
+      }
 
-    data.forEach((entry, index) => {
-      const sessionNumber = data.length - index;
+      async function loadChronicleEntries() {
+        const { data, error } = await supabase
+          .from("session_logs")
+          .select("title, session_date, content")
+          .order("session_date", { ascending: false });
 
-      const dateObj = new Date(entry.session_date);
-      const formattedDate = dateObj.toLocaleDateString('en-US', {
-        year: 'numeric', month: 'long', day: 'numeric'
-      });
+        if (error) {
+          console.error("Chronicle load error:", error.message);
+          return;
+        }
 
-      const div = document.createElement('div');
-      div.className = 'session-entry';
-      div.dataset.title = entry.title;
-      div.dataset.session = sessionNumber;
+        const list = document.getElementById("sessionList");
+        list.innerHTML = "";
 
-      div.innerHTML = `
+        data.forEach((entry, index) => {
+          const sessionNumber = data.length - index;
+
+          const dateObj = new Date(entry.session_date);
+          const formattedDate = dateObj.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
+
+          const div = document.createElement("div");
+          div.className = "session-entry";
+          div.dataset.title = entry.title.toLowerCase();
+          div.dataset.session = sessionNumber;
+
+          div.innerHTML = `
         <div class="session-header" onclick="toggleSession(this)">
           <div class="session-header-left">
             <span class="session-number">Session ${sessionNumber}</span>
@@ -873,14 +928,93 @@
         </div>
       `;
 
-      list.appendChild(div);
-    });
-  }
+          list.appendChild(div);
+        });
+      }
 
-  loadChronicleEntries();
-</script>
-   
-   <script>
+      window.handleAddSession = async function () {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        if (!session) {
+          window.location.href = "scribe.html";
+          return;
+        }
+        document.getElementById("modalOverlay").classList.add("active");
+        document.body.style.overflow = "hidden";
+        setTimeout(() => document.getElementById("mTitle").focus(), 100);
+      };
+
+      window.addSession = async function () {
+        const title = document.getElementById("mTitle").value.trim();
+        const date = document.getElementById("mDate").value;
+        const notes = document.getElementById("mNotes").value.trim();
+        const btn = document.getElementById("submit-btn");
+
+        if (!title || !date || !notes) {
+          showModalMsg(
+            "All fields must be filled before sealing the chronicle.",
+            "error",
+          );
+          return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = "Sealing...";
+
+        const { error } = await supabase.from("session_logs").insert([
+          {
+            title,
+            session_date: date,
+            content: notes,
+          },
+        ]);
+
+        if (error) {
+          showModalMsg(error.message, "error");
+          btn.disabled = false;
+          btn.textContent = "Add to Chronicle";
+          return;
+        }
+
+        showModalMsg("Chronicle sealed and recorded!", "success");
+        clearModalForm();
+        btn.disabled = false;
+        btn.textContent = "Add to Chronicle";
+
+        setTimeout(() => {
+          closeModal();
+          loadChronicleEntries();
+        }, 1200);
+      };
+
+      window.updateCharCount = function () {
+        const len = document.getElementById("mNotes").value.length;
+        document.getElementById("char-count").textContent =
+          `${len.toLocaleString()} characters`;
+      };
+
+      function clearModalForm() {
+        document.getElementById("mTitle").value = "";
+        document.getElementById("mDate").value = "";
+        document.getElementById("mNotes").value = "";
+        document.getElementById("char-count").textContent = "0 characters";
+        const el = document.getElementById("modal-msg");
+        el.textContent = "";
+        el.className = "msg";
+      }
+
+      // Also clear form when modal is closed
+      window.closeModal = function () {
+        document.getElementById("modalOverlay").classList.remove("active");
+        document.body.style.overflow = "";
+        clearModalForm();
+      };
+
+      loadChronicleEntries();
+    </script>
+
+    <script>
       /* ─── HAMBURGER MENU ─────────────────────────────────────────
        On click: toggle .is-open on both the button and the panel.
          Button  → bars morph to ✕ (CSS handles the visual)
@@ -1151,7 +1285,6 @@
         const dx = e.changedTouches[0].clientX - touchStartX;
         if (Math.abs(dx) > 40) carouselMove(dx < 0 ? 1 : -1);
       });
-
     </script>
   </body>
 </html>
