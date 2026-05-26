@@ -958,7 +958,7 @@
             const greeting = document.createElement("p");
             greeting.id = "scribe-greeting";
             greeting.className = "greeting-login";
-            greeting.textContent = `Greetings, ${session.user.email} — you are granted access to edit the session logs.`;
+            greeting.textContent = `Greetings, <strong style="color:var(--accent-gold);">${session.user.email}</strong> — you are granted access to edit the session logs.`;
             subtitle.insertAdjacentElement("beforebegin", greeting);
           }
 
