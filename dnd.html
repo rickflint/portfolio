@@ -817,7 +817,7 @@
     </div>
 
     <!-- ───ADD SESSION MODAL REV 2─── -->
-     
+
     <div class="modal-overlay" id="modalOverlay">
       <div class="modal">
         <button class="modal-close" onclick="closeModal()" title="Close">
@@ -868,6 +868,8 @@
 
       const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
+      let editingId = null; // tracks which entry is being edited
+
       // ─── MESSAGE HELPER ───
       function showModalMsg(id, text, type) {
         const el = document.getElementById(id);
@@ -885,7 +887,7 @@
       async function loadChronicleEntries() {
         const { data, error } = await supabase
           .from("session_logs")
-          .select("title, session_date, content")
+          .select("id, title, session_date, content")
           .order("session_date", { ascending: false });
 
         if (error) {
@@ -910,6 +912,7 @@
           div.className = "session-entry";
           div.dataset.title = entry.title.toLowerCase();
           div.dataset.session = sessionNumber;
+          div.dataset.id = entry.id;
 
           div.innerHTML = `
         <div class="session-header" onclick="toggleSession(this)">
@@ -929,6 +932,87 @@
 
           list.appendChild(div);
         });
+
+        // After entries render, check if logged in and show edit buttons
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        if (session) showEditButtons();
+      }
+
+      // ─── SCRIBE GREETING + EDIT BUTTONS ───
+      async function checkScribeAccess() {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+
+        if (session) {
+          // Show greeting above the subtitle
+          const subtitle = document.querySelector("#log .section-subtitle");
+          if (subtitle && !document.getElementById("scribe-greeting")) {
+            const greeting = document.createElement("p");
+            greeting.id = "scribe-greeting";
+            greeting.style.cssText =
+              "font-size:0.85rem; color: var(--gold); margin-top:0.5rem; font-style:italic; text-align:center;";
+            greeting.textContent = `Greetings, ${session.user.email} — you are granted access to edit the session logs.`;
+            subtitle.insertAdjacentElement("beforebegin", greeting);
+          }
+
+          showEditButtons();
+        }
+      }
+
+      function showEditButtons() {
+        document.querySelectorAll(".session-entry").forEach((entry) => {
+          if (entry.querySelector(".edit-btn")) return; // already has one
+          const headerRight = entry.querySelector(
+            ".session-header > div:last-child",
+          );
+          const btn = document.createElement("button");
+          btn.className = "edit-btn";
+          btn.textContent = "✎ Edit";
+          btn.style.cssText =
+            "font-size:0.7rem; padding:0.2rem 0.6rem; background:transparent; border:1px solid var(--gold); color:var(--gold); border-radius:3px; cursor:pointer;";
+          btn.onclick = (e) => {
+            e.stopPropagation();
+            openEditModal(entry);
+          };
+          headerRight.insertBefore(
+            btn,
+            headerRight.querySelector(".session-toggle"),
+          );
+        });
+      }
+
+      function openEditModal(entry) {
+        const id = entry.dataset.id;
+        const title = entry.querySelector(".session-title").textContent;
+        const date = entry.querySelector(".session-date").textContent;
+        const content = entry.querySelector(
+          ".session-notes-placeholder",
+        ).textContent;
+
+        // Convert displayed date back to YYYY-MM-DD for the date input
+        const dateObj = new Date(date);
+        const isoDate = dateObj.toISOString().split("T")[0];
+
+        // Pre-fill modal fields
+        document.getElementById("mTitle").value = title;
+        document.getElementById("mDate").value = isoDate;
+        document.getElementById("mNotes").value = content;
+        document.getElementById("char-count").textContent =
+          `${content.length.toLocaleString()} characters`;
+
+        // Set edit mode
+        editingId = id;
+
+        // Update submit button label
+        document.getElementById("submit-btn").textContent = "Update Chronicle";
+
+        // Open the modal
+        document.getElementById("modalOverlay").classList.add("active");
+        document.body.style.overflow = "hidden";
+        setTimeout(() => document.getElementById("mTitle").focus(), 100);
       }
 
       // ─── LOGIN MODAL ───
@@ -965,8 +1049,11 @@
           return;
         }
 
-        // Login success — close login modal, open add session modal
+        // Login success
         closeLoginModal();
+        checkScribeAccess();
+
+        // Open add session modal
         document.getElementById("modalOverlay").classList.add("active");
         document.body.style.overflow = "hidden";
         setTimeout(() => document.getElementById("mTitle").focus(), 100);
@@ -983,15 +1070,20 @@
           setTimeout(() => document.getElementById("mEmail").focus(), 100);
           return;
         }
+        // Reset to add mode
+        editingId = null;
+        document.getElementById("submit-btn").textContent = "Add to Chronicle";
         document.getElementById("modalOverlay").classList.add("active");
         document.body.style.overflow = "hidden";
         setTimeout(() => document.getElementById("mTitle").focus(), 100);
       };
 
-      // ─── ADD SESSION MODAL ───
+      // ─── ADD / UPDATE SESSION MODAL ───
       window.closeModal = function () {
         document.getElementById("modalOverlay").classList.remove("active");
         document.body.style.overflow = "";
+        editingId = null;
+        document.getElementById("submit-btn").textContent = "Add to Chronicle";
         clearModalForm();
       };
 
@@ -1011,24 +1103,35 @@
         }
 
         btn.disabled = true;
-        btn.textContent = "Sealing...";
+        btn.textContent = editingId ? "Updating..." : "Sealing...";
 
-        const { error } = await supabase.from("session_logs").insert([
-          {
-            title,
-            session_date: date,
-            content: notes,
-          },
-        ]);
+        let error;
+
+        if (editingId) {
+          // UPDATE existing entry
+          ({ error } = await supabase
+            .from("session_logs")
+            .update({ title, session_date: date, content: notes })
+            .eq("id", editingId));
+        } else {
+          // INSERT new entry
+          ({ error } = await supabase
+            .from("session_logs")
+            .insert([{ title, session_date: date, content: notes }]));
+        }
 
         if (error) {
           showModalMsg("modal-msg", error.message, "error");
           btn.disabled = false;
-          btn.textContent = "Add to Chronicle";
+          btn.textContent = editingId ? "Update Chronicle" : "Add to Chronicle";
           return;
         }
 
-        showModalMsg("modal-msg", "Chronicle sealed and recorded!", "success");
+        showModalMsg(
+          "modal-msg",
+          editingId ? "Chronicle updated!" : "Chronicle sealed and recorded!",
+          "success",
+        );
         clearModalForm();
         btn.disabled = false;
         btn.textContent = "Add to Chronicle";
@@ -1058,7 +1161,9 @@
         if (e.key === "Enter") window.handleModalLogin();
       });
 
+      // ─── INIT ───
       loadChronicleEntries();
+      checkScribeAccess();
     </script>
 
     <script>
