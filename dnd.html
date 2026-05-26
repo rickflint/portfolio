@@ -824,6 +824,11 @@
           ✕
         </button>
         <h2>Add Session Entry</h2>
+        <!-- User info will be injected here after login -->
+        <div class="user-bar" id="modal-user-bar" style="display:none;">
+          <span>Logged in as: <strong id="modal-user-email"></strong></span>
+          <button class="signout" onclick="handleModalSignout()">Sign Out</button>
+        </div>
         <div class="msg" id="modal-msg"></div>
         <div class="modal-field">
           <label>Session Title</label>
@@ -952,13 +957,14 @@
           if (subtitle && !document.getElementById("scribe-greeting")) {
             const greeting = document.createElement("p");
             greeting.id = "scribe-greeting";
-            greeting.style.cssText =
-              "font-size:1.05rem; color: var(--accent-gold2); margin-top:0.5rem; ";
+            greeting.className = "greeting-login";
             greeting.textContent = `Greetings, ${session.user.email} — you are granted access to edit the session logs.`;
             subtitle.insertAdjacentElement("beforebegin", greeting);
           }
 
           showEditButtons();
+          document.getElementById("modal-user-bar").style.display = "flex";
+          document.getElementById("modal-user-email").textContent = session.user.email;
         }
       }
 
@@ -1022,6 +1028,15 @@
         document.getElementById("mEmail").value = "";
         document.getElementById("mPassword").value = "";
         clearMsg("login-modal-msg");
+      };
+
+      window.handleModalSignout = async function () {
+        await supabase.auth.signOut();
+        document.getElementById("modal-user-bar").style.display = "none";
+        document.getElementById("modal-user-email").textContent = "";   
+        document.getElementById("scribe-greeting")?.remove();
+        document.querySelectorAll(".edit-btn").forEach((btn) => btn.remove());
+        closeModal();
       };
 
       window.handleModalLogin = async function () {
