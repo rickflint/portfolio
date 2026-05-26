@@ -883,8 +883,7 @@ section {
 }
 
 .session-notes-placeholder {
-  font-style: italic;
-  color: var(--text-dim);
+  color: var(--accent-gold2);
   font-size: 0.85rem;
   padding-top: 1rem;
 }
