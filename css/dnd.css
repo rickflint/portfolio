@@ -24,6 +24,7 @@
   --font-body: "Space Grotesk", sans-serif;
   --radius: 4px;
   --transition: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  --border: rgba(201,168,76,0.25);
 }
 
 html {
@@ -881,14 +882,13 @@ section {
   font-family: var(--font-body);
   padding-top: 1rem;
 }
-/* repushing */
+
 .session-notes-placeholder {
   color: var(--accent-gold2);
   font-size: 0.85rem;
   padding-top: 1rem;
 }
 
-/* Add session button. why isn't git pushing 2 */
 .add-session-btn {
   margin-top: 2rem;
   width: 100%;
@@ -940,6 +940,36 @@ section {
   overflow-y: auto;
   animation: fadeUp 0.3s ease both;
   position: relative;
+}
+/* FOR THE DATE ICON IN THE SESSION ENTRY */
+.date-wrapper {
+  position: relative;
+  display: block;
+}
+
+.date-wrapper input[type="date"] {
+  width: 100%;
+  padding-right: 2.2rem; /* make room for the icon */
+}
+
+.date-wrapper i {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #c8a96e;
+  pointer-events: none;
+  font-size: 1rem;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
 }
 
 .modal h2 {
@@ -1585,7 +1615,7 @@ footer p {
 /* Logged In Styles */
 
 .greeting-login {
-  font-size: 1.05rem;
+  font-size: 1.0rem;
   margin-top: 0.5rem;
 }
 
@@ -1601,7 +1631,7 @@ footer p {
   font-family: "Cinzel", serif;
   font-size: 0.7rem;
   letter-spacing: 0.1em;
-  color: var(--muted);
+  color: var(--text-muted);
 }
 .user-bar span strong {
   color: var(--gold);

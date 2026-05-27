@@ -18,12 +18,13 @@
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The Chronicled Fellowship</title>
+    <title>The Chronicled Fellowship: A Dungeons & Dragons Campaign</title>
     <link rel="stylesheet" href="./css/dnd.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Cinzel+Decorative:wght@400;700;900&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
   <body>
     <!-- ─── NAVIGATION ─── -->
@@ -826,7 +827,7 @@
         <h2>Add Session Entry</h2>
         <!-- User info will be injected here after login -->
         <div class="user-bar" id="modal-user-bar" style="display: none">
-          <span>Logged in as: <strong id="modal-user-email"></strong></span>
+          <span>LOGGED IN AS: <strong id="modal-user-email"></strong></span>
           <button class="signout" onclick="handleModalSignout()">
             Sign Out
           </button>
@@ -842,7 +843,10 @@
         </div>
         <div class="modal-field">
           <label>Session Date</label>
+          <div class="date-wrapper">
           <input type="date" id="mDate" />
+          <i class="fa-solid fa-calendar-days"></i>
+          </div>
         </div>
         <div class="modal-field">
           <label>Notes (paste scribe's text)</label>
@@ -975,7 +979,8 @@
 
                 showEditButtons();
                 document.getElementById("modal-user-bar").style.display = "flex";
-                document.getElementById("modal-user-email").textContent = session.user.email;
+                document.getElementById("modal-user-email").innerHTML = `<span style="color: var(--accent-teal);">${session.user.email.toUpperCase()}</span>`;
+                // document.getElementById("modal-user-email").textContent = session.user.email.toUpperCase();
               }
             }
 
