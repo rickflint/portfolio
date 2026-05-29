@@ -146,6 +146,64 @@ body::before {
   animation-delay: 0.3s;
 }
 
+/* ─── ANNOUNCEMENT BANNER ─── */
+.announcement-banner {
+  position: relative;
+  width: 100%;
+  background: rgb(67 37 12 / 73%);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 3rem;
+  z-index: 1000;
+  box-sizing: border-box;
+  /* opacity: 0.95; */
+}
+
+.banner-text {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  color: rgba(230, 215, 180, 0.92);
+  text-align: center;
+  margin: 20px auto;
+  width: 30%;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+.banner-icon {
+  color: var(--accent-gold, #d4af37);
+  margin: 0 0.5rem;
+  font-size: 0.75rem;
+  opacity: 0.8;
+}
+
+.banner-close {
+  position: absolute;
+  right: 1rem;
+  top: 30%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: rgba(212, 175, 55, 0.6);
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.banner-close:hover {
+  color: var(--accent-gold, #d4af37);
+}
+
+.announcement-banner.hidden {
+  display: none;
+}
+
 /* ─── SCROLLBAR ──────────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 6px;

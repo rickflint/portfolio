@@ -24,9 +24,28 @@
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Cinzel+Decorative:wght@400;700;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
   </head>
   <body>
+    <!-- ─── ANNOUNCEMENT BANNER ─── -->
+    <div class="announcement-banner" id="announcementBanner">
+      <p class="banner-text">
+        <span class="banner-icon">⚔</span>
+        Our last session was a blast! Check out the latest chronicle entry for all the epic details. The party faced off against a horde of bats, uncovered dark secrets in the town of Bavaria, 
+        and barely escaped with their lives. Read all about it in the chronicle!
+        <span class="banner-icon">⚔</span>
+      </p>
+      <button class="banner-close" id="bannerClose" aria-label="Dismiss banner">
+        ✕
+      </button>
+    </div>
+
     <!-- ─── NAVIGATION ─── -->
 
     <nav>
@@ -554,7 +573,7 @@
         <div class="divider"></div>
         <p class="section-subtitle">
           A full account of every session — battles fought, alliances forged,
-          and mysteries uncovered. Written and transcripbed all by our scribe,
+          and mysteries uncovered. Written and transcribed all by our scribe,
           Bawkana.
         </p>
 
@@ -633,8 +652,8 @@
             <span class="lore-icon">🏰</span>
             <h3>Current Arc</h3>
             <p>
-              This secion will summarize the current story arc, main antagonist,
-              or primary quest the party is currently engaged in.
+              This section will summarize the current story arc, main
+              antagonist, or primary quest the party is currently engaged in.
             </p>
           </div>
         </div>
@@ -844,8 +863,8 @@
         <div class="modal-field">
           <label>Session Date</label>
           <div class="date-wrapper">
-          <input type="date" id="mDate" />
-          <i class="fa-solid fa-calendar-days"></i>
+            <input type="date" id="mDate" />
+            <i class="fa-solid fa-calendar-days"></i>
           </div>
         </div>
         <div class="modal-field">
@@ -871,70 +890,70 @@
     </div>
 
     <script type="module">
-            import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
+      import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm";
 
-            const SUPABASE_URL = "https://mnrbjkqaqtajdsgyvvqv.supabase.co";
-            const SUPABASE_KEY =
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ucmJqa3FhcXRhamRzZ3l2dnF2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzMzEwMDAsImV4cCI6MjA5NDkwNzAwMH0.MekDKfdUX0HrZEdS8QefVBW1pB5H14zn9jU-RWzCByY";
+      const SUPABASE_URL = "https://mnrbjkqaqtajdsgyvvqv.supabase.co";
+      const SUPABASE_KEY =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1ucmJqa3FhcXRhamRzZ3l2dnF2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkzMzEwMDAsImV4cCI6MjA5NDkwNzAwMH0.MekDKfdUX0HrZEdS8QefVBW1pB5H14zn9jU-RWzCByY";
 
-            const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+      const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-          // ─── SANITIZE CONTENT─── 
+      // ─── SANITIZE CONTENT───
 
-            function sanitizeContent(html) {
-              return html
-                .replace(/<script[\s\S]*?<\/script>/gi, '')
-                .replace(/on\w+="[^"]*"/gi, '')
-                .replace(/on\w+='[^']*'/gi, '');
-            }
+      function sanitizeContent(html) {
+        return html
+          .replace(/<script[\s\S]*?<\/script>/gi, "")
+          .replace(/on\w+="[^"]*"/gi, "")
+          .replace(/on\w+='[^']*'/gi, "");
+      }
 
-            let editingId = null; // tracks which entry is being edited
+      let editingId = null; // tracks which entry is being edited
 
-            // ─── MESSAGE HELPER ───
-            function showModalMsg(id, text, type) {
-              const el = document.getElementById(id);
-              el.textContent = text;
-              el.className = `msg ${type}`;
-            }
+      // ─── MESSAGE HELPER ───
+      function showModalMsg(id, text, type) {
+        const el = document.getElementById(id);
+        el.textContent = text;
+        el.className = `msg ${type}`;
+      }
 
-            function clearMsg(id) {
-              const el = document.getElementById(id);
-              el.textContent = "";
-              el.className = "msg";
-            }
+      function clearMsg(id) {
+        const el = document.getElementById(id);
+        el.textContent = "";
+        el.className = "msg";
+      }
 
-            // ─── LOAD CHRONICLE ───
-            async function loadChronicleEntries() {
-              const { data, error } = await supabase
-                .from("session_logs")
-                .select("id, title, session_date, content")
-                .order("session_date", { ascending: false });
+      // ─── LOAD CHRONICLE ───
+      async function loadChronicleEntries() {
+        const { data, error } = await supabase
+          .from("session_logs")
+          .select("id, title, session_date, content")
+          .order("session_date", { ascending: false });
 
-              if (error) {
-                console.error("Chronicle load error:", error.message);
-                return;
-              }
+        if (error) {
+          console.error("Chronicle load error:", error.message);
+          return;
+        }
 
-              const list = document.getElementById("sessionList");
-              list.innerHTML = "";
+        const list = document.getElementById("sessionList");
+        list.innerHTML = "";
 
-              data.forEach((entry, index) => {
-                const sessionNumber = data.length - index;
+        data.forEach((entry, index) => {
+          const sessionNumber = data.length - index;
 
-                const dateObj = new Date(entry.session_date);
-                const formattedDate = dateObj.toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                });
+          const dateObj = new Date(entry.session_date);
+          const formattedDate = dateObj.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
 
-                const div = document.createElement("div");
-                div.className = "session-entry";
-                div.dataset.title = entry.title.toLowerCase();
-                div.dataset.session = sessionNumber;
-                div.dataset.id = entry.id;
+          const div = document.createElement("div");
+          div.className = "session-entry";
+          div.dataset.title = entry.title.toLowerCase();
+          div.dataset.session = sessionNumber;
+          div.dataset.id = entry.id;
 
-                div.innerHTML = `
+          div.innerHTML = `
               <div class="session-header" onclick="toggleSession(this)">
                 <div class="session-header-left">
                   <span class="session-number">Session ${sessionNumber}</span>
@@ -950,254 +969,262 @@
               </div>
             `;
 
-                list.appendChild(div);
-              });
+          list.appendChild(div);
+        });
 
-              // After entries render, check if logged in and show edit buttons
-              const {
-                data: { session },
-              } = await supabase.auth.getSession();
-              if (session) showEditButtons();
-            }
+        // After entries render, check if logged in and show edit buttons
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        if (session) showEditButtons();
+      }
 
-            // ─── SCRIBE GREETING + EDIT BUTTONS ───
-            async function checkScribeAccess() {
-              const {
-                data: { session },
-              } = await supabase.auth.getSession();
+      // ─── SCRIBE GREETING + EDIT BUTTONS ───
+      async function checkScribeAccess() {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
 
-              if (session) {
-                // Show greeting above the subtitle
-                const subtitle = document.querySelector("#log .section-subtitle");
-                if (subtitle && !document.getElementById("scribe-greeting")) {
-                  const greeting = document.createElement("p");
-                  greeting.id = "scribe-greeting";
-                  greeting.className = "greeting-login";
-                  greeting.innerHTML = `Greetings, <strong style="color:var(--accent-gold);">${session.user.email}</strong> — you are granted access to edit the session logs.`;
-                  subtitle.insertAdjacentElement("beforebegin", greeting);
-                }
+        if (session) {
+          // Show greeting above the subtitle
+          const subtitle = document.querySelector("#log .section-subtitle");
+          if (subtitle && !document.getElementById("scribe-greeting")) {
+            const greeting = document.createElement("p");
+            greeting.id = "scribe-greeting";
+            greeting.className = "greeting-login";
+            greeting.innerHTML = `Greetings, <strong style="color:var(--accent-gold);">${session.user.email}</strong> — you are granted access to edit the session logs.`;
+            subtitle.insertAdjacentElement("beforebegin", greeting);
+          }
 
-                showEditButtons();
-                document.getElementById("modal-user-bar").style.display = "flex";
-                document.getElementById("modal-user-email").innerHTML = `<span style="color: var(--accent-teal);">${session.user.email.toUpperCase()}</span>`;
-                // document.getElementById("modal-user-email").textContent = session.user.email.toUpperCase();
-              }
-            }
+          showEditButtons();
+          document.getElementById("modal-user-bar").style.display = "flex";
+          document.getElementById("modal-user-email").innerHTML =
+            `<span style="color: var(--accent-teal);">${session.user.email.toUpperCase()}</span>`;
+          // document.getElementById("modal-user-email").textContent = session.user.email.toUpperCase();
+        }
+      }
 
-            function showEditButtons() {
-              document.querySelectorAll(".session-entry").forEach((entry) => {
-                if (entry.querySelector(".edit-btn")) return; // already has one
-                const headerRight = entry.querySelector(
-                  ".session-header > div:last-child",
-                );
-                const btn = document.createElement("button");
-                btn.className = "edit-btn";
-                btn.textContent = "✎ Edit";
-                btn.style.cssText =
-                  "font-size:0.7rem; padding:0.2rem 0.6rem; background:transparent; border:1px solid var(--gold); color:var(--gold); border-radius:3px; cursor:pointer;";
-                btn.onclick = (e) => {
-                  e.stopPropagation();
-                  openEditModal(entry);
-                };
-                headerRight.insertBefore(
-                  btn,
-                  headerRight.querySelector(".session-toggle"),
-                );
-              });
-            }
+      function showEditButtons() {
+        document.querySelectorAll(".session-entry").forEach((entry) => {
+          if (entry.querySelector(".edit-btn")) return; // already has one
+          const headerRight = entry.querySelector(
+            ".session-header > div:last-child",
+          );
+          const btn = document.createElement("button");
+          btn.className = "edit-btn";
+          btn.textContent = "✎ Edit";
+          btn.style.cssText =
+            "font-size:0.7rem; padding:0.2rem 0.6rem; background:transparent; border:1px solid var(--gold); color:var(--gold); border-radius:3px; cursor:pointer;";
+          btn.onclick = (e) => {
+            e.stopPropagation();
+            openEditModal(entry);
+          };
+          headerRight.insertBefore(
+            btn,
+            headerRight.querySelector(".session-toggle"),
+          );
+        });
+      }
 
-            function openEditModal(entry) {
-              const id = entry.dataset.id;
-              const title = entry.querySelector(".session-title").textContent;
-              const date = entry.querySelector(".session-date").textContent;
-              const content = entry.querySelector(
-                ".session-notes-placeholder",
-              ).textContent;
+      function openEditModal(entry) {
+        const id = entry.dataset.id;
+        const title = entry.querySelector(".session-title").textContent;
+        const date = entry.querySelector(".session-date").textContent;
+        const content = entry.querySelector(
+          ".session-notes-placeholder",
+        ).textContent;
 
-              // Convert displayed date back to YYYY-MM-DD for the date input
-              const dateObj = new Date(date);
-              const isoDate = dateObj.toISOString().split("T")[0];
+        // Convert displayed date back to YYYY-MM-DD for the date input
+        const dateObj = new Date(date);
+        const isoDate = dateObj.toISOString().split("T")[0];
 
-              // Pre-fill modal fields
-              document.getElementById("mTitle").value = title;
-              document.getElementById("mDate").value = isoDate;
-              document.getElementById("mNotes").value = content;
-              document.getElementById("char-count").textContent =
-                `${content.length.toLocaleString()} characters`;
+        // Pre-fill modal fields
+        document.getElementById("mTitle").value = title;
+        document.getElementById("mDate").value = isoDate;
+        document.getElementById("mNotes").value = content;
+        document.getElementById("char-count").textContent =
+          `${content.length.toLocaleString()} characters`;
 
-              // Set edit mode
-              editingId = id;
+        // Set edit mode
+        editingId = id;
 
-              // Update submit button label
-              document.getElementById("submit-btn").textContent = "Update Chronicle";
+        // Update submit button label
+        document.getElementById("submit-btn").textContent = "Update Chronicle";
 
-              // Open the modal
-              document.getElementById("modalOverlay").classList.add("active");
-              document.body.style.overflow = "hidden";
-              setTimeout(() => document.getElementById("mTitle").focus(), 100);
-            }
+        // Open the modal
+        document.getElementById("modalOverlay").classList.add("active");
+        document.body.style.overflow = "hidden";
+        setTimeout(() => document.getElementById("mTitle").focus(), 100);
+      }
 
-            // ─── LOGIN MODAL ───
-            window.closeLoginModal = function () {
-              document.getElementById("loginOverlay").classList.remove("active");
-              document.body.style.overflow = "";
-              document.getElementById("mEmail").value = "";
-              document.getElementById("mPassword").value = "";
-              clearMsg("login-modal-msg");
-            };
+      // ─── LOGIN MODAL ───
+      window.closeLoginModal = function () {
+        document.getElementById("loginOverlay").classList.remove("active");
+        document.body.style.overflow = "";
+        document.getElementById("mEmail").value = "";
+        document.getElementById("mPassword").value = "";
+        clearMsg("login-modal-msg");
+      };
 
-            window.handleModalSignout = async function () {
-              await supabase.auth.signOut();
-              document.getElementById("modal-user-bar").style.display = "none";
-              document.getElementById("modal-user-email").textContent = "";
-              document.getElementById("scribe-greeting")?.remove();
-              document.querySelectorAll(".edit-btn").forEach((btn) => btn.remove());
-              closeModal();
-            };
+      window.handleModalSignout = async function () {
+        await supabase.auth.signOut();
+        document.getElementById("modal-user-bar").style.display = "none";
+        document.getElementById("modal-user-email").textContent = "";
+        document.getElementById("scribe-greeting")?.remove();
+        document.querySelectorAll(".edit-btn").forEach((btn) => btn.remove());
+        closeModal();
+      };
 
-            window.handleModalLogin = async function () {
-              const email = document.getElementById("mEmail").value.trim();
-              const password = document.getElementById("mPassword").value;
-              const btn = document.getElementById("login-modal-btn");
+      window.handleModalLogin = async function () {
+        const email = document.getElementById("mEmail").value.trim();
+        const password = document.getElementById("mPassword").value;
+        const btn = document.getElementById("login-modal-btn");
 
-              if (!email || !password) {
-                showModalMsg("login-modal-msg", "Enter your credentials.", "error");
-                return;
-              }
+        if (!email || !password) {
+          showModalMsg("login-modal-msg", "Enter your credentials.", "error");
+          return;
+        }
 
-              btn.disabled = true;
-              btn.textContent = "Authenticating...";
+        btn.disabled = true;
+        btn.textContent = "Authenticating...";
 
-              const { data, error } = await supabase.auth.signInWithPassword({
-                email,
-                password,
-              });
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
 
-              if (error) {
-                showModalMsg("login-modal-msg", error.message, "error");
-                btn.disabled = false;
-                btn.textContent = "Enter";
-                return;
-              }
+        if (error) {
+          showModalMsg("login-modal-msg", error.message, "error");
+          btn.disabled = false;
+          btn.textContent = "Enter";
+          return;
+        }
 
-              // Login success
-              closeLoginModal();
-              checkScribeAccess();
+        // Login success
+        closeLoginModal();
+        checkScribeAccess();
 
-              // Open add session modal
-              document.getElementById("modalOverlay").classList.add("active");
-              document.body.style.overflow = "hidden";
-              setTimeout(() => document.getElementById("mTitle").focus(), 100);
-            };
+        // Open add session modal
+        document.getElementById("modalOverlay").classList.add("active");
+        document.body.style.overflow = "hidden";
+        setTimeout(() => document.getElementById("mTitle").focus(), 100);
+      };
 
-            // ─── HANDLE ADD SESSION BUTTON ───
-            window.handleAddSession = async function () {
-              const {
-                data: { session },
-              } = await supabase.auth.getSession();
-              if (!session) {
-                document.getElementById("loginOverlay").classList.add("active");
-                document.body.style.overflow = "hidden";
-                setTimeout(() => document.getElementById("mEmail").focus(), 100);
-                return;
-              }
-              // Reset to add mode
-              editingId = null;
-              document.getElementById("submit-btn").textContent = "Add to Chronicle";
-              document.getElementById("modalOverlay").classList.add("active");
-              document.body.style.overflow = "hidden";
-              setTimeout(() => document.getElementById("mTitle").focus(), 100);
-            };
+      // ─── HANDLE ADD SESSION BUTTON ───
+      window.handleAddSession = async function () {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        if (!session) {
+          document.getElementById("loginOverlay").classList.add("active");
+          document.body.style.overflow = "hidden";
+          setTimeout(() => document.getElementById("mEmail").focus(), 100);
+          return;
+        }
+        // Reset to add mode
+        editingId = null;
+        document.getElementById("submit-btn").textContent = "Add to Chronicle";
+        document.getElementById("modalOverlay").classList.add("active");
+        document.body.style.overflow = "hidden";
+        setTimeout(() => document.getElementById("mTitle").focus(), 100);
+      };
 
-            // ─── ADD / UPDATE SESSION MODAL ───
-            window.closeModal = function () {
-              document.getElementById("modalOverlay").classList.remove("active");
-              document.body.style.overflow = "";
-              editingId = null;
-              document.getElementById("submit-btn").textContent = "Add to Chronicle";
-              clearModalForm();
-            };
+      // ─── ADD / UPDATE SESSION MODAL ───
+      window.closeModal = function () {
+        document.getElementById("modalOverlay").classList.remove("active");
+        document.body.style.overflow = "";
+        editingId = null;
+        document.getElementById("submit-btn").textContent = "Add to Chronicle";
+        clearModalForm();
+      };
 
-            window.addSession = async function () {
-              const title = document.getElementById("mTitle").value.trim();
-              const date = document.getElementById("mDate").value;
-              const notes = sanitizeContent(document.getElementById("mNotes").value.trim());
-              const btn = document.getElementById("submit-btn");
+      window.addSession = async function () {
+        const title = document.getElementById("mTitle").value.trim();
+        const date = document.getElementById("mDate").value;
+        const notes = sanitizeContent(
+          document.getElementById("mNotes").value.trim(),
+        );
+        const btn = document.getElementById("submit-btn");
 
-              if (!title || !date || !notes) {
-                showModalMsg(
-                  "modal-msg",
-                  "All fields must be filled before sealing the chronicle.",
-                  "error",
-                );
-                return;
-              }
+        if (!title || !date || !notes) {
+          showModalMsg(
+            "modal-msg",
+            "All fields must be filled before sealing the chronicle.",
+            "error",
+          );
+          return;
+        }
 
-              btn.disabled = true;
-              btn.textContent = editingId ? "Updating..." : "Sealing...";
+        btn.disabled = true;
+        btn.textContent = editingId ? "Updating..." : "Sealing...";
 
-              let error;
+        let error;
 
-              if (editingId) {
-                // UPDATE existing entry
-                ({ error } = await supabase
-                  .from("session_logs")
-                  .update({ title, session_date: date, content: notes })
-                  .eq("id", editingId));
-              } else {
-                // INSERT new entry
-                ({ error } = await supabase
-                  .from("session_logs")
-                  .insert([{ title, session_date: date, content: notes }]));
-              }
+        if (editingId) {
+          // UPDATE existing entry
+          ({ error } = await supabase
+            .from("session_logs")
+            .update({ title, session_date: date, content: notes })
+            .eq("id", editingId));
+        } else {
+          // INSERT new entry
+          ({ error } = await supabase
+            .from("session_logs")
+            .insert([{ title, session_date: date, content: notes }]));
+        }
 
-              if (error) {
-                showModalMsg("modal-msg", error.message, "error");
-                btn.disabled = false;
-                btn.textContent = editingId ? "Update Chronicle" : "Add to Chronicle";
-                return;
-              }
+        if (error) {
+          showModalMsg("modal-msg", error.message, "error");
+          btn.disabled = false;
+          btn.textContent = editingId ? "Update Chronicle" : "Add to Chronicle";
+          return;
+        }
 
-              showModalMsg(
-                "modal-msg",
-                editingId ? "Chronicle updated!" : "Chronicle sealed and recorded!",
-                "success",
-              );
-              clearModalForm();
-              btn.disabled = false;
-              btn.textContent = "Add to Chronicle";
+        showModalMsg(
+          "modal-msg",
+          editingId ? "Chronicle updated!" : "Chronicle sealed and recorded!",
+          "success",
+        );
+        clearModalForm();
+        btn.disabled = false;
+        btn.textContent = "Add to Chronicle";
 
-              setTimeout(() => {
-                closeModal();
-                loadChronicleEntries();
-              }, 1200);
-            };
+        setTimeout(() => {
+          closeModal();
+          loadChronicleEntries();
+        }, 1200);
+      };
 
-            window.updateCharCount = function () {
-              const len = document.getElementById("mNotes").value.length;
-              document.getElementById("char-count").textContent =
-                `${len.toLocaleString()} characters`;
-            };
+      window.updateCharCount = function () {
+        const len = document.getElementById("mNotes").value.length;
+        document.getElementById("char-count").textContent =
+          `${len.toLocaleString()} characters`;
+      };
 
-            function clearModalForm() {
-              document.getElementById("mTitle").value = "";
-              document.getElementById("mDate").value = "";
-              document.getElementById("mNotes").value = "";
-              document.getElementById("char-count").textContent = "0 characters";
-              clearMsg("modal-msg");
-            }
+      function clearModalForm() {
+        document.getElementById("mTitle").value = "";
+        document.getElementById("mDate").value = "";
+        document.getElementById("mNotes").value = "";
+        document.getElementById("char-count").textContent = "0 characters";
+        clearMsg("modal-msg");
+      }
 
-            // Enter key on password field triggers login
-            document.getElementById("mPassword").addEventListener("keydown", (e) => {
-              if (e.key === "Enter") window.handleModalLogin();
-            });
+      // Enter key on password field triggers login
+      document.getElementById("mPassword").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") window.handleModalLogin();
+      });
 
-            // ─── INIT ───
-            loadChronicleEntries();
-            checkScribeAccess();
+      // ─── INIT ───
+      loadChronicleEntries();
+      checkScribeAccess();
     </script>
 
     <script>
+      /* ─── ANNOUNCEMENT BANNER ─── */
+      document.getElementById("bannerClose").addEventListener("click", () => {
+        document.getElementById("announcementBanner").classList.add("hidden");
+      });
+
       /* ─── HAMBURGER MENU ─────────────────────────────────────────
        On click: toggle .is-open on both the button and the panel.
          Button  → bars morph to ✕ (CSS handles the visual)
@@ -1277,7 +1304,8 @@
           document.getElementById("mTitle").value.trim() || "Untitled Session";
         const date =
           document.getElementById("mDate").value.trim() || "Date Unknown";
-        const notes = sanitizeContent(document.getElementById("mNotes").value.trim()) || "";
+        const notes =
+          sanitizeContent(document.getElementById("mNotes").value.trim()) || "";
         sessionCount++;
 
         const toRoman = (n) => {
