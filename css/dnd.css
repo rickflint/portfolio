@@ -169,9 +169,16 @@ body::before {
   color: rgba(230, 215, 180, 0.92);
   text-align: center;
   margin: 20px auto;
-  width: 30%;
+  width: 60%;
   line-height: 1.5;
   letter-spacing: 0.02em;
+}
+
+@media (max-width: 768px) {
+  .banner-text {
+    width: 95%;
+    font-size: 0.75rem;
+  }
 }
 
 .banner-icon {
