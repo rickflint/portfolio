@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nails by Reign</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #faf6f1;
+      --blush: #e8d5c4;
+      --dusty-rose: #c9a090;
+      --mauve: #9e6e6e;
+      --deep: #3a2a2a;
+      --gold: #c4a165;
+      --light-gold: #e8d5a3;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--deep);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.5;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 500;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.4rem 3rem;
+      background: var(--cream);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    nav.scrolled {
+      border-color: rgba(58,42,42,0.1);
+      box-shadow: 0 2px 20px rgba(58,42,42,0.06);
+    }
+    .nav-logo {
+      display: flex; align-items: center;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .nav-logo svg { display: block; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--deep); text-decoration: none; opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+
+    /* ── HERO ── */
+    .hero {
+      padding-top: 6rem;
+      display: flex;
+      justify-content: center;
+      background: var(--cream);
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      max-width: 1440px;
+      width: 100%;
+      padding: 4rem 5rem;
+      align-items: center;
+      gap: 4rem;
+    }
+    .hero-left {
+      display: flex; flex-direction: column;
+      justify-content: center;
+      position: relative; z-index: 2;
+    }
+    .hero-eyebrow {
+      font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase;
+      color: var(--mauve); margin-bottom: 1.5rem;
+      animation: fadeUp 0.9s 0.2s both ease-out;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4.5rem, 8vw, 7.5rem);
+      font-weight: 300; line-height: 0.92;
+      color: var(--deep); margin-bottom: 2rem;
+      animation: fadeUp 1s 0.4s both ease-out;
+    }
+    .hero-title em { font-style: italic; color: var(--mauve); }
+    .hero-sub {
+      font-size: 0.85rem; letter-spacing: 0.05em; line-height: 1.8;
+      max-width: 320px; color: var(--deep); opacity: 0.7;
+      animation: fadeUp 1s 0.6s both ease-out;
+      margin-bottom: 3rem;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 1rem;
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--cream); background: var(--deep);
+      padding: 1rem 2rem; text-decoration: none;
+      transition: background 0.3s, gap 0.3s;
+      animation: fadeUp 1s 0.8s both ease-out;
+      align-self: flex-start;
+    }
+    .hero-cta:hover { background: var(--mauve); gap: 1.5rem; }
+    .hero-cta-arrow { font-size: 1rem; }
+
+    .hero-right {
+      display: flex; align-items: center; justify-content: center;
+      animation: fadeIn 1.2s 0.3s both ease-out;
+    }
+    .hero-right-bg { display: none; }
+    .hero-nail-art {
+      display: flex; align-items: center; justify-content: center;
+    }
+    /* Decorative nail art illustration */
+    .nail-grid {
+      display: grid; grid-template-columns: repeat(3, 38px);
+      gap: 10px; transform: rotate(-6deg);
+    }
+    .nail {
+      width: 38px; height: 54px;
+      border-radius: 19px 19px 11px 11px;
+      position: relative; overflow: hidden;
+      box-shadow: 0 6px 16px rgba(58,42,42,0.18);
+      animation: floatNail 4s ease-in-out infinite;
+    }
+    /* 4th and 5th nails in second row centered */
+    .nail:nth-child(4) { grid-column: 1; }
+    .nail:nth-child(5) { grid-column: 3; }
+    .nail:nth-child(1) { background: linear-gradient(160deg, #f2c4ce, #e89caa); animation-delay: 0s; }
+    .nail:nth-child(2) { background: linear-gradient(160deg, #d4a0a0, #b87878); animation-delay: 0.3s; }
+    .nail:nth-child(3) { background: linear-gradient(160deg, #e8d5a3, #c4a165); animation-delay: 0.6s; }
+    .nail:nth-child(4) { background: linear-gradient(160deg, #c9a090, #9e6e6e); animation-delay: 0.9s; }
+    .nail:nth-child(5) { background: linear-gradient(160deg, #f5e6d0, #e8c9a8); animation-delay: 1.2s; }
+    .nail::after {
+      content: '';
+      position: absolute; top: 5px; left: 50%; transform: translateX(-50%);
+      width: 22px; height: 14px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+    }
+    /* Shine streak */
+    .nail::before {
+      content: '';
+      position: absolute; top: 7px; left: 6px;
+      width: 5px; height: 18px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.35);
+      transform: rotate(-15deg);
+    }
+
+    .hero-scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--deep); opacity: 0.4;
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      animation: fadeIn 1s 1.5s both;
+      z-index: 2;
+    }
+    .scroll-line {
+      width: 1px; height: 40px;
+      background: var(--mauve); opacity: 0.5;
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ── MARQUEE ── */
+    .marquee-wrap {
+      background: var(--deep); overflow: hidden;
+      padding: 1rem 0; position: relative; z-index: 2;
+    }
+    .marquee-track {
+      display: flex; gap: 3rem;
+      animation: marquee 18s linear infinite;
+      white-space: nowrap;
+    }
+    .marquee-item {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-style: italic; font-weight: 300;
+      color: var(--blush); letter-spacing: 0.1em; flex-shrink: 0;
+    }
+    .marquee-dot { color: var(--gold); margin: 0 1rem; }
+
+    /* ── SERVICES ── */
+    .services {
+      display: flex;
+      justify-content: center;
+    }
+    .services-inner {
+      padding: 8rem 5rem;
+      display: grid; grid-template-columns: 40px 2fr;
+      gap: 4rem; align-items: start;
+      max-width: 1440px;
+      width: 100%;
+    }
+    .section-label {
+      font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--mauve); writing-mode: vertical-lr;
+      transform: rotate(180deg); align-self: start;
+      padding-top: 0.5rem;
+    }
+    .services-header {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 4vw, 3.8rem);
+      font-weight: 300; line-height: 1.1; margin-bottom: 3rem;
+    }
+    .services-header em { font-style: italic; color: var(--dusty-rose); }
+    .service-list { display: flex; flex-direction: column; gap: 0; }
+    .service-item {
+      border-top: 1px solid rgba(58,42,42,0.12);
+      padding: 2rem 0; display: grid;
+      grid-template-columns: 2fr 1fr auto;
+      align-items: center; gap: 2rem;
+      transition: background 0.2s; cursor: none;
+    }
+    .service-item:last-child { border-bottom: 1px solid rgba(58,42,42,0.12); }
+    .service-item:hover .service-name { color: var(--mauve); }
+    .service-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem; font-weight: 400;
+      transition: color 0.2s;
+    }
+    .service-desc {
+      font-size: 0.75rem; opacity: 0.6; letter-spacing: 0.03em; line-height: 1.6;
+    }
+    .service-arrow { opacity: 0.3; font-size: 1.2rem; transition: opacity 0.2s, transform 0.2s; }
+    .service-item:hover .service-arrow { opacity: 0.8; transform: translateX(4px); }
+
+    /* ── ABOUT ── */
+    .about {
+      display: flex;
+      justify-content: center;
+    }
+    .about-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      max-width: 1440px;
+      width: 100%;
+      align-items: start;
+    }
+    .about-visual {
+      background: linear-gradient(170deg, var(--blush) 0%, var(--dusty-rose) 100%);
+      position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      aspect-ratio: 1 / 1;
+      margin-top: 2rem;
+    }
+    .about-deco-circle {
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.3);
+      position: absolute;
+    }
+    .about-deco-circle:nth-child(1) { width: 250px; height: 250px; }
+    .about-deco-circle:nth-child(2) { width: 380px; height: 380px; opacity: 0.5; }
+    .about-deco-circle:nth-child(3) { width: 500px; height: 500px; opacity: 0.25; }
+    .about-initial {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14rem; font-weight: 300; font-style: italic;
+      color: rgba(255,255,255,0.2); line-height: 1;
+      position: absolute; user-select: none;
+    }
+    .about-badge {
+      background: var(--cream);
+      width: 140px; height: 140px; border-radius: 50%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      position: relative; z-index: 2;
+      box-shadow: 0 20px 60px rgba(58,42,42,0.15);
+    }
+    .about-badge-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-style: italic; color: var(--deep);
+    }
+    .about-badge-sub {
+      font-size: 0.55rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--mauve); margin-top: 0.2rem;
+    }
+
+    .about-content {
+      padding: 0 3rem; display: flex;
+      flex-direction: column; justify-content: flex-start;
+    }
+    .about-content .section-label { writing-mode: horizontal-tb; transform: none; margin-bottom: 1.5rem; display: block; }
+    .about-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 300; line-height: 1.15; margin-bottom: 2rem;
+    }
+    .about-text {
+      font-size: 0.85rem; line-height: 1.9; opacity: 0.75;
+      max-width: 420px; margin-bottom: 2.5rem;
+    }
+    .about-stats {
+      display: flex; gap: 3rem; margin-top: 1rem;
+    }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.8rem; font-weight: 300; color: var(--mauve); line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      opacity: 0.6; margin-top: 0.3rem;
+    }
+
+    /* ── GALLERY ── */
+    .gallery { display: flex; justify-content: center; }
+    .gallery-inner { padding: 6rem 5rem; max-width: 1440px; width: 100%; }
+    .gallery-header {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      margin-bottom: 3rem;
+    }
+    .gallery-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 300;
+    }
+    .gallery-title em { font-style: italic; color: var(--dusty-rose); }
+    .gallery-ig-link {
+      display: flex; align-items: center; gap: 0.6rem;
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--mauve); text-decoration: none;
+      transition: gap 0.2s;
+    }
+    .gallery-ig-link:hover { gap: 1rem; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 200px 200px;
+      gap: 12px;
+    }
+    .gallery-card {
+      border-radius: 4px; overflow: hidden; position: relative;
+      transition: transform 0.4s ease;
+    }
+    .gallery-card:hover { transform: scale(1.02); z-index: 2; }
+    .gallery-card:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .gallery-card .card-bg {
+      position: absolute; inset: 0;
+      transition: transform 0.5s ease;
+    }
+    .gallery-card:hover .card-bg { transform: scale(1.05); }
+    .gallery-card:nth-child(1) .card-bg { background: linear-gradient(135deg, #f2c4ce 0%, #d4859a 100%); }
+    .gallery-card:nth-child(2) .card-bg { background: linear-gradient(135deg, #e8c9a8 0%, #c4956a 100%); }
+    .gallery-card:nth-child(3) .card-bg { background: linear-gradient(135deg, #c9a090 0%, #9e6e6e 100%); }
+    .gallery-card:nth-child(4) .card-bg { background: linear-gradient(135deg, #d4c4b0 0%, #a89070 100%); }
+    .gallery-card:nth-child(5) .card-bg { background: linear-gradient(135deg, #f5d0d0 0%, #e09090 100%); }
+    .gallery-card .card-label {
+      position: absolute; bottom: 1rem; left: 1rem;
+      font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+    }
+    /* Nail art patterns on cards */
+    .gallery-card::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(
+        45deg, transparent, transparent 20px,
+        rgba(255,255,255,0.04) 20px, rgba(255,255,255,0.04) 21px
+      );
+    }
+    .nail-icon {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2.5rem; opacity: 0.15;
+    }
+
+    /* ── BOOKING ── */
+    .booking {
+      background: var(--deep);
+      padding: 7rem 5rem;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 6rem; align-items: center;
+    }
+    .booking-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.5rem, 4vw, 3.8rem);
+      font-weight: 300; line-height: 1.1; color: var(--cream);
+    }
+    .booking-title em { font-style: italic; color: var(--dusty-rose); }
+    .booking-sub {
+      font-size: 0.8rem; line-height: 1.9; color: rgba(250,246,241,0.6);
+      margin-top: 1.5rem; max-width: 360px;
+    }
+    .booking-form { display: flex; flex-direction: column; gap: 1.2rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .form-label {
+      font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--blush); opacity: 0.7;
+    }
+    .form-input, .form-select, .form-textarea {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(250,246,241,0.15);
+      color: var(--cream);
+      padding: 0.85rem 1rem;
+      font-family: 'Jost', sans-serif; font-size: 0.85rem; font-weight: 300;
+      outline: none; transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: rgba(250,246,241,0.3); }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--dusty-rose);
+    }
+    .form-select option { background: var(--deep); }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-submit {
+      background: var(--dusty-rose);
+      color: var(--cream);
+      border: none; padding: 1rem 2.5rem;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.3s;
+      align-self: flex-start; margin-top: 0.5rem;
+    }
+    .form-submit:hover { background: var(--mauve); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--deep); border-top: 1px solid rgba(250,246,241,0.08);
+      padding: 3rem 5rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 400; font-style: italic;
+      color: var(--cream); letter-spacing: 0.1em;
+    }
+    .footer-ig {
+      display: flex; align-items: center; gap: 0.6rem;
+      text-decoration: none;
+      font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--dusty-rose);
+      transition: color 0.2s;
+    }
+    .footer-ig:hover { color: var(--blush); }
+    .footer-copy {
+      font-size: 0.6rem; opacity: 0.35; letter-spacing: 0.1em;
+      color: var(--cream);
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes floatNail {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.5; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(0.6); }
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column; justify-content: center; gap: 5px;
+      background: none; border: none; cursor: pointer;
+      padding: 4px; z-index: 600;
+    }
+    .hamburger span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--deep);
+      transition: transform 0.3s, opacity 0.3s;
+      transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    @media (max-width: 700px) {
+      .hamburger { display: flex; }
+      .nav-links {
+        display: flex; flex-direction: column;
+        position: fixed; top: 0; right: 0;
+        width: 70vw; max-width: 280px; height: 100vh;
+        background: var(--cream);
+        padding: 5rem 2.5rem 2.5rem;
+        gap: 0;
+        box-shadow: -4px 0 30px rgba(58,42,42,0.1);
+        transform: translateX(100%);
+        transition: transform 0.35s ease;
+        z-index: 550;
+      }
+      .nav-links.open { transform: translateX(0); }
+      .nav-links li { border-bottom: 1px solid rgba(58,42,42,0.08); }
+      .nav-links a {
+        display: block; padding: 1.1rem 0;
+        font-size: 0.75rem;
+      }
+    }
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 2rem; }
+      .hero { padding-top: 5rem; }
+      .hero-inner { grid-template-columns: 1fr; padding: 2rem 1.5rem 3rem; }
+      .hero-right { justify-content: flex-start; padding-top: 1rem; }
+      .services-inner { grid-template-columns: 1fr; padding: 5rem 2rem; }
+      .section-label { writing-mode: horizontal-tb; transform: none; }
+      .service-item { grid-template-columns: 1fr auto; }
+      .service-desc { display: none; }
+      .about-inner { grid-template-columns: 1fr; }
+      .about-visual { height: 300px; }
+      .about-content { padding: 4rem 2rem; }
+      .gallery-inner { padding: 4rem 2rem; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .gallery-card:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+      .booking { grid-template-columns: 1fr; padding: 5rem 2rem; gap: 3rem; }
+      footer { flex-direction: column; gap: 1rem; padding: 2rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <svg width="140" height="44" viewBox="0 0 140 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="22" cy="22" r="18" stroke="#9e6e6e" stroke-width="0.75" opacity="0.5"/>
+        <circle cx="22" cy="22" r="14.5" stroke="#c4a165" stroke-width="0.5" stroke-dasharray="2 3" opacity="0.6"/>
+        <text x="22" y="27.5" text-anchor="middle"
+          font-family="Cormorant Garamond, serif"
+          font-size="20" font-style="italic" font-weight="400"
+          fill="#3a2a2a" letter-spacing="0">R</text>
+        <circle cx="22" cy="3.5" r="1.2" fill="#c4a165" opacity="0.8"/>
+        <circle cx="16" cy="5.5" r="0.8" fill="#c9a090" opacity="0.6"/>
+        <circle cx="28" cy="5.5" r="0.8" fill="#c9a090" opacity="0.6"/>
+        <text x="50" y="17"
+          font-family="Cormorant Garamond, serif"
+          font-size="13" font-weight="400" font-style="italic"
+          fill="#3a2a2a" letter-spacing="1">Nails by</text>
+        <text x="50" y="33"
+          font-family="Cormorant Garamond, serif"
+          font-size="15" font-weight="600"
+          fill="#3a2a2a" letter-spacing="3">REIGN</text>
+        <line x1="50" y1="37" x2="122" y2="37" stroke="#c4a165" stroke-width="0.75" opacity="0.7"/>
+      </svg>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#services" class="nav-link">Services</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#gallery" class="nav-link">Gallery</a></li>
+      <li><a href="#booking" class="nav-link">Book Now</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <p class="hero-eyebrow">Nail Artist · Las Vegas</p>
+        <h1 class="hero-title">Nails<br>by <em>Reign</em></h1>
+        <p class="hero-sub">
+          Custom nail art designed to make you feel like royalty.
+          Every set is a one-of-a-kind creation — crafted with precision, passion, and artistry.
+        </p>
+        <a href="#booking" class="hero-cta">
+          Book Your Set <span class="hero-cta-arrow">→</span>
+        </a>
+      </div>
+      <div class="hero-right">
+        <div class="hero-nail-art">
+          <div class="nail-grid">
+            <div class="nail"></div>
+            <div class="nail"></div>
+            <div class="nail"></div>
+            <div class="nail"></div>
+            <div class="nail"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="marquee-item">Custom Nail Art</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Gel Sets</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Acrylics</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Press-Ons</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Nail Art</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Designs by Reign</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Custom Nail Art</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Gel Sets</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Acrylics</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Press-Ons</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Nail Art</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item">Designs by Reign</span><span class="marquee-dot">✦</span>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="services-inner">
+      <div style="display:flex; align-items:flex-start; padding-top: 4.5rem;">
+        <span class="section-label">Services</span>
+      </div>
+      <div>
+        <h2 class="services-header reveal">Custom nails,<br><em>crafted with care.</em></h2>
+        <div class="service-list">
+          <div class="service-item reveal">
+            <div class="service-name">Full Set Acrylic</div>
+            <div class="service-desc">Sculpted acrylics shaped & finished to perfection. Custom length and design included.</div>
+            <div class="service-arrow">→</div>
+          </div>
+          <div class="service-item reveal">
+            <div class="service-name">Gel Manicure</div>
+            <div class="service-desc">Long-lasting gel color with a mirror shine. Chip-free for up to 3 weeks.</div>
+            <div class="service-arrow">→</div>
+          </div>
+          <div class="service-item reveal">
+            <div class="service-name">Nail Art Design</div>
+            <div class="service-desc">Custom hand-painted art — florals, abstracts, gems, chrome, and more.</div>
+            <div class="service-arrow">→</div>
+          </div>
+          <div class="service-item reveal">
+            <div class="service-name">Custom Press-Ons</div>
+            <div class="service-desc">Handcrafted wearable sets made to your measurements. Reusable & ready to ship.</div>
+            <div class="service-arrow">→</div>
+          </div>
+          <div class="service-item reveal">
+            <div class="service-name">Fill & Maintenance</div>
+            <div class="service-desc">Keep your set fresh with expert fills every 2–3 weeks.</div>
+            <div class="service-arrow">→</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-visual">
+        <div class="about-deco-circle"></div>
+        <div class="about-deco-circle"></div>
+        <div class="about-deco-circle"></div>
+        <div class="about-initial">R</div>
+        <div class="about-badge">
+          <div class="about-badge-name">Reign</div>
+          <div class="about-badge-sub">Nail Artist</div>
+        </div>
+      </div>
+      <div class="about-content">
+        <span class="section-label reveal">About</span>
+        <h2 class="about-title reveal">Art in every<br>stroke & shape</h2>
+        <p class="about-text reveal">
+          Hi, I'm Reign — a nail artist with a passion for turning nails into tiny canvases.
+          Every set I create is custom-designed with you in mind. Whether you want something
+          bold and dramatic or soft and minimal, I bring your vision to life with precision
+          and care. Follow my work on Instagram and let's create something beautiful together.
+        </p>
+        <div class="about-stats reveal">
+          <div>
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Custom designs</div>
+          </div>
+          <div>
+            <div class="stat-num">✦</div>
+            <div class="stat-label">Unique sets</div>
+          </div>
+          <div>
+            <div class="stat-num">∞</div>
+            <div class="stat-label">Creativity</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery" id="gallery">
+    <div class="gallery-inner">
+      <div class="gallery-header reveal">
+        <h2 class="gallery-title">Recent <em>Work</em></h2>
+        <a href="https://www.instagram.com/nails.by.reign" target="_blank" class="gallery-ig-link">
+          View on Instagram →
+        </a>
+      </div>
+      <div class="gallery-grid reveal">
+        <div class="gallery-card">
+          <div class="card-bg"></div>
+          <div class="nail-icon">💅</div>
+          <div class="card-label">Featured Set</div>
+        </div>
+        <div class="gallery-card">
+          <div class="card-bg"></div>
+          <div class="nail-icon">✨</div>
+          <div class="card-label">Chrome Art</div>
+        </div>
+        <div class="gallery-card">
+          <div class="card-bg"></div>
+          <div class="nail-icon">🌸</div>
+          <div class="card-label">Floral Design</div>
+        </div>
+        <div class="gallery-card">
+          <div class="card-bg"></div>
+          <div class="nail-icon">💎</div>
+          <div class="card-label">Gem Set</div>
+        </div>
+        <div class="gallery-card">
+          <div class="card-bg"></div>
+          <div class="nail-icon">🎨</div>
+          <div class="card-label">Abstract Art</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section class="booking" id="booking">
+    <div>
+      <h2 class="booking-title reveal">Ready to<br>treat yourself<br><em>like royalty?</em></h2>
+      <p class="booking-sub reveal">
+        Fill out the form and Reign will be in touch to confirm your appointment.
+        Can't wait to create something beautiful for you.
+      </p>
+    </div>
+    <div class="booking-form reveal">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input id="firstName" class="form-input" type="text" placeholder="Your name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Last Name</label>
+          <input id="lastName" class="form-input" type="text" placeholder="Last name" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Instagram / Contact</label>
+        <input id="contact" class="form-input" type="text" placeholder="@yourhandle or phone number" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Service</label>
+        <select id="service" class="form-select form-input">
+          <option value="" disabled selected>Select a service</option>
+          <option>Full Set Acrylic</option>
+          <option>Gel Manicure</option>
+          <option>Nail Art Design</option>
+          <option>Custom Press-Ons</option>
+          <option>Fill & Maintenance</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Inspo / Notes</label>
+        <textarea id="notes" class="form-textarea form-input" placeholder="Describe your dream set or drop an inspo pic link..."></textarea>
+      </div>
+      <button class="form-submit">Send Booking Request</button>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo"><em>Nails by</em> Reign</div>
+    <a href="https://www.instagram.com/nails.by.reign" target="_blank" class="footer-ig">
+      📷 @nails.by.reign
+    </a>
+    <div class="footer-copy">© 2026 Nails by Reign. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    });
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        navLinks.classList.remove('open');
+      });
+    });
+
+    // Nav scroll state
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 10);
+    });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Form submit → mailto
+    document.querySelector('.form-submit').addEventListener('click', function() {
+      const first   = document.getElementById('firstName').value.trim();
+      const last    = document.getElementById('lastName').value.trim();
+      const contact = document.getElementById('contact').value.trim();
+      const service = document.getElementById('service').value;
+      const notes   = document.getElementById('notes').value.trim();
+
+      const subject = encodeURIComponent('Booking Request – Nails by Reign');
+      const body = encodeURIComponent(
+        'Name: ' + (first + ' ' + last).trim() + '\n' +
+        'Contact: ' + (contact || 'Not provided') + '\n' +
+        'Service: ' + (service || 'Not selected') + '\n' +
+        'Notes: ' + (notes || 'None') + '\n'
+      );
+
+      window.location.href = 'mailto:nails.by.reign@gmail.com?subject=' + subject + '&body=' + body;
+    });
+  </script>
+</body>
+</html>
