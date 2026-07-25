@@ -801,7 +801,88 @@
         &copy;<span id="year"></span> cptdreadflint&nbsp;·&nbsp; All rights
         reserved.
       </p>
+      <button type="button" class="footer-contact-link" id="contactTrigger">
+        <i class="fa-solid fa-scroll" aria-hidden="true"></i>
+        Send a Raven &nbsp;·&nbsp; Questions, Bugs &amp; Feedback
+      </button>
     </footer>
+
+        <!-- ─── CONTACT MODAL ─── -->
+
+    <div class="modal-overlay" id="contactOverlay">
+      <div class="modal contact-modal">
+        <button
+          class="modal-close"
+          onclick="closeContactModal()"
+          title="Close"
+          aria-label="Close contact form"
+        >
+          ✕
+        </button>
+        <h2><i class="fa-solid fa-scroll" aria-hidden="true"></i> Send a Raven</h2>
+        <p>
+          Spotted a bug, have a question, or just want to say hello to the
+          party? Drop us a line below.
+        </p>
+
+        <form
+          id="contactForm"
+          action="https://formspree.io/f/mojgpyop"
+          method="POST"
+          onsubmit="return submitContactForm(event)"
+        >
+          <div class="modal-field">
+            <label for="cName">Name</label>
+            <input
+              type="text"
+              id="cName"
+              name="name"
+              placeholder="Your adventurer name"
+              required
+            />
+          </div>
+
+          <div class="modal-field">
+            <label for="cEmail">Email</label>
+            <input
+              type="email"
+              id="cEmail"
+              name="_replyto"
+              placeholder="you@example.com"
+              required
+            />
+          </div>
+
+          <div class="modal-field">
+            <label for="cComment">Comment</label>
+            <textarea
+              id="cComment"
+              name="comment"
+              placeholder="Tell us what's on your mind — bug reports, questions, campaign praise all welcome."
+              required
+            ></textarea>
+          </div>
+
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+          <input type="hidden" name="_subject" value="New message from The Chronicled Fellowship site" />
+
+          <p class="contact-status" id="contactStatus" role="status"></p>
+
+          <div class="modal-actions">
+            <button
+              type="button"
+              class="btn btn-ghost"
+              onclick="closeContactModal()"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary" id="contactSubmitBtn">
+              Send Message
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
 
     <!-- ─── LOGIN MODAL  ─── -->
 
@@ -1293,6 +1374,72 @@
         document.getElementById("mNotes").value = "";
       }
 
+      /* ─── CONTACT MODAL ─── */
+const contactTrigger = document.getElementById("contactTrigger");
+const contactOverlay = document.getElementById("contactOverlay");
+
+contactTrigger.addEventListener("click", () => {
+  contactOverlay.classList.add("active");
+  document.body.style.overflow = "hidden";
+  setTimeout(() => document.getElementById("cName").focus(), 100);
+});
+
+function closeContactModal() {
+  contactOverlay.classList.remove("active");
+  document.body.style.overflow = "";
+  document.getElementById("contactForm").reset();
+  const status = document.getElementById("contactStatus");
+  status.textContent = "";
+  status.className = "contact-status";
+}
+
+contactOverlay.addEventListener("click", (e) => {
+  if (e.target === contactOverlay) closeContactModal();
+});
+
+function submitContactForm(e) {
+  e.preventDefault();
+  const form = document.getElementById("contactForm");
+  const status = document.getElementById("contactStatus");
+  const submitBtn = document.getElementById("contactSubmitBtn");
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Sending...";
+  status.textContent = "";
+  status.className = "contact-status";
+
+  fetch(form.action, {
+    method: "POST",
+    body: new FormData(form),
+    headers: { Accept: "application/json" },
+  })
+    .then((response) => {
+      if (response.ok) {
+        status.textContent = "Your raven has taken flight! We'll be in touch soon.";
+        status.className = "contact-status success";
+        setTimeout(closeContactModal, 1800);
+      } else {
+        return response.json().then((data) => {
+          const msg =
+            data.errors?.map((err) => err.message).join(", ") ||
+            "Something went wrong. Please try again.";
+          status.textContent = msg;
+          status.className = "contact-status error";
+        });
+      }
+    })
+    .catch(() => {
+      status.textContent =
+        "Couldn't send your message — check your connection and try again.";
+      status.className = "contact-status error";
+    })
+    .finally(() => {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Send Message";
+    });
+}
+
+
       document
         .getElementById("modalOverlay")
         .addEventListener("click", function (e) {
@@ -1417,6 +1564,8 @@
       document.addEventListener("keydown", (e) => {
         if (e.key === "Escape") closeModal();
       });
+
+
 
       /* ─── MEDIA GALLERY CAROUSEL ─── */
       const slides = document.querySelectorAll(".carousel-slide");
